@@ -1,0 +1,173 @@
+/** ----------------------------------
+
+  Type
+  ----
+
+  Typography module.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+@import '../links/mixins';
+
+/*
+  Variable defaults.
+*/
+$primary: blue !default;
+$darkgray: gray !default;
+$sans-stack: sans-serif !default;
+$serif-stack: serif !default;
+
+/*
+  Mixon.
+*/
+@mixin type() {
+  @include include-fonts;
+  
+  body {
+    @extend %body-copy;
+  }
+  
+  p {
+    @extend %paragraph;
+  }
+  
+  strong {
+    @extend %small-static-bold
+  }
+  
+  #{headings(all)} {
+    @include adjust-leading-to(1);
+  }
+  
+  h1 {
+    @extend %active-headline;
+  }
+  
+  h2 {
+    @extend %widget-title;
+  }
+  
+  h3 {
+    @extend %static-headline;
+  }
+  
+  /*
+    User names. See styleguide.
+  */
+  .user-name {
+    @extend %user-name;
+  }
+  
+  /*
+    Tiny static type.
+  */
+  small {
+    @extend %tiny-static;
+  }
+  
+  /*
+    Time elements.
+  */
+  time {
+//    @extend %small-static;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Body copy.
+*/
+%body-copy {
+  font: 400 #{$base-font-size}/#{$base-line-height} $sans-stack;
+}
+
+/*
+  Paragraph.
+*/
+%paragraph {
+  margin: 0 0 9px;
+  font-size: 14px;
+}
+
+/*
+  User name.
+*/
+%user-name {
+  @include link-color($primary);
+  
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/*
+  Small static type.
+*/
+%small-static {
+  font-size: 14px;
+  font-weight: 400;
+  color: $darkgray;
+}
+
+/*
+  Nav item extend.
+*/
+%nav-item {
+  @extend %small-static;
+  
+  @include link-color($darkgray, $darkgray, $darkgray);
+  
+  font-weight: 700;
+}
+
+/*
+  Small bold static type extend.
+*/
+%small-static-bold {
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+}
+
+/*
+  Tiny static type.
+*/
+%tiny-static {
+  @extend %small-static;
+  
+  font-size: 12px;
+}
+
+/*
+  Active headline extend.
+*/
+%active-headline {
+  font-size: 33px;
+  color: black;
+}
+
+/*
+  Widget titles.
+*/
+%widget-title {
+  font-size: 22px;
+  color: $darkgray;
+}
+
+/*
+  Static headline extend.
+*/
+%static-headline {
+  @extend %widget-title;
+  
+  font-weight: 400;
+}

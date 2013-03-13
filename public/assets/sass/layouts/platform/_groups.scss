@@ -1,0 +1,45 @@
+/** ----------------------------------
+
+  Groups
+  ------
+
+  Groups page (formally My Groups).
+
+---------------------------------- */
+.page-groups {
+  .primary-sidebar {
+    @include desktop {
+      margin-top: 80px;
+    }
+    @include tablet {
+      @include pie-clearfix;
+      
+      margin-bottom: 20px;
+    }
+    
+    /*
+      Special widget treatment for the groups page.
+    */
+    .widget {
+      @include tablet {
+        float: left;
+        width: 50%;
+        padding: 0 10px;
+      }
+      
+      .widget-content {
+        @include tablet {
+          min-height: 140px;
+        }
+      }
+    }
+  }
+  
+  .large-item-list {
+    @include transition(opacity .2s ease-out);
+    
+    li:first-child {
+      border-top: 0;
+    }
+  }
+}

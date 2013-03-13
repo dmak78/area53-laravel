@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'hpBold';
+    src: url('hpSimplified/HPSimplifiedW04-Bold.eot');
+    src: url('hpSimplified/HPSimplifiedW04-Bold.eot?#iefix') format('embedded-opentype'),
+         url('hpSimplified/HPSimplifiedW04-Bold.woff') format('woff'),
+         url('hpSimplified/HPSimplifiedW04-Bold.ttf') format('truetype'),
+         url('hpSimplified/HPSimplifiedW04-Bold.svg#HPTextBetaBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'hpRegular';
+    src: url('hpSimplified/HPSimplifiedW04-Regular.eot');
+    src: url('hpSimplified/HPSimplifiedW04-Regular.eot?#iefix') format('embedded-opentype'),
+         url('hpSimplified/HPSimplifiedW04-Regular.woff') format('woff'),
+         url('hpSimplified/HPSimplifiedW04-Regular.ttf') format('truetype'),
+         url('hpSimplified/HPSimplifiedW04-Regular.svg#HPTextBetaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

@@ -1,0 +1,144 @@
+.status-update img{
+  max-width: 100%;
+
+}
+li.status-update{
+  width:100%;
+  word-wrap:break-word;
+}
+
+.avatar > img {
+  border-radius: 100%;
+}
+
+.newsfeed-contents iframe{
+  max-width: 100%;
+}
+
+body{
+  font-family: 'Helvetica';
+  background-color: white;
+}
+
+.home .secondary-sidebar{
+  margin-top:20px;
+}
+
+.button{
+  background-color: #b10000;
+}
+
+.homepage-banner{
+  max-height: 240px;
+}
+
+.homepage-banner .slide-contents{
+  display:none;
+}
+
+.homepage-banner .slides{
+  max-height:240px;
+}
+
+.hp-logo{
+  background-image: url(/assets/images/logos/bssLogo.jpg);
+  width:160px;
+  height:50px;
+  background-position: 0 -20px;
+}
+
+.search-content{
+  width:370px;
+}
+
+.global-logo{
+  background: none;
+
+}
+
+.global-logo h1{
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.home .accordion-group{
+  border:none;
+  margin: 0 0 0 0;
+
+}
+
+.home .accordion-group a.accordion-toggle{
+  padding:0;
+ 
+}
+.home .accordion-group .accordion-body{
+  margin-top:10px;
+ 
+}
+
+
+.widget .announcements li{
+  margin-top:0;
+}
+
+.content-bar{
+  width:100%;
+  background-color:purple;
+  height:30px;
+  display:block;
+  margin-bottom:10px;
+  border-radius:3px;
+
+  display:none;
+}
+
+.newsfeed .status-update {
+margin-top: 30px;
+padding-top: 15px;
+}
+
+.avatar.group, .avatar.profile{
+  border-radius:100%;
+}
+
+.status-update .wysiwyg-textarea-wrapper{
+  width:90%;
+  margin-left:10%;
+}
+.status-update .status-comments .status-update{
+  width:90%;
+  margin-left:10%;
+}
+
+.group-summary{
+  padding:50px 0 50px 0;
+}
+
+.group-summary .platform-header-meta{
+  bottom:40px;
+}
+.global-header .global-logo {
+margin-top: -10px;
+}
+.wp-caption{
+  max-width:100%;
+}
+.platform-header{
+  margin-bottom:10px;
+}
+
+.slider .slides .slide-wrap{
+  
+}
+.platform-header .platform-header-meta{
+  top:0;
+}
+
+.slider > .next{
+  right:-70px;
+}
+.slider > .prev{
+  left:-70px;
+}
+fieldset.search-input .search{
+  padding: 9px 8px 9px 8px;
+}

@@ -13,7 +13,6 @@ class CreateUserProfileTable extends Migration {
 	{
 		Schema::create('user_profiles', function($table) {
 			$table->increments('id');
-			$table->string('avatar_url');
 			$table->string('first_name');
 			$table->string('last_name');
 			$table->text('nickname');

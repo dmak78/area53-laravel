@@ -1,0 +1,515 @@
+/** ----------------------------------
+
+  Lists
+  -----
+
+  Lists module.
+  
+  This module defines a number of different types of lists.
+  Various things might need to break out into their own modules
+  if this file gets too large or too specific.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$lightgray: #e5e8e8 !default;
+$darkgray: gray !default;
+
+/*
+  Mixon.
+*/
+@mixin lists() {
+  .separated-list {
+    li {
+      @extend %separated-list;
+    }
+  }
+  
+  .sectioned-list {
+    @extend %sectioned-list;
+  }
+  
+  /*
+    Contact list for emails, phone numbers, etc.
+  */
+  .contact-list {
+    @extend %contact-list-layout;
+    
+    &.horizontal {
+      @extend %horizontal-contact-list;
+    }
+  }
+  
+  /*
+    Large item list.
+    
+    Typically used for directory style listings.
+  */
+  .large-item-list {
+    @extend %large-item-list-layout;
+    
+    &.user-list {
+      @extend %user-list-layout;
+    }
+    
+    &.group-list {
+      @extend %group-list-layout;
+    }
+    
+    &.group-list-expanded {
+      @extend %group-list-expanded-layout;
+    }
+    
+    &.comment-list {
+      @extend %comment-list-layout;
+    }
+    
+    &.stories-list {
+      @extend %stories-list-layout;
+    }
+  }
+
+  /*
+    Sidebar nav.
+    
+    The sidebar nav list only applies to the desktop layout,
+    expecting that the list will revert to the regular tabs
+    layout.
+  */
+  .sidebar-navigation-list {
+    @extend %sidebar-navigation-list;
+  }
+  
+  /*
+    Alphabetic pagination.
+    
+    TODO - Remove bootstrap styling?
+  */
+  .alpha-pagination {
+    @extend %alpha-pagination;
+  }
+  
+  /*
+    Accordion groups.
+    
+    This overrides the Bootstrap styling.
+  */
+  .accordion-group {
+    @extend %accordion-group;
+  }
+
+  /*
+    Divided list.
+    
+    List that's divided into two equal width columns.
+  */
+  .divided-list {
+    @extend %divided-list-layout;
+  }
+  
+  /*
+    List of tagged users.
+  */
+  .tagged-users-list {
+    @extend %tagged-users-list-layout;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Separated list extend.
+*/
+%separated-list {
+  border-bottom: 1px solid $lightgray;
+  
+  &:first-child {
+    border-top: 1px solid $lightgray;
+  }
+}
+
+/*
+  Sectioned list extend.
+  
+  A simple list that has separated items with a bit of padding.
+*/
+%sectioned-list {
+  margin: 10px 0;
+  
+  li {
+    @extend %separated-list;
+    
+    padding: 5px 0;
+  }
+}
+
+/*
+  Contact list.
+  
+  A list of contact details, usually used in combination with
+  decorators (see: _icons.scss).
+  
+  Example:
+  
+  <ul class="contact-list">
+    <li class="decorator-email"><a href="#">email@example.com</a></li>
+  </ul>
+*/
+%contact-list-layout {
+  li {
+    margin: 10px 0;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  a {
+    @include link-color($darkgray, $darkgray, $darkgray);
+    
+    font-size: 14px;
+  }
+}
+
+/*
+  Horizontal contact list extend.
+*/
+%horizontal-contact-list {
+  @include pie-clearfix;
+  
+  li {
+    float: left;
+    margin: 0 10px 0 0;
+  }
+}
+
+/*
+  Large item list layout.
+*/
+%large-item-list-layout {
+  & > li {
+    @extend %separated-list;
+    @extend %clearfix;
+    
+    @include position(relative);
+    
+    padding: 20px 0;
+    font-size: 14px;
+  }
+  
+  // Usernames are commonly used in these lists.
+  .user-name {
+    font-size: 14px;
+  }
+  
+  /* Item image. */
+  .item-image {
+    @include inline-block;
+    
+    margin-right: 10px;
+    vertical-align: top;
+  }
+  
+  /* Item information block. */
+  .item-information {
+    @include inline-block;
+    
+    vertical-align: top;
+  }
+  
+  /* Item call to action. */
+  .item-action {
+    float: right;
+  }
+}
+
+/*
+  User list layout extend.
+*/
+%user-list-layout {
+  /* User avatar. */
+  .item-image {
+    @include phone {
+      float: left;
+    }
+  }
+  
+  /* User info and contact items. */
+  .item-information {
+    @include phone {
+      float: right;
+      width: 50%;
+    }
+  }
+  
+  .user-information {
+    @include inline-block;
+    @include phone {
+      margin: 0;
+    }
+    
+    margin-right: 50px;
+    vertical-align: top;
+    width: 190px;
+  }
+  
+  .contact-information {
+    @include inline-block;
+    
+    vertical-align: top;
+    
+    /* In the case there is a tag in the list: */
+    & > .expertise,
+    & > .tag {
+      margin-bottom: 5px;
+    }
+  }
+  
+  /* Subscribe button. */
+  .item-action {
+    @include phone {
+      float: left;
+      clear: left;
+      margin: 10px 0;
+    }
+  }
+}
+
+/*
+  Group list layout extend.
+*/
+%group-list-layout {
+  /* Group image. */
+  .item-image {
+    @include phone {
+      float: left;
+    }
+  }
+  
+  /* Group name, count and description. */
+  .item-information {
+    @include phone {
+      float: right;
+      width: 50%;
+    }
+    
+    width: 60%;
+  }
+  
+  .group-count {
+    display: block;
+  }
+  
+  .group-description {
+    margin: 20px 0 0 0;
+    
+    p {
+      margin: 5px 0;
+    }
+  }
+  
+  /* Subscribe button. */
+  .item-action {
+    @include phone {
+      float: left;
+      clear: left;
+      margin: 10px 0;
+    }
+  }
+}
+
+/*
+  Group list expanded layout extend.
+*/
+%group-list-expanded-layout {
+  @extend %group-list-layout;
+}
+
+/*
+  Comment list layout extend.
+*/
+%comment-list-layout {
+  .item-information {
+    width: 80%;
+  }
+  
+  .comment-source {
+    margin: 10px 0;
+  }
+}
+
+/*
+  Stories list layout extend.
+*/
+%stories-list-layout {
+  .item-information {
+    li {
+      margin: 5px 0;
+    }
+  }
+}
+
+/*
+  Sidebar navigation list extend.
+  
+  The sidebar nav list only applies to the desktop layout,
+  expecting that the list will revert to the regular tabs
+  layout.
+*/
+%sidebar-navigation-list {
+  @extend %clearfix;
+  
+  li {
+    @extend %separated-list;
+    
+    text-align: right;
+    
+    @include desktop {
+      &:hover {
+        background-color: $lightgray;
+      }
+
+      &.active {
+        a {
+          color: $darkgray;
+        }
+      }
+    }
+    @include mobile {
+      text-align: left;
+      border: 0;
+      
+      &:first-child {
+        border: 0;
+      }
+    }
+    @include tablet {
+      @include border-radius(0);
+      
+      float: left;
+      margin: 5px;
+      
+      &:first-child {
+        margin-left: 0;
+      }
+      
+      &.active,
+      &:hover {
+        text-decoration: none;
+        background-color: $primary;
+        
+        a {
+          color: white;
+        }
+      }
+    }
+    @include phone {
+      float: left;
+      width: 50%;
+      
+      &:hover,
+      &.active {
+        background: $lightgray;
+        
+        a {
+          color: $darkgray;
+        }
+      }
+    }
+  }
+  
+  a {
+    @include mobile {
+      font-size: 12px;
+    }
+    @include tablet {
+      @include inline-block;
+      
+      padding: 8px 15px;
+    }
+    
+    display: block;
+    padding: 8px;
+    font-weight: 700;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+/*
+  Alpha pagination extend.
+*/
+%alpha-pagination {
+  a {
+    padding: 0 6px;
+    font-size: 12px;
+  }
+}
+
+/*
+  Accordion group extend.
+*/
+%accordion-group {
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+  
+  .accordion-inner {
+    padding-top: 0;
+    padding-left: 0;
+    border: 0;
+  }
+  
+  .accordion-toggle {
+    padding-left: 0;
+  }
+}
+
+/*
+  Divided list.
+*/
+%divided-list-layout {
+  @extend %clearfix;
+  
+  & > li {
+    float: left;
+    width: 50%;
+  }
+}
+
+/*
+  Tagged users list extend.
+*/
+%tagged-users-list-layout {
+  li {
+    @extend %clearfix;
+    @extend %separated-list;
+    
+    padding: 10px 0;
+  }
+  
+  .user-name {
+    @include inline-block;
+    
+    vertical-align: top;
+  }
+  
+  .avatar {
+    margin-right: 10px;
+  }
+  
+  .button {
+    float: right;
+  }
+}

@@ -14,11 +14,11 @@ class CreateGroupsTable extends Migration {
 		Schema::create('groups', function($table) {
 			$table->increments('id');
 			$table->text('name');
-			$table->text('description');
+			$table->text('short_description');
+			$table->string('avatar_url');
 			$table->string('email');
 			$table->boolean('private');
-			$table->integer('member_count');
-			$table->integer('user_id');
+			$table->integer('creator_id');
 			$table->timestamps();
 		});
 	}

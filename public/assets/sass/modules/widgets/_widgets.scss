@@ -1,0 +1,334 @@
+/** ----------------------------------
+
+  Widgets
+  -------
+
+  Widgets module.
+  
+  Widgets are common bits of reusable UI that are commonly
+  seen in sidebars.
+  
+  There are many different types of widgets, and they all
+  follow the same overall structure, but each variety makes
+  use of special markup within the main content container.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$lightgray: gray !default;
+
+/*
+  Mixon.
+*/
+@mixin widgets() {
+  .widget {
+    @extend %default-widget-layout;
+    
+    &.action-widget {
+      @extend %action-widget;
+    }
+    
+    &.subscription-widget {
+      @extend %subscription-widget;
+    }
+
+    &.attendees-widget {
+      @extend %subscription-widget;
+    }
+    
+    &.photo-album-widget {
+      @extend %photo-album-widget;
+    }
+    
+    &.skills-widget {
+//      @extend %skills-widget;
+    }
+    
+    &.tag-widget {
+      @extend %tag-widget;
+    }
+    
+    &.organization-chart-widget {
+      @extend %organization-chart-widget;
+    }
+    
+    &.calendar-widget {
+      @extend %calendar-widget;
+    }
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Default widget layout extend.
+  
+  Most basic example:
+  
+  <div class="widget">
+    <header class="widget-header">
+      <h2 class="widget-title">Header</h2>
+    </header>
+    
+    <div class="widget-content">
+      Widget content here.
+    </div>
+  </div>
+*/
+%default-widget-layout {
+  @include missing;
+  
+  display: block;
+
+  .widget-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $lightgray;
+  }
+  
+  .widget-content {
+    $dropshadow: 'dropshadows/dropshadow-small.png';
+    
+    @include pie-clearfix;
+        
+    padding: 20px 0 (20px + image-height($dropshadow) 0);
+    background: center 100% transparent no-repeat image-url($dropshadow);
+  }
+  
+  .widget-footer {
+    margin-top: 10px;
+  }
+}
+
+/*
+  Action widget extend.
+*/
+%action-widget {
+  .action-snippet {
+    margin-bottom: 10px;
+  }
+}
+
+/*
+  Subscription widget.
+*/
+%subscription-widget {
+  li {
+    @include pie-clearfix;
+    
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid $lightgray;
+    
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+  
+  .avatar {
+    float: left;
+  }
+  
+  .user-name {
+    display: block;
+    padding-left: 40px;
+  }
+}
+
+/*
+  Photo album widget extend.
+*/
+%photo-album-widget {
+  @extend %subscription-widget;
+  
+  .user-name {
+    padding-left: 65px;
+  }
+}
+
+/*
+  Skills widget.
+*/
+%skills-widget {
+
+}
+
+/*
+  Tag widget.
+*/
+%tag-widget {
+  /* Tag count. */
+  .count {
+    color: black;
+  }
+  
+  /* Tags list. */
+  .tags {
+    @extend %tag-list;
+  }
+}
+
+/*
+  Organization chart widget.
+*/
+%organization-chart-widget {
+  @include position(relative);
+  
+  $toggle-button-height: 60px;
+  
+  padding-bottom: $toggle-button-height;
+  border-top: 1px solid $lightgray;
+  border-bottom: 1px solid $lightgray;
+  visibility: hidden;
+  
+  /*
+    Open state.
+  */
+  &.open {
+    .toggle-chart {
+      background-image: image-url('general/toggle-up.png');
+      
+      &:hover {
+        background-image: image-url('general/toggle-up-hover.png');
+      }
+      
+      &:before {
+        content: 'Close ';
+      }
+    }
+  }
+  
+  /*
+    Open/Close the chart button.
+  */
+  .toggle-chart {
+    @extend %small-static;
+    
+    @include missing('NEEDS RETINA');
+    
+    @include position(absolute, 0 0 0px 0px, 20);
+    
+    display: block;
+    padding: 22px 15px 18px 45px;
+    font-weight: 700;
+    background: left center no-repeat white image-url('general/toggle-down.png');
+    
+    &:hover {
+      background-image: image-url('general/toggle-down-hover.png');
+      cursor: pointer;
+    }
+    
+    &:before {
+      content: 'View ';
+    }
+  }
+  
+  .chart-list {
+    @include position(absolute);
+    @include transition(max-height .5s ease-out);
+    
+    overflow: hidden;
+    padding-left: 8px;
+  }
+  
+  li {
+    @include position(relative);
+    
+    padding: 8px 0 8px 15px;
+    border-left: 5px solid $lightgray;
+    
+    /*
+      Circles on the chart.
+    */
+    &:before {
+      @include border-radius(100%);
+      @include size(10px);
+      @include position(absolute, 9px 0 0 -10px, 10);
+
+      content: '';
+      display: block;
+      background: white;
+      border: 3px solid $midblue;
+    }
+    
+    /* Username links. */
+    a {
+      @extend %user-name;
+    }
+  }
+  
+  .job-title {
+    @extend %tiny-static;
+    
+    @include missing;
+    
+    display: block;
+    margin-top: 4px;
+  }
+  
+  /*
+    Name of the current user in the list.
+  */
+  .current-user {
+    @extend %user-name;
+    
+    color: $darkgray;
+    
+    &:hover {
+      color: $darkgray;
+    }
+  }
+}
+
+/*
+  Calendar widget extend.
+*/
+%calendar-widget {
+  li {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid $lightgray;
+    
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border: 0;
+    }
+  }
+  
+  .event-title {
+    display: block;
+    margin: 5px 0;
+  }
+  
+  time {
+    display: block;
+  }
+  
+  form {
+    margin-top: 10px;
+    
+    small {
+      color: black;
+    }
+  }
+  
+  /*
+    Create new event button.
+  */
+  .create-calendar-event {
+    float: right;
+    margin-top: -5px;
+  }
+}

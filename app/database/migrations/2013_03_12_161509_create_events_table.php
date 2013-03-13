@@ -16,12 +16,13 @@ class CreateEventsTable extends Migration {
 			$table->text('title');
 			$table->text('description');
 			$table->string('image_url');
-			$table->integer('address_id');
+			$table->text('location');
 			$table->date('event_start_date');
 			$table->date('event_end_date');
 			$table->time('event_start_time');
 			$table->time('event_end_time');
-			$table->integer('user_id');
+			$table->integer('owner_id');
+			$table->string('owner_type');
 			$table->string('url');
 			$table->timestamps();
 		});

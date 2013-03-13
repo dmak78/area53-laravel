@@ -3,8 +3,13 @@
 class Tag extends Eloquent {
 	protected $table = 'tags';
 
+	public function photos()
+	{
+		return $this->belongsToMany('Photo');
+	}
+
 	public function posts()
 	{
-		return $this->belongs_to('Post');
+		return $this->belongsToMany('Post');
 	}
 }

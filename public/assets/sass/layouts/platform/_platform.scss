@@ -1,0 +1,33 @@
+/** ----------------------------------
+
+  Platform Base
+  -------------
+
+  This is the base stylesheet for the platform section.
+
+---------------------------------- */
+/*
+  Layouts.
+*/
+/* Content blocks. */
+@import 'header';
+@import 'newsfeed';
+@import 'content';
+@import 'social-network';
+
+/* Pages. */
+@import 'home';
+@import 'about';
+@import 'feedback';
+@import 'event';
+@import 'profile';
+@import 'edit-profile';
+@import 'group';
+@import 'groups';
+@import 'group-photos';
+@import 'search-results';
+@import 'list-albums';
+@import 'edit-album';
+@import 'view-single-comment';
+@import 'welcome-modal';
+@import 'edit-group-subscribers';

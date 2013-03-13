@@ -11,7 +11,11 @@ class PostsController extends BaseController {
 	{
 		$posts = Post::all();
 
-		return View::make('posts.index')->with('posts', $posts);
+		//return View::make('posts.index')->with('posts', $posts);
+		return Response::json([
+			'error' => false,
+			'posts' => $posts->toArray()
+		],200);
 	}
 
 	/**

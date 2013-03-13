@@ -1,0 +1,107 @@
+/* Button module mixins.
+----------------------------------------- */
+/*
+  Set button color mixin.
+  @param {CSS Color|Color Keyword} $background Link state background color. Defaults to $primary.
+  @param {CSS Color|Color Keyword} $color Link state color. Defaults to `white`.
+  @param {CSS Color|Color Keyword} $hoverbg Hover state background. Defaults to 10% darker value of $background.
+  @param {CSS Color|Color Keyword} $hovercolor Hover state color. Defaults to, and will not print if, `null`.
+*/
+@mixin set-button-color($background: $primary, $color: white, $hoverbg: null, $hovercolor: null) {
+  color: $color;
+  background-color: $background;
+  
+  &:hover {
+    @if $hoverbg == null {
+      $hoverbg: darken($background, 5%);
+    }
+    
+    @if $hovercolor != null {
+      color: $hovercolor;
+    } @else {
+      color: $color;
+    }
+    
+    background-color: $hoverbg
+  }
+}
+
+/*
+  With icon mixin.
+  @param {String} $icon Icon to use.
+  @param {String} $element Which psuedo elementn to use.
+*/
+@mixin with-icon($icon, $element: 'before') {
+  $margin-dir: 'right';
+  
+  @if $element == 'after' {
+    $margin-dir: 'left';
+  }
+  
+  &:#{$element} {
+    @include use-general-sprite($icon);
+    @include inline-block;
+    
+    content: '';
+    margin-#{$margin-dir}: 5px;
+    vertical-align: 0px;
+  }
+}
+
+/*
+  Hover switch.
+  
+  Silent extend for the hover-state mixin.
+*/
+%hover-switch-base {
+  &.hover,
+  &:hover {
+    @extend %squish-text;
+    
+    &:after {
+      @include inline-block;
+
+      font: 700 14px $sans-stack;
+      color: white;
+      vertical-align: bottom;
+    }
+  }
+}
+
+/*
+  Hover state mixin.
+  Allows for different text and icon on hover.
+  
+  @param {String} $text Text to use on hover state. Defaults to null.
+  @param {String} $icon Icon to use on hover state. Defaults to null.
+*/
+@mixin hover-state($text: null, $icon: null) {
+  @if $text != null {
+    @extend %hover-switch-base;
+  }
+  
+  &:hover {
+    @if $icon != null {
+      @include with-icon($icon);
+    }
+    
+    @if $text != null {
+      &:after {
+        content: $text;
+      }
+    }
+  }
+}
+
+/*
+  Toggle button base extendable class.
+*/
+%toggle-button-base {
+  display: block;
+  background-color: transparent;
+  
+  &.hover,
+  &:hover {
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,107 @@
+/** ----------------------------------
+
+  Avatars
+  -------
+
+  Avatars module.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$default-extra-large-avatar: 200px !default;
+$default-small-avatar: 54px !default;
+$default-extra-small-avatar: 31px !default;
+
+/*
+  Mixon.
+*/
+@mixin avatars() {
+  .avatar {
+    @extend %default-avatar-layout;
+    
+    @include missing;
+    
+    /*
+      Location specific.
+    */
+    &.profile {
+      @extend %profile-avatar;
+    }
+    
+    &.group {
+      @extend %group-avatar;
+    }
+    
+    /*
+      Sizes.
+    */
+    &.extra-large {
+      width: $default-extra-large-avatar;
+    }
+    
+    &.small {
+      width: $default-small-avatar;
+    }
+    
+    &.extra-small {
+      width: $default-extra-small-avatar;
+    }
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Default avatar layout.
+  
+  Example:
+  
+  <div class="avatar [, size]">
+    <img src="image.jpg">
+  </div>
+*/
+%default-avatar-layout {
+  @include inline-block;
+  
+  & > img {
+    @include border-radius;
+    
+    max-width: 100%;
+    
+    .lt-ie9 & {
+      @include position(relative);
+      
+      behavior: url($pie-path);
+    }
+  }
+}
+
+/*
+  Profile picture avatar.
+*/
+%profile-avatar {
+  @include border-radius;
+  @include inline-block;
+  
+  padding: 10px;
+  background: white;
+}
+
+/*
+  Group page avatar.
+*/
+%group-avatar {
+  @extend %profile-avatar;
+  
+  @extend .extra-large;
+}

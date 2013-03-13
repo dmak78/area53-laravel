@@ -1,0 +1,152 @@
+/** ----------------------------------
+
+  Story Blocks
+  ------------
+
+  Story blocks module.
+  
+  Blocks in the stories section that contain a background image,
+  a published date and a title for a story.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$default-story-padding: 10px !default;
+
+/*
+  Mixon.
+*/
+@mixin story-blocks() {
+  .story-block {
+    @extend %story-block-layout;
+    
+    /*
+      Available category blocks.
+    */
+    $categories: 'each-other', 'our-customers', 'the-world', 'print';
+    
+    @each $category in $categories {
+      &.category-#{$category} {
+        @extend %category-block;
+        
+        &.small-no-hover,
+        &.small {
+          @include use-stories-sprite('category-#{$category}');
+        }
+        
+        &.small:hover {
+          &:hover {
+            @include use-stories-sprite('category-#{$category}-hover');
+          }
+        }
+        
+        &.large {
+          @include use-stories-large-sprite('category-#{$category}');
+
+          &:hover {
+            @include use-stories-large-sprite('category-#{$category}-hover');
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Story block layout.
+  
+  <div class="story-block" [style="background-image: url(...);"]>
+    <a class="block-content">
+      <div class="story-details">
+        <time class="story-date">[...]</time>
+        <h4 class="story-title">[...]</h4>
+      </div>
+    </a>
+  </div>
+*/
+%story-block-layout {
+  max-width: 140px;
+  background: top left no-repeat;
+  
+  &:hover {
+    .block-content {
+      color: white;
+      background: rgba($primary, .8);
+    }
+    
+    .ie-fallback-cover {
+      @include opacity(.8);
+      
+      background: $primary;
+    }
+  }
+  
+  /*
+    Wrapper for all the content. Expects an <a> tag,
+    but mostly this is here so the block can maintain a ratio
+    in a responsive layout.
+    
+    See: https://gist.github.com/2932463
+  */
+  .block-content {
+    @include transition(all .1s ease-out);
+    @include position(relative);
+    @include maintain-ratio;
+    
+    display: block;
+    color: white;
+    background: rgba(black, .6);
+  }
+  
+  .ie-fallback-cover {
+    @include position(absolute, 0px 0px, 10);
+    @include size(100%, 100%);
+    @include opacity(.6);
+    
+    background: black;
+  }
+  
+  /*
+    Wrapper for the date and title.
+    
+    This is in place so the text can be aligned to the bottom right hand corner
+    of the block.
+  */
+  .story-details {
+    @include position(absolute, 0 0 $default-story-padding $default-story-padding, 20);
+    
+    margin: 0;
+  }
+}
+
+/*
+  Category blocks.
+  
+  Category blocks use the sprited covers as their background images.
+*/
+%category-block {
+  display: block;
+  
+  &:hover {
+    .block-content {
+      color: white;
+    }
+  }
+  
+  .block-content {
+    color: $primary;
+    background: transparent;
+  }
+}

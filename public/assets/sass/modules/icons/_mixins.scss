@@ -1,0 +1,25 @@
+/* Icons module mixins.
+----------------------------------------- */
+/*
+  Make icon sprite mixin.
+  @param {String} $sprite-name Sprite inside the icon-sprite map to use.
+*/
+@mixin make-icon-button($sprite-name) {
+  @include use-icon-sprite($sprite-name);
+  
+  &.active,
+  &:hover {
+    @include use-icon-sprite('#{$sprite-name}-active');
+  }
+}
+
+/*
+  mixin-name mixin.
+*/
+@mixin make-decorator($sprite-name) {
+  &:before {
+    @extend %default-decorator-layout;
+    
+    @include use-icon-sprite($sprite-name);
+  }
+}

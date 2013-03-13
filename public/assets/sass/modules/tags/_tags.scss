@@ -1,0 +1,222 @@
+/** ----------------------------------
+
+  Tags
+  ----
+
+  Tags module.
+  
+  Dependencies:
+    - modules/_buttons.scss
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$default-tag-list-tag-spacing: 0 3px 8px 0 !default;
+
+/* Colors. */
+$primary: blue !default;
+$secondary: red !default;
+$tertiary: green !default;
+$lightgray: gray !default;
+$midblue: blue !default;
+$darkgray: gray !default;
+
+/*
+  Mixon.
+*/
+@mixin tags() {
+  .tag {
+    @extend %default-tag-style;
+  }
+  
+  /*
+    General purpose tag list.
+  */
+  .tagged-users, // TODO - temp fix until the post form is modularized
+  .tag-list {
+    @extend %tag-list;
+  }
+  
+  /*
+    The expertise element is styled like a two-part tag.
+    
+    Example:
+    
+      <div class="expertise">
+        <a href="#" class="tag">2.5k</a>
+        <span class="taxonomy">Accounting</span>
+      </div>
+  */
+  .expertise {
+    @extend %expertise-tag-wrapper;
+  }
+  
+  /*
+    List of expertise tags.
+  */
+  .skills {
+    @extend %skills-list;
+  }
+
+  /*
+    Styles for the tagit jquery plugin.
+  */
+  .tagit {
+    @extend %tagit-layout;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Default tag style mixin.
+*/
+%default-tag-style {
+  @extend %default-button-layout;
+  @extend %default-button-style;
+  
+  @include set-button-color($midblue, $hoverbg: $darkgray);
+  
+  padding: 4px 10px;
+  font: 12px $sans-stack;
+  white-space: nowrap;
+}
+
+/*
+  Expertise tag wrapper extend.
+*/
+%expertise-tag-wrapper {
+  @include pie-clearfix;
+  
+  & > .tag {
+    @extend %expertise-tag;
+  }
+  
+  & > .taxonomy {
+    @extend %default-button-layout;
+    @extend %default-button-style;
+    @extend %default-tag-style;
+    @extend %expertise-taxonomy;
+  }
+  
+  &.recommended {
+    & > .tag {
+      @include set-button-color($tertiary, $hoverbg: $darkgray);
+      @include with-icon('subscribed');
+      @include hover-state($icon: 'unsubscribe');
+    }
+  }
+}
+
+/*
+  Skills list extend.
+*/
+%skills-list {
+  li {
+    display: block;
+    margin: 8px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/*
+  Expertise tag mixin.
+*/
+%expertise-tag {
+  @include set-button-color($secondary);
+  @include with-icon('subscribe');
+  @include border-radius(0 0 0 5px);
+  
+  float: left;
+  font-size: 12px;
+  behavior: ($pie-path);
+}
+
+/*
+  Expertise taxonomy mixin.
+*/
+%expertise-taxonomy {
+  @include border-radius(0 5px 0 0);
+  
+  float: left;
+  behavior: ($pie-path);
+  
+  &:hover {
+    background: $midblue;
+  }
+}
+
+/*
+  Tag list.
+*/
+%tag-list {
+  @include horizontal-list;
+  
+  margin-bottom: -8px;
+  
+  li {
+    margin: $default-tag-list-tag-spacing;
+  }
+}
+
+/*
+  Tagit jquery plugin.
+*/
+%tagit-layout {
+  @extend %tag-list;
+  
+  border: 0;
+  
+  .tagit-choice {
+    @extend %default-tag-style;
+    
+    margin: $default-tag-list-tag-spacing;
+    background-image: none;
+    border: 0;
+  }
+  
+  /*
+    Text input for new tags.
+  */
+  .tagit-new {
+    @include inline-block;
+    
+    float: none;
+    width: 100%;
+  }
+  
+  /*
+    Close.
+  */
+  .tagit-close {
+    @include inline-block;
+    
+    margin: 0 0 0 5px;
+    
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+  
+  .ui-icon {
+    display: none;
+  }
+}

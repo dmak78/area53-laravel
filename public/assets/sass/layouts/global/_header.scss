@@ -1,0 +1,185 @@
+/** ----------------------------------
+
+  Global header
+  -------------
+
+  Layout for the global header.
+
+---------------------------------- */
+.global-header {
+  @include box-shadow(0 5px 10px 0 rgba(black, .07));
+  @include position(relative);
+  
+  z-index: 30 !important;
+  background-color: white;
+  
+  .lt-ie9 & {
+    @include box-shadow(0 5px 10px 0 lighten(black, 80%));
+    behavior: url($pie-path);
+  }
+  
+  /*
+    Logo wrapper.
+  */
+  .logos {
+    @include tablet {
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    display: inline;
+  }
+  
+  .global-logo {
+    // Set the margin for the main logo so it's vertically centered.
+    @function set-logo-margin($spriteA, $spriteB) {
+      $aHeight: image-height(sprite-file($logo-sprite, $spriteA));
+      $bHeight: image-height(sprite-file($logo-sprite, $spriteB));
+      @return ($aHeight - $bHeight) / 2;
+    }
+    
+    $logo-margin: set-logo-margin('logo-round', 'logo');
+    $logo-small-margin: set-logo-margin('logo-round-small', 'logo-small');
+    
+    @include inline-block;
+    @include phone {
+      margin-top: $logo-small-margin;
+      margin-bottom: $logo-small-margin;
+    }
+
+    margin-top: $logo-margin;
+    margin-bottom: $logo-margin;
+    background-repeat: no-repeat;
+  }
+  
+  .hp-logo {
+    @include omega;
+  }
+}
+
+/* OneHP logo. */
+.global-logo {
+  @include use-logo-sprite('logo');
+  @include phone {
+    @include use-sprite($logo-sprite, 'logo-small');
+  }
+  
+  display: block;
+}
+
+/* Round HP logo. */
+.hp-logo {
+  @include use-logo-sprite('logo-round');
+  @include phone {
+    @include use-sprite($logo-sprite, 'logo-round-small');
+  }
+  
+  display: block;
+}
+
+/*
+  Main header content.
+  
+  Container element inside the global header.
+*/
+.header-content {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+/*
+  Primary navigation.
+*/
+.primary-navigation {
+  @include inline-block;
+  @include tablet {
+    float: left;
+    margin-top: 15px;
+  }
+  
+  & > ul {
+    @include horizontal-list;
+    @include tablet {
+      margin: 0;
+    }
+    
+    margin: 0 10px;
+  }
+  
+  li {
+    margin: 0 10px;
+
+    @include tablet {
+      margin: 0;
+      padding-left: 20px;
+    }
+    @include phone {
+      margin: 0;
+      padding-left: 10px;
+    }
+    
+    &:first-child {
+      @include mobile {
+        padding-left: 0;
+      }
+    }
+  }
+  
+  a {
+    @extend %nav-item;
+  }
+}
+
+/*
+  Search bar.
+*/
+.search-content {
+  @include inline-block;
+  @include tablet {
+    float: right;
+    width: 58%;
+  }
+  @include phone {
+    display: block;
+    width: auto;
+    margin-top: 20px;
+  }
+  
+  // Weird, I know, but it makes the search bar fit in the available space.
+  width: 44%;
+  
+  .search-input {
+    margin: 0;
+  }
+}
+
+/*
+  Top link bar.
+*/
+.supernav {
+  @extend .hide-mobile;
+  
+  background: $lightblue;
+  
+  ul {
+    @extend .container;
+    
+    @include horizontal-list;
+  }
+  
+  li:first-child a {
+    padding-left: 0;
+  }
+  
+  a {
+    @include link-color($darkgray, $visited: $darkgray);
+    
+    display: block;
+    padding: 10px 12px;
+    font-size: 12px;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

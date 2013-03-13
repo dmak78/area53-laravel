@@ -1,0 +1,37 @@
+/** ----------------------------------
+
+  Edit Group Subscribers
+  -------------------
+
+  Edit group subscribers page layout.
+
+---------------------------------- */
+.page-edit-group-subscribers {
+	.header{
+		h4{
+			font-size:18px;
+		}
+		margin-bottom:28px;
+	}
+	.add-subscribers{
+		h4{
+			border-bottom:1px solid $lightgray;
+			padding-bottom: 5px;
+			margin-bottom: 28px;
+		}
+		input.button{
+			margin-top: 20px;
+		}
+		border-bottom:1px solid $lightgray;
+		padding-bottom: 28px;
+		margin-bottom: 28px;
+		
+	}
+	.current-subscribers{
+		h4{
+			padding-bottom: 5px;
+		}
+		margin-top: 28px;
+		padding-top: 28px;
+	}
+}

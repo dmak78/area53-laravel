@@ -1,0 +1,11 @@
+@import "../../fonts/hp-font.css";
+
+b{
+	font-weight: normal;
+	font-family: 'hpBold';
+}
+
+body{
+
+	font-family: 'hpRegular';
+}

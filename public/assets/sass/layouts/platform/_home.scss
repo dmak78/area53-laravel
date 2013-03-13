@@ -1,0 +1,105 @@
+/** ----------------------------------
+
+  Home
+  ----
+
+  Home page layout.
+  
+  /home
+
+---------------------------------- */
+.page-home {
+  
+}
+
+/*
+  Large homepage slider.
+*/
+.homepage-banner {
+  @extend .hide-phone;
+  
+  margin-bottom: 50px;
+  
+  .slide {
+    @include position(relative);
+    @include phone {
+      height: 150px;
+      background-image: none !important;
+    }
+    
+    height: 240px;
+    background: right center no-repeat transparent;
+    
+    /*
+      Individual slides.
+    */
+    &.welcome {
+      .slide-contents {
+        @include phone {
+          width: auto;
+        }
+        
+        width: 40%;
+      }
+    }
+  }
+  
+  /*
+    Slider content.
+  */
+  .slide-contents {
+    @include position(absolute);
+    @include box-sizing(border-box);
+    @include background(linear-gradient(left, rgba(white, 0) 60%, rgba(white, .8) 80%));
+    @include border-radius(20px);
+    @include tablet {
+      width: 55%;
+      margin-top: 25px;
+      
+      .touch & {
+        padding-left: 50px;
+      }
+    }
+    @include phone {
+      width: auto;
+      margin: 0;
+      padding: 20px 50px;
+      
+      .touch & {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+    
+    width: 60%;
+    margin: 15px 0 0 120px;
+    padding: 10px;
+  }
+  
+  .slide-title {
+    @include mobile {
+      font-size: 18px;
+      line-height: 30px;
+    }
+    @include phone {
+      line-height: normal;
+    }
+    
+    font-size: 60px;
+    line-height: 50px;
+  }
+  
+  .slide-content {
+    @include mobile {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    @include phone {
+      margin: 10px 0;
+    }
+    
+    margin: 10px 0;
+    font-size: 18px;
+    line-height: normal;
+  }
+}

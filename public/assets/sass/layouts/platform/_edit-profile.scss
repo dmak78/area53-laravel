@@ -1,0 +1,38 @@
+/** ----------------------------------
+
+  Profile
+  -------
+
+  Edit Profile page layout.
+  
+  /edit-profile
+
+---------------------------------- */
+.page-edit-profile{
+  /*
+    Page Headline
+   */
+  h1 {
+    padding-bottom: 30px;
+  }
+  
+  /*
+    User name
+   */
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: black;
+  }
+}
+
+.edit-profile-form {
+  .display-options {
+    /*
+      Question
+     */
+    p {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,309 @@
+/** ----------------------------------
+
+  Mixins
+  ------
+
+  Site mixins.
+
+---------------------------------- */
+/*
+  Debugging.
+*/
+@mixin o($color: red) {
+  @include if-debug {
+    outline: 1px solid $color;
+  }
+}
+
+@mixin b($color: blue) {
+  @include if-debug {
+    background-color: rgba($color, .1);
+  }
+}
+
+/*
+  Missing elements are things that are not finished in some way.
+  @param {String} $message Debugging message.
+*/
+@mixin missing($message: 'NOT IN STYLEGUIDE') {
+  @include if-debug {
+    @include position(relative);
+
+    background-color: rgba(red, .1);
+
+    &:after {
+      @include position(absolute, 0px 0px);
+
+      content: $message;
+      display: block;
+      padding: 5px;
+      color: white;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: normal;
+      background: rgba(black, .5);
+    }
+  }
+}
+
+/*
+  Run a @content block if debugging is on.
+*/
+@mixin if-debug() {
+  @if $debugging-messages {
+    @content;
+  }
+}
+
+/*
+  Overwrite the border-radius mixin to remove vender prefixes,
+  but use a configurable param.
+  @param {Pixel Value} $rad Radius to use.
+*/
+@mixin border-radius($rad: 5px) {
+  border-radius: $rad;
+}
+
+/*
+  Set up an element to use a sprite.
+*/
+/* Logo sprite. */
+@mixin use-logo-sprite($sprite) {
+  @extend %logo-sprite;
+  @extend %squish-text;
+  
+  @include use-sprite($logo-sprite, $sprite);
+}
+
+/* Icon sprite. */
+@mixin use-icon-sprite($sprite) {
+  @extend %icon-sprite;
+  @extend %squish-text;
+  
+  @include use-sprite($icon-sprite, $sprite);
+}
+
+/* General sprite. */
+@mixin use-general-sprite($sprite) {
+  @extend %general-sprite;
+  @extend %squish-text;
+  
+  @include use-sprite($general-sprite, $sprite);
+}
+
+/* Slider dots sprite. */
+@mixin use-slider-dots-sprite($sprite) {
+  @extend %slider-dots-sprite;
+  @extend %squish-text;
+  
+  @include use-sprite($slider-dots-sprite, $sprite);
+}
+
+/* Stories sprite. */
+@mixin use-stories-sprite($sprite) {
+  @extend %stories-sprite;
+  
+  @include use-sprite($stories-sprite, $sprite, false);
+}
+
+/* Stories sprite. */
+@mixin use-stories-large-sprite($sprite) {
+  @extend %stories-large-sprite;
+  
+  @include use-sprite($stories-large-sprite, $sprite, false);
+}
+
+/* Sprite usage helper. */
+@mixin use-sprite($map, $name, $outputSize: true) {
+  @include sprite($map, $name, $outputSize);
+}
+
+/*
+  Convenience mixins for breakpoints.
+*/
+@mixin desktop() {
+  @include at-breakpoint($break-desktop) {
+    @content;
+  }
+  
+  .lt-ie9 & {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @include at-breakpoint($break-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @include at-breakpoint($break-tablet) {
+    @content;
+  }
+}
+
+@mixin phone() {
+  @include at-breakpoint($break-phone) {
+    @content;
+  }
+}
+
+/*
+  Show grid backgrounds.
+*/
+@mixin grid-bg() {
+  @if $show-grid-backgrounds == true {
+    @include susy-grid-background;
+  }
+}
+
+/*
+  Size mixin.
+  https://gist.github.com/3659524
+  @param {String} [$height] Height of the element. Expects units, ex: 5px. Defaults to false.
+*/
+@mixin size($width, $height: false) {
+  width: $width;
+  
+  @if $height {
+    height: $height;
+  } @else {
+    height: $width;
+  }
+}
+
+/*
+  Print position coords only.
+  https://gist.github.com/3641867
+  @param {List} $values Position values. Unitless numbers get skipped over.
+*/
+@mixin pos-coords($values: 0 0 0 0) {
+  $position-list: top right bottom left;
+  $count: 1;
+  
+  @if length($values) == 1 and $values == 'reset' {
+    $values: auto auto auto auto;
+  }
+  
+  @each $value in $values {
+    @if $value == 'auto' or not(unitless($value)) {
+      $pos: nth($position-list, $count);
+      #{$pos}: $value;
+    }
+    $count: $count + 1;
+  }
+}
+
+/*
+  Reset position coords mixin.
+*/
+@mixin reset-coords() {
+  @include pos-coords('reset');
+}
+
+/*
+  Position mixin.
+  @param {CSS Keyword} $type Position type.
+  @param {List} $values Position values. Unitless numbers get skipped over.
+  @param {Number} [$z-index] z-index value.
+*/
+@mixin position($type: relative, $values: 0 0 0 0, $z-index: '') {
+  position: $type;
+  
+  @if $type != 'static' and $type != 'inherit' {
+    @include pos-coords($values);
+    
+    @if $z-index != '' {
+      z-index: $z-index;
+    }
+  }
+}
+
+/*
+  Retina mixin.
+*/
+@mixin retina($ratio: 1.3) {
+  @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+  only screen and (min--moz-device-pixel-ratio: $ratio),
+  only screen and (-o-min-device-pixel-ratio: ($ratio * 10) / 10),
+  only screen and (min-resolution: #{round($ratio * 96)}dpi),
+  only screen and (min-resolution: #{$ratio}dppx) {
+    @content;
+  }
+}
+
+/*
+  Maintain ratio mixin.
+  https://gist.github.com/2932463
+  @param {List} [$ratio] Ratio the element needs to maintain. A 16:9 ratio would look like this:
+                         .element { @include maintain-ratio(16 9); }
+*/
+@mixin maintain-ratio($ratio: 1 1) {
+  $width: 100%;
+  $height: percentage(nth($ratio, 2) / nth($ratio, 1));
+  
+  width: $width;
+  height: 0;
+  padding-bottom: $height;
+}
+
+/*
+  Apply pointer mixin. Uses a CSS3 pseudo element to apply a triangle.
+  https://gist.github.com/2932442
+  
+  @param {String} [$side] Which side the pointer should stick out from. Defaults to top.
+  @param {CSS Size Value} [$size] Size of the pointer. Expects units, ex: 5px. Defaults to 5px.
+  @param {String} [$color] Color of the pointer. Defaults to white.
+  @param {String} [$type] Which kind of triange to make. Defaults to equilateral.
+  @param {Boolean} [$clockwise] If using a right triange, the direction the triange should be rotated.
+  @param {String} [$element] Which type of psuedo element to be used. Defaults to :after.
+*/
+@mixin apply-pointer($side: 'top', $size: 5px, $color: white, $type: 'equilateral', $clockwise: true, $element: 'after') {
+  $opposite: opposite-position($side);
+  $rotated: '';
+  $negative: $size * -1;
+  $double: $size * -2;
+  
+  // Default to relative. This can be overwritten in the
+  // rule that's calling this mixin.
+  position: relative;
+  
+  &:#{$element} {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-style: solid;
+    border-color: transparent;
+    border-#{$opposite}-color: $color;
+    border-width: $size;
+    
+    // Set some default positioning.
+    // This can be overwritten in the @content.
+    @if $side == 'right' or $side == 'left' {
+      margin-top: $negative;
+      top: 50%;
+      #{$side}: $double;
+    } @else {
+      margin-left: $negative;
+      left: 50%;
+      #{$side}: $double;
+    }
+    
+    // Determine which direction the right triangle arrow should face.
+    @if $type == 'right' {
+      @if $side == 'top' { $rotated: if($clockwise, 'right', 'left') }
+      @else if $side == 'right' { $rotated: if($clockwise, 'bottom', 'top') }
+      @else if $side == 'bottom' { $rotated: if($clockwise, 'right', 'left') }
+      @else if $side == 'left' { $rotated: if($clockwise, 'top', 'bottom') }
+      
+      border-#{$rotated}-width: 0;      
+    } @else if $type != 'equilateral' {
+      @warn 'apply-pointer(): Unknown triangle type. Using "equilateral".';
+    }
+    
+    @content;
+  }
+}

@@ -1,0 +1,85 @@
+/** ----------------------------------
+
+  Icons
+  -----
+
+  Icons module.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+
+/*
+  Mixon.
+*/
+@mixin icons() {
+  /*
+    Icons are similar to buttons.
+  */
+  .icon {
+    @extend %default-icon-layout;
+    
+    $icons: hot-topic, flag, delete;
+    
+    @each $icon in $icons {
+      &.#{$icon} {
+        @include make-icon-button($icon);
+      }
+    }
+  }
+  
+  /*
+    Decorators use a double-barrelled classname for terseness,
+    since decorators are always going to be applied to another element,
+    as opposed to be used on their own.
+  */
+  $decorators: website, email, phone, people, each-other, our-customers, the-world;
+  
+  @each $decorator in $decorators {
+    .decorator-#{$decorator} {
+      @include make-decorator('decorator-#{$decorator}');
+    }
+  }
+  
+  /*
+    Communicator presence is the icon that indicates a user is online.
+  */
+  .communicator-presence {
+    @include use-icon-sprite('communicator');
+    @include inline-block;
+    
+    margin-right: 5px;
+    vertical-align: top;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Base icon style.
+*/
+%default-icon-layout {
+  @extend %squish-text;
+  
+  display: block;
+}
+
+/*
+  Base decorator style.
+*/
+%default-decorator-layout {
+  @include inline-block;
+  
+  content: '';
+  margin-right: 5px;
+}

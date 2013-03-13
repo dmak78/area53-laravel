@@ -1,0 +1,19 @@
+/** ----------------------------------
+
+  Tagging Interface
+  -----------------
+
+  Tagging interface layout.
+
+---------------------------------- */
+.tagging-interface {
+  @include inline-block;
+  
+  /* Tagged users list. */
+  .tagged-users {
+  }
+  
+  /* Typeahead input. */
+  .add-tag-typeahead {
+  }
+}

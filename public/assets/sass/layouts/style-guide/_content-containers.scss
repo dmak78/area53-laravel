@@ -1,0 +1,58 @@
+/** ----------------------------------
+
+  Content Containers
+  ------------------
+
+  Content containers section of the styleguide.
+
+---------------------------------- */
+.style-guide-content-containers {
+  /*
+    Block colors.
+  */
+  $block-a: #2b93d5;
+  $block-b: #de6148;
+  $block-c: #a2d74e;
+  
+  /* Block styles. */
+  %block {
+    padding: 10px;
+    color: white;
+  }
+  
+  @mixin set-colors($elements...) {
+    @each $element in $elements {
+      #{nth($element, 1)} {
+        @extend %block;
+        
+        background-color: nth($element, 2);
+      }
+    }
+  }
+  
+  /* Platform content example. */
+  .style-guide-platform-content {
+    @include set-colors('.primary-sidebar' $block-a, '.secondary-sidebar' $block-b, '.main-content-block' $block-c);
+  }
+  
+  /* Platform content secondary example. */
+  .style-guide-platform-content-secondary {
+    @include set-colors('.primary-sidebar' $block-a, '.main-content-block' $block-c);
+  }
+  
+  /* Platform social network example. */
+  .style-guide-platform-social-network {
+    @include set-colors('.primary-sidebar' $block-a, '.secondary-sidebar' $block-b, '.newsfeed' $block-c);
+  }
+  
+  /* Platform grid example. */
+  .style-guide-platform-grid {
+    $colors: $block-a $block-b $block-c;
+    
+    @for $i from 1 through 3 {
+      li:nth-child(3n+#{$i}) {
+        background-color: #{nth($colors, $i)};
+      }
+    }
+  }
+}

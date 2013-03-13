@@ -1,0 +1,131 @@
+/** ----------------------------------
+
+  Stories Detail
+  --------------
+
+  Story detail page.
+
+---------------------------------- */
+.page-stories-detail {
+  & > .platform-content-secondary-reverse {
+    margin-top: 0;
+    padding-top: 80px;
+  }
+  
+  /*
+    Newsfeed below the story content.
+  */
+  .newsfeed {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid $lightgray;
+  }
+  
+  .status-update {
+    margin-top: 30px;
+    padding-top: 30px;
+  }
+  
+  .play-video-button {
+    @include position(relative, 200px);
+
+    margin: 0 auto;
+  }
+}
+
+/*
+  Story details sidebar.
+*/
+.story-details {
+  @extend %sectioned-list;
+  
+  & > li {
+    padding: 10px 0;
+  }
+  
+  .story-category {
+    @extend .decorator-our-customers;
+    @extend small;
+  }
+}
+
+/* List of users tagged in this story. */
+.participants-list {
+  margin: 0 !important;
+  
+  .widget-content {
+    padding-top: 0;
+  } 
+  
+  .list-title {
+    @extend .decorator-people;
+    
+    display: block;
+    margin: 5px 0;
+  }
+  
+  .user-list {
+    margin-bottom: 15px;
+    padding-left: 25px;
+  }
+  
+  .remove-tag {
+    @extend %small-static;
+    
+    margin-left: 10px;
+  }
+}
+
+/* Similar stories widget. */
+.similar-stories {
+  .story-block {
+    float: right;
+    width: 100px;
+    
+    &:first-child {
+      float: left;
+    }
+  }
+  
+  .link-tag {
+    @extend %small-static;
+    
+    @include position(absolute, 0px 0 0 0px);
+    
+    padding: 1px 5px;
+    background: white;
+    
+    &.next {
+      @include pos-coords(0 0px 0 auto);
+    }
+  }
+}
+
+/* Story navigation buttons at the bottom of the sidebar. */
+.story-navigation-buttons {
+//  text-align: center;
+  
+  .button {
+    margin: 5px 0;
+  }
+}
+
+/*
+  Main slider.
+*/
+.story-detail-slider {
+  li {
+    height: 559px;
+  }
+}
+
+/*
+  Main story content.
+*/
+.story-content {
+  margin: 20px 0;
+  
+  p {
+    margin: 10px 0;
+  }
+}

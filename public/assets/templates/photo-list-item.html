@@ -1,0 +1,28 @@
+<% /*
+
+  Individual item in the 'Manage Photos' section of the
+  edit-album page.
+
+*/ %>
+<li class="single-image image-<%= data.id %><% if (data.isCover) { print(' album-cover'); } %>" data-image-id="<%= data.id %>">
+  <div class="photo-preview">
+    <div class="photo-cover">
+      <img src="<%= data.thumbUrl %>">
+    </div>
+    
+    <a href="#" class="button misc set-as-cover <% if (data.isCover) { print('disabled'); } %>">
+      <% if (data.isCover) { %>
+        Is Cover Image
+      <% } else { %>
+        Set As Cover Image
+      <% } %>
+    </a>
+    
+    <a href="#" class="button misc delete-image">Delete Image</a>
+  </div>
+  
+  <div class="photo-details">
+    <input class="photo-title" type="text" placeholder="Photo title" <% if (data.title) { print('value="' + data.title + '"'); } %>>
+    <textarea placeholder="Photo description"><% if (data.description) { print(data.description); } %></textarea>
+  </div>
+</li>

@@ -1,0 +1,14 @@
+<% /*
+
+  Individual item in the 'Manage Photos' section of the
+  edit-album page.
+
+*/ %>
+<li class="album-<%= data.id %>">
+  <a title="<%= data.title %>" href="group-photos/<%= data.id %>">
+    <img class="album-cover" src="<%= data.coverUrl %>">
+    <h4 class="album-title"><%= data.title %></h4>
+  </a>
+  
+  <p><%= data.description %></p>
+</li>

@@ -19,34 +19,44 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password');
 
-	public function user_profile()
+	public function profile()
 	{
-		return $this->has_one('User_Profile');
+		return $this->hasOne('User_Profile');
 	}
 
 	public function posts()
 	{
-		return $this->has_many('Post');
+		return $this->hasMany('Post', 'author_id');
 	}
 
 	public function groups()
 	{
-		return $this->has_many_and_belongs_to('Group');
+		return $this->belongsToMany('Group');
 	}
 
 	public function comments()
 	{
-		return $this->has_many('Comment');
+		return $this->hasMany('Comment', 'author_id');
 	}
 
 	public function photos()
 	{
-		return $this->has_many('Photo');
+		return $this->morphMany('Photo', 'owner');
 	}
 	
 	public function events()
 	{
-		return $this->has_many('Event');
+		return $this->morphMany('Event', 'owner');
+	}
+
+	public function attending()
+	{
+		return $this->belongsToMany('Event');
+	}
+
+	public function mentions()
+	{
+		return $this->belongsToMany('Post');
 	}
 
 	/**
@@ -77,6 +87,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getReminderEmail()
 	{
 		return $this->email;
+	}
+
+	public function getUserName()
+	{
+		return $this->username;
 	}
 
 }

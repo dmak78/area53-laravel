@@ -5,15 +5,19 @@ class Post extends Eloquent {
 
 	public function comments()
 	{
-		return $this->has_many('Comment');
+		return $this->morphMany('Comment', 'owner');
 	}
 
 	public function author()
 	{
-		return $this->belongs_to('User');
+		return $this->hasOne('User', 'author_id');
 	}
 
 	public function tags(){
-		return $this->has_many_and_belongs_to('Tag');
+		return $this->belongsToMany('Tag');
+	}
+
+	public function mentions(){
+		return $this->belongsToMany('User');
 	}
 }

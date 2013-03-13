@@ -1,0 +1,195 @@
+/** ----------------------------------
+
+  Dialogs
+  -------
+
+  Dialog module.
+  
+  This is used mostly as a wrapper around the Twitter Bootstrap modal
+  dialog structure, so we can use the Susy library to build responsive layouts.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+@import '../links/mixins';
+
+/*
+  Variable defaults.
+*/
+$primary: blue !default;
+
+/* Desktop breakpoint. */
+$default-desktop-modal-top-distance: 10% !default;
+$default-desktop-modal-height: 50% !default;
+$default-desktop-modal-header-padding: 30px 40px !default;
+$default-desktop-modal-body-padding: 25px 40px !default;
+
+/* Tablet breakpoint. */
+$default-tablet-modal-top-distance: 10% !default;
+$default-tablet-modal-height: 50% !default;
+$default-tablet-modal-header-padding: 30px 40px !default;
+$default-tablet-modal-body-padding: 25px 40px !default;
+
+/* Phone breakpoint. */
+$default-phone-modal-top-distance: 20px !default;
+$default-phone-modal-height: 80% !default;
+$default-phone-modal-header-padding: 10px !default;
+$default-phone-modal-body-padding: 10px !default;
+
+/*
+  Mixon.
+*/
+@mixin modals() {
+  .modal {
+    @extend %modal-layout;
+  }
+  
+  .modal-container {
+    @extend %modal-container;
+  }
+  
+  .modal-content-wrapper {
+    @extend %modal-content-wrapper;
+  }
+  
+  .modal-header {
+    @extend %modal-header;
+  }
+  
+  .modal-body {
+    @extend %modal-body;
+  }
+  
+  .modal-close {
+    @extend %modal-close;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Modal layout extend.
+*/
+%modal-layout {
+  @extend %stretch;
+
+  @include position(fixed, 0, -1);
+  @include size(100%);
+  @include box-shadow(none);
+  
+  display: none;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  
+  &.open {
+    display: block;
+    z-index: 2000;
+  }
+}
+
+/*
+  Modal container extend.
+*/
+%modal-container {
+  @extend .container;
+  
+  @include position(relative);
+  
+  height: 100%;
+}
+
+/*
+  Modal content wrapper extend.
+*/
+%modal-content-wrapper {
+  @include transition(all .3s ease-out);
+  @include position(relative, -20%);
+  @include opacity(0);
+  @include phone {
+    max-height: $default-phone-modal-height;
+  }
+  
+  width: 100%;
+  height: 100%;
+  max-height: $default-desktop-modal-height;
+  margin: 0 auto;
+  
+  &.show {
+    @include opacity(1);
+    @include phone {
+      top: $default-phone-modal-top-distance;
+    }
+    
+    top: $default-desktop-modal-top-distance;
+  }
+}
+
+/*
+  Modal header extend.
+*/
+%modal-header {
+  @include position(absolute, 0px 0 0 0px);
+  @include phone {
+    padding: $default-phone-modal-header-padding;
+  }
+
+  overflow-y: scroll; // IE sure is DUMB.
+  width: 100%;
+  padding: $default-desktop-modal-header-padding;
+  background: white;
+  border-bottom: 1px solid white;
+  border-radius: 5px 5px 0 0;
+}
+
+/*
+  Modal body extend.
+*/
+%modal-body {
+  @include position(absolute, 0px 0 0 0px);
+  @include phone {
+    padding: $default-phone-modal-body-padding;
+  }
+  
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  padding: $default-desktop-modal-body-padding;
+  background: white;
+  border-radius: 0 0 5px 5px;
+}
+
+/*
+  Modal close extend.
+  
+  TODO - Move this buttons?
+*/
+%modal-close {
+  @extend %tiny-static;
+
+  @include border-radius(100%);
+  @include link-color(white, white, white);
+  @include position(absolute, -10px -10px, 10);
+  @include size(30px);
+
+  display: block;
+  padding: 0 10px;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: center;
+  background: $primary;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,90 @@
+/** ----------------------------------
+
+  Tables
+  ------
+
+  Tables module. Use <div> and <ul> elements to build tables.
+  
+  Expected markup:
+  
+  <div class="table">
+    <header class="table-header">
+      <div>Column header.</div>
+      [, <div>Column header.</div>]
+    </header>
+    
+    // Each <li> represents a table row.
+    <ul class="table-content">
+      <li>
+        <div>Column cell.</div>
+        [, <div>Column cell.</div>]
+      </li>
+      [, <li>
+        <div>Column cell.</div>
+        [, <div>Column cell.</div>]
+      </li>]
+    </ul>
+  </div>
+  
+  You'll want to make sure the number of columns matches in all rows.
+  
+  When styling a new table, simply use the set-table-columns mixin.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+
+/*
+  Mixon.
+*/
+@mixin tables() {
+  .table {
+//    @extend %table-layout;
+    
+    @include set-table-columns;
+  }
+  
+  .table-header {
+    @extend %table-header;
+  }
+  
+  .table-contents {
+    & li {
+      @extend %table-contents;
+    }
+  }
+}
+
+
+/** ----------------------------------
+
+  Module mixins.
+
+---------------------------------- */
+/*
+  Table layout mixin.
+*/
+%table-layout {
+
+}
+
+/*
+  Table header mixin.
+*/
+%table-header {
+  @extend %clearfix;
+
+}
+
+/*
+  Table contents mixin.
+*/
+%table-contents {
+  @extend %clearfix;
+}

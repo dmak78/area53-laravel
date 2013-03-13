@@ -1,0 +1,306 @@
+/** ----------------------------------
+
+  Buttons
+  -------
+
+  Button module.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+/* Options. */
+$default-button-border-radius: 5px !default;
+$default-unlike-copy: 'Unlike' !default;
+$default-unsubscribe-copy: 'Unsubscribe' !default;
+
+/* Colors. */
+$primary: blue !default;
+$secondary: red !default;
+$tertiary: green !default;
+$lightgray: gray !default;
+$midblue: blue !default;
+$darkgray: gray !default;
+
+/*
+  Mixon.
+*/
+@mixin buttons() {
+  button,
+  .button {
+    @extend %default-button-layout;
+    @extend %default-button-style;
+    
+    &.misc {
+      @extend %misc-button;
+    }
+    
+    &.cancel {
+      @extend %cancel-button;
+    }
+    
+    &.add-tag {
+      @extend %add-tag-button;
+    }
+    
+    &.add-link {
+      @extend %add-link-button;
+    }
+    
+    &.comment {
+      @extend %comment-button;
+    }
+    
+    &.like {
+      @extend %like-button;
+    }
+    
+    &.liked {
+      @extend %liked-button;
+    }
+    
+    &.post {
+      @extend %post-button;
+    }
+    
+    &.subscribe {
+      @extend %subscribe-button;
+    }
+    
+    &.subscribed {
+      @extend %subscribed-button;
+    }
+
+    &.unsubscribe {
+      @extend %unsubscribe-button;
+    }
+    
+    &.toggle-up {
+      @extend %toggle-button-base;
+      
+      @include use-general-sprite('toggle-up');
+      
+      &:hover {
+        @include use-general-sprite('toggle-up-hover');
+      }
+    }
+    
+    &.toggle-down {
+      @extend %toggle-button-base;
+      
+      @include use-general-sprite('toggle-down');
+      
+      &:hover {
+        @include use-general-sprite('toggle-down-hover');
+      }
+    }
+    
+    /* All buttos share a disabled state for now. */
+    &.disabled,
+    &[disabled='disabled'] {
+      color: $lightgray;
+      background-color: $midblue;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  /* Play video button. */
+  .play-video-button {
+    @include squish-text;
+    @include use-general-sprite('play-video');
+    
+    display: block;
+    background-color: transparent;
+    
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  
+  /* More button wrapper element. */
+  .more-button-wrapper {
+    @extend %more-button-wrapper;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Default button layout mixin.
+*/
+%default-button-layout {
+  .lt-ie9 & {
+    @include position(relative); // Required for CSS3 PIE to work.
+    behavior: url($pie-path);
+  }
+  
+  @include inline-block;
+  @include transition(background-color .2s ease-out);
+  
+  margin: 0;
+  line-height: normal;
+  border: 0;
+  border-radius: 0 $default-button-border-radius 0 $default-button-border-radius;
+  outline: none;
+  
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+/*
+  Default button style mixin.
+*/
+%default-button-style {
+  @include set-button-color($secondary);
+  
+  padding: 9px 11px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover {
+    color: white;
+  }
+}
+
+/*
+  Misc button extend.
+*/
+%misc-button {
+  @include set-button-color($lightblue, $darkgray, $midblue, $darkgray);
+  
+  padding: 4px 12px;
+  font-weight: 400;
+}
+
+/*
+  Cancel button extend.
+*/
+%cancel-button {
+  @include set-button-color($midblue, white, $darkgray, white);
+}
+
+/*
+  Add tag button extend.
+*/
+%add-tag-button {
+  @include squish-text;
+  @include with-icon('add-tag');
+  @include set-button-color($lightblue, $hoverbg: $midblue);
+  
+  &:hover {
+    @include with-icon('add-tag-hover');
+    
+    &:before {
+      margin: 0;
+    }
+  }
+  
+  &:before {
+    margin: 0;
+  }
+}
+
+/*
+  Add link button extend.
+*/
+%add-link-button {
+  @extend %add-tag-button;
+  
+  @include with-icon('link');
+  
+  &:hover {
+    @include with-icon('link');
+  }
+}
+
+/*
+  Comment button extend.
+*/
+%comment-button {
+  @include set-button-color($lightblue, $darkgray, $midblue, $darkgray);
+  @include with-icon('comment');
+  
+  padding: 5px 8px;
+}
+
+/*
+  Like button extend.
+*/
+%like-button {
+  @include set-button-color($lightblue, $darkgray, $midblue, $darkgray);
+  @include with-icon('like');
+  
+  padding: 5px 8px;
+}
+
+/*
+  Liked button extend.
+*/
+%liked-button {
+  @include set-button-color($tertiary, white, $midblue, $darkgray);
+  @include with-icon('liked');
+  @include hover-state($default-unlike-copy, 'unliked');
+  
+  padding: 5px 8px;
+}
+
+/*
+  Post button extend.
+*/
+%post-button {
+  /* Same as the Misc. button */
+  @extend %misc-button;
+}
+
+/*
+  Subscribe button extend.
+*/
+%subscribe-button {
+  @include with-icon('subscribe');
+  
+  &:hover {
+    @include with-icon('subscribe-hover');
+  }
+}
+
+/*
+  Subscribed button extend.
+*/
+%subscribed-button {
+  @include set-button-color($tertiary, white, $darkgray);
+  @include with-icon('subscribed');
+  @include hover-state($default-unsubscribe-copy, 'unsubscribe');
+}
+
+/*
+  Unubscribe button extend (used to unsubscribe users from a group).
+*/
+%unsubscribe-button {
+  @include set-button-color($darkgray, white, $lightgray);
+  @include with-icon('unsubscribe');
+  @include hover-state($default-unsubscribe-copy, 'unsubscribe');
+}
+
+/*
+  More button.
+*/
+%more-button-wrapper {
+  margin-top: 20px;
+  text-align: center;
+  background: center top no-repeat transparent image-url('dropshadows/dropshadow-large.png');
+}

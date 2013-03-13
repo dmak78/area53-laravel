@@ -1,0 +1,52 @@
+/** ----------------------------------
+
+  List Albums
+  -----------
+
+  List albums page layout.
+
+---------------------------------- */
+.page-list-albums {
+  /* Header. */
+  .grid-header {
+    margin-bottom: 15px;
+  }
+  
+  /* Page buttons. */
+  .back-to-group {
+    margin: 10px 0;
+  }
+  .add-new-album {
+    display: inline-block;
+    margin: 20px 0 0;
+    font-weight: 700;
+    color: $darkgray;
+  }
+}
+
+/*
+  List of albums.
+*/
+.manage-albums-grid {
+  li {
+    height: 160px;
+    padding: 0 10px;
+    text-align: left;
+    
+    a {
+      @include border-radius;
+      
+      display: block;
+      padding: 10px;
+      
+      &:hover {
+        background: $lightgray;
+      }
+    }
+  }
+  
+  .album-cover {
+    max-width: 100%;
+    margin-bottom: 5px;
+  }
+}

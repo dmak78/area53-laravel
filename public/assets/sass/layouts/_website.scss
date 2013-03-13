@@ -1,0 +1,124 @@
+/** ----------------------------------
+
+  Website
+  -------
+
+  Global website layout.
+
+---------------------------------- */
+@include establish-baseline;
+@include border-box-sizing;
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  padding: 0 !important;
+  font-family: $sans-stack;
+  background: white;
+}
+
+/*
+  Generic Susy container.
+*/
+.container {
+  @include position(relative);
+  @include border-box-sizing;
+  @include container;
+  @include grid-bg {};
+  
+  @include tablet {
+    @include set-container-width;
+    @include grid-bg {};
+  }
+  
+  @include phone {
+    @include with-grid-settings(1, 542px, 50px, 20px) {
+      @include container;
+    }
+
+    @include grid-bg {};
+  }
+}
+
+/*
+  Navigation menu.
+*/
+#_menu {
+  @include position(fixed, 0px 0px, 9999);
+  @include mobile {
+    display: none;
+  }
+  
+  width: 200px;
+  font-size: 11px;
+  text-align: right;
+}
+
+
+/** ----------------------------------
+
+  General styles.
+  
+  These are styles that don't belong to specific layout or module yet.
+  Don't abuse this.
+
+---------------------------------- */
+.desktop-only {
+  @include desktop {
+    display: inherit;
+  }
+
+  display: none;
+
+  .lt-ie9 & {
+    display: inherit;
+  }
+}
+
+.mobile-only {
+  @extend %no-ie;
+  
+  @include desktop {
+    display: none;
+  }
+}
+
+.hide-mobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.phone-only {
+  @extend %no-ie;
+    
+  @include desktop {
+    display: none;
+  }
+  @include tablet {
+    display: none;
+  }
+}
+
+.hide-phone {
+  @include phone {
+    display: none;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+hr {
+  width: 100%;
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid $lightgray;
+  border-bottom: 1px solid white;
+}

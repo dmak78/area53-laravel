@@ -1,10 +1,10 @@
 <?php
 
-class User_profile extends Eloquent {
+class User_Profile extends Eloquent {
 	protected $table = 'user_profiles';
 
 	public function user()
 	{
-		return $this->belongs_to('User');
+		return $this->belongsTo('User');
 	}
 }

@@ -13,9 +13,10 @@ class CreateCommentsTable extends Migration {
 	{
 		Schema::create('comments', function($table) {
 			$table->increments('id');
-			$table->integer('user_id');
-			$table->integer('post_id');
-			$table->text('body');
+			$table->integer('author_id');
+			$table->integer('owner_id');
+			$table->string('owner_type');
+			$table->text('content');
 			$table->timestamps();
 		});
 	}

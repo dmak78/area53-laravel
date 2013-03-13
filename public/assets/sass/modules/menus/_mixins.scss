@@ -1,0 +1,12 @@
+/* Menus module mixins.
+----------------------------------------- */
+/*
+  Horizontal list mixin.
+*/
+@mixin horizontal-list {
+  @extend %clearfix;
+  
+  li {
+    float: left;
+  }
+}

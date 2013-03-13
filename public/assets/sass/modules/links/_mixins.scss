@@ -1,0 +1,18 @@
+/* Links module mixins.
+----------------------------------------- */
+/*
+  Link color mixin. Set the link psuedo class.
+*/
+@mixin link-color($color, $hover: $primary, $visited: $primary) {
+  &:link {
+    color: $color;
+  }
+  
+  &:visited {
+    color: $visited;
+  }
+  
+  &:hover {
+    color: $hover;
+  }
+}

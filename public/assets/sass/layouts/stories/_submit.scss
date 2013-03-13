@@ -1,0 +1,64 @@
+/** ----------------------------------
+
+  Stories Submit
+  --------------
+
+  Story submit layout.
+
+---------------------------------- */
+.page-stories-submit {
+  & > .container {
+    padding-top: 80px;
+  }
+  
+  .intro-text {
+    margin: 10px 0;
+    font-size: 22px;
+    line-height: normal;
+    color: $darkgray;
+  }
+}
+
+/*
+  Story submit form.
+*/
+.submit-story {
+  /* Story title field container. */
+  .title {
+    float: left;
+    width: columns(2) * 1.3; // :(
+  }
+  
+  /* Story category select container. */
+  .category {
+    float: right;
+    width: columns(1) * 1.3;
+  }
+  
+  /* Story description field container. */
+  .description {
+    clear: both;
+    
+    .LV_validation_message {
+      top: 40px;
+      z-index: 999;
+    }
+  }
+  
+  /* Tagging. */
+  .tagging-interface {
+    display: none;
+  }
+  
+  /* Upload section. */
+  .asset-upload {
+    & > img {
+      width: 100%;
+    }
+  }
+  
+  /* Back button. */
+  .back-to-stories {
+    float: left;
+  }
+}

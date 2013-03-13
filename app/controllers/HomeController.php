@@ -19,10 +19,4 @@ class HomeController extends BaseController {
 	{
 		return View::make('hello');
 	}
-
-	public function someThing($id=null,$some=null,$thing=null)
-	{
-		return 'idiot';
-	}
-
 }

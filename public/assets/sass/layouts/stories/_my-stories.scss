@@ -1,0 +1,77 @@
+/** ----------------------------------
+
+  My Stories
+  ----------
+
+  My stories page layout.
+
+---------------------------------- */
+.page-stories-my-stories {
+  .container {
+    padding-top: 80px;
+  }
+}
+
+/*
+  My stories sections.
+*/
+.story-status-container {
+  margin: 30px 0;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+/*
+  List of stories.
+*/
+.my-stories-list {
+  @extend %clearfix;
+  
+  & > li {
+    margin-bottom: 30px;
+    padding: 0 15px;
+    
+    &:nth-child(odd) {
+      padding-left: 0;
+    }
+    
+    &:nth-child(even) {
+      padding-right: 0;
+    }
+  }
+  
+  .story-block {
+    .block-content {
+      background: transparent;
+    }
+  }
+  
+  .story-details {
+    float: right;
+    width: 60%;
+    margin: 0;
+    
+    time {
+      display: block;
+      margin-top: 5px;
+    }
+    
+    .remove-tag {
+      font-weight: 700;
+      color: $darkgray;
+    }
+  }
+}
+
+/*
+  Navigation buttons.
+*/
+.my-stories-navigation {
+  @extend %clearfix;
+  
+  .submit-new-story {
+    float: right;
+  }
+}

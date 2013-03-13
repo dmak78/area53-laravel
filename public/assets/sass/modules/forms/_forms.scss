@@ -1,0 +1,484 @@
+/** ----------------------------------
+
+  Forms
+  -----
+
+  Forms module. Handles <input> elements as well.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$lightgray: gray !default;
+
+/*
+  Mixon.
+*/
+@mixin forms() {
+  /*
+    Form layouts.
+  */
+  form {
+    @extend %form-layout;
+  }
+  
+  label {
+    @extend %form-label;
+  }
+  
+  fieldset {
+    @extend %fieldset-layout;
+    
+    &.search-input {
+      @extend %search-field-layout;
+    }
+  }
+  
+  .field-optional {
+    @extend %field-optional;
+  }
+  
+  .field-required {
+    @extend %field-required;
+  }
+  
+  .button-bar {
+    @extend %button-bar-layout;
+  }
+  
+  /*
+    Common form elements.
+  */
+  .add-photos {
+    @extend %add-photos-control;
+  }
+  
+  .progress-bar {
+    @extend %progress-bar;
+  }
+  
+  /*
+    Input styles.
+  */
+  input[type='text'] {
+    @extend %text-input-layout;
+  }
+  
+  textarea {
+    @extend %textarea-layout;
+  }
+  
+  select {
+    @extend %select-layout;
+  }
+  
+  .radio {
+    @extend %radio-buttons;
+  }
+  
+  /*
+    Form validation styles.
+  */
+  /* Valid input icon. */
+  .LV_valid {
+    @extend %valid-form-input;
+  }
+  
+  .LV_invalid {
+    @extend %invalid-form-input;
+  }
+  
+  /*
+    Post form styles.
+  */
+  .post-form {
+    @extend %post-form-layout;
+  }
+  
+  .wysiwyg-textarea-wrapper {
+    @extend %wysiwyg-layout;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Form layout extend.
+*/
+%form-layout {
+  display: block;
+  margin: 0;
+}
+
+/*
+  Form label extend.
+*/
+%form-label {
+  @extend %small-static;
+  
+  display: block;
+  margin: 8px 0;
+  font-weight: 700;
+}
+
+/*
+  Fieldset layout extend.
+*/
+%fieldset-layout {
+  @include position(relative);
+  
+  width: 100%;
+  margin: 10px 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  
+  &.hidden-fields {
+    display: none;
+  }
+  
+  & > div {
+    @include position(relative);
+    
+    margin: 25px 0;
+  }
+}
+
+/*
+  Field optional extend.
+*/
+%field-optional {
+  @extend %tiny-static;
+  
+  @include position(absolute, 0 10px 5px);
+}
+
+/*
+  Field required extend.
+*/
+%field-required {
+  @extend %tiny-static;
+  
+  @include position(absolute, 0 10px 5px);
+}
+
+/*
+  Button bar layout extend.
+*/
+%button-bar-layout {
+  margin: 10px 0;
+}
+
+/*
+  Add photos control.
+*/
+%add-photos-control {
+  li {
+    display: block;
+  }
+}
+
+/*
+  Progress bar.
+*/
+%progress-bar {
+  @include border-radius;
+  
+  overflow: hidden;
+  background-color: $lightgray;
+  
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  
+  .amount {
+    display: block;
+    padding: 10px 0;
+    color: white;
+    text-align: right;
+    direction: rtl;
+    text-indent: 10px;
+    background-color: $primary;
+  }
+}
+
+/*
+  Text input layout extend.
+*/
+%text-input-layout {
+  @include inline-block;
+  @include box-sizing(border-box);
+  @include box-shadow(inset 1px 1px 3px 0 rgba(black, .1));
+  
+  width: 100%;
+  padding: 9px 8px;
+  color: $darkgray;
+  background: $lightgray;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+  
+  &:focus {
+    @include box-shadow(0 0 3px 0 rgba(black, .2), inset 1px 1px 3px 0 rgba(black, .1));
+    
+    & + .field-required,
+    & + .field-optional {
+      display: none;
+    }
+  }
+  
+  .lt-ie9 & {
+    @include position(relative);
+    
+    behavior: url($pie-path);
+  }
+}
+
+/*
+  Textarea layout extend.
+*/
+%textarea-layout {
+  @extend %text-input-layout;
+  
+  @include box-shadow(none);
+  
+  min-height: 80px;
+  resize: vertical;
+}
+
+/*
+  Search field layout extend.
+*/
+%search-field-layout {
+  @include position(relative);
+  
+  $icon-size: floor(image-width(sprite-file($general-sprite, 'search')));
+  
+  .search {
+    @include transition(box-shadow .2s ease-out);
+    @include box-shadow(inset 1px 1px 3px 0 rgba(black, .1), 0 0 0 0 transparent);
+    
+    width: 100%;
+    padding: 16px ($icon-size + 30px) 16px 12px;
+    font-size: $base-font-size;
+    color: $darkgray;
+    
+    &:focus {
+      @include box-shadow(inset 1px 1px 3px 0 rgba(black, .1), 0 0 5px 0 rgba(black, .2));
+    }
+  }
+  
+  .search-submit {
+    @include use-general-sprite('search');
+    @include position(absolute, 50% 15px);
+    
+    display: block;
+    margin-top: $icon-size / -2;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+  }
+}
+
+/*
+  Select layout extend.
+*/
+%select-layout {
+  width: 100%;
+}
+
+/*
+  Radio buttons extend.
+  
+  TODO - This might need to be made more general, if radio groups other than
+  yes/no are to be used.
+*/
+%radio-buttons {
+  @extend %clearfix;
+  
+  /*
+    Input styles.
+  */
+  & > input {
+    /* IE does not support :checked, nor :not */
+    &:not(:checked),
+    &:checked {
+      @extend %hide-element;
+    }
+    
+    .lt-ie9 & {
+      @include inline-block;
+    }
+  }
+  
+  /*
+    Label styles.
+  */
+  & > label {
+    float: left;
+    margin-left: 10px;
+    padding: 2px;
+    font-weight: 700;
+    cursor: pointer;
+    
+    &:first-of-type {
+      margin-left: 0;
+    }
+    
+    /*
+      Radio button image.
+    */
+    &:before {
+      @include use-general-sprite('radio');
+      @include inline-block;
+      
+      content: '';
+      margin-right: 5px;
+      vertical-align: bottom;
+      
+      .lt-ie9 & {
+        display: none;
+      }
+    }
+    
+    .lt-ie9 & {
+      @include inline-block;
+      
+      float: none;
+      margin: 0 10px 0 0;
+      padding: 0;
+    }
+  }
+  
+  
+  /*
+    Hover and checked states.
+  */
+  & > label:hover:before,
+  & > input:checked + label:before {
+    // Use the sprite this way, because the use-general-sprite extends
+    // %squish-text. The output becomes:
+    // input:checked + .radio-button:before,
+    // .all-other-stuff { styles here }
+    // IE doesn't support :checked, so it ignores the _entire_ rule,
+    // like the idiot that it is.
+    @include squish-text;
+    @include use-sprite($general-sprite, 'radio-filled');
+  }
+}
+
+/** ----------------------------------
+
+  Form validation styles.
+  
+  See the live validation library: http://livevalidation.com/
+
+---------------------------------- */
+/*
+  Valid form input extend.
+  
+  This icon is displayed when a form input has passed validation.
+*/
+%valid-form-input {
+  @include use-icon-sprite('check');
+  @include position(absolute, 0 10px 12px);
+  
+  display: block;
+  
+  /* Hide the required/optional text. */
+  & + .field-required,
+  & + .field-optional {
+    display: none;
+  }
+}
+
+/*
+  Invalid form input.
+*/
+%invalid-form-input {
+  @include position(absolute, 0 10px 12px);
+  @include use-icon-sprite('delete-active');
+  
+  display: block;
+  
+  /* Hide the required/optional text. */
+  & + .field-required,
+  & + .field-optional {
+    display: none;
+  }
+}
+
+/*
+  Post form layout extend.
+*/
+%post-form-layout {
+  .button-bar {
+    @extend %clearfix;
+    
+    text-align: right;
+  }
+  
+  .add-tag {
+    float: left;
+  }
+  
+  /*
+    Tool bar gets inserted by the Wysihtml5 library.
+  */
+  .wysihtml5-toolbar {
+    margin: 10px 0;
+    
+    /* Wysiwyg editor buttons. */
+    .wysihtml5-command-active,
+    .wysihtml5-command-active:hover {
+      color: white;
+      background-color: darken($darkgray, 5%);
+    }
+    
+    .button {
+      margin-right: 5px;
+    }
+    
+    /* Add link button. */
+    .add-link {
+      float: right;
+      margin: 0;
+    }
+  }
+}
+
+%wysiwyg-layout {
+  margin-bottom: 0;
+  
+  .textarea-wrapper {
+    @extend %text-input-layout;
+
+    min-height: 80px;
+    resize: vertical;
+    behavior: url($pie-path);
+  }
+  
+  iframe,
+  body {
+    box-shadow: none !important;
+  }
+  
+  .wysihtml5-editor,
+  textarea {
+    margin: 0;
+    padding: 0;
+    
+    &:focus {
+      outline: 0;
+      border: 0;
+    }
+  }
+}

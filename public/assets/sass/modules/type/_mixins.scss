@@ -1,0 +1,20 @@
+/* Type module mixins.
+----------------------------------------- */
+/*
+  Include fonts mixin.
+*/
+@mixin include-fonts() {
+  /* Regular. */
+  @include font-face('hp', font-files(
+    'hpSimplified/HPSimplifiedW04-Regular.woff',
+    'hpSimplified/HPSimplifiedW04-Regular.ttf',
+    'hpSimplified/HPSimplifiedW04-Regular.svg#HPTextBetaRegular'
+  ), 'hpSimplified/HPSimplifiedW04-Regular.eot');
+  
+  /* Bold. */
+  @include font-face('hp', font-files(
+    'hpSimplified/HPSimplifiedW04-Bold.woff',
+    'hpSimplified/HPSimplifiedW04-Bold.ttf',
+    'hpSimplified/HPSimplifiedW04-Bold.svg#HPTextBetaBold'
+  ), 'hpSimplified/HPSimplifiedW04-Bold.eot', 700);
+}

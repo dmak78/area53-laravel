@@ -1,0 +1,39 @@
+<div class="status-content">
+    <div class="avatar extra-small">
+        <img src="<%= data.OwnerImage %>" alt="<%= data.OwnerName %>">
+    </div>
+    <div class="source">
+        <p class="relative-time"><abbr class="timeago" title=""></abbr></p>
+            <ul class="user-names">
+                <li>
+                    <a href="<%= data.OwnerUrl %>" class="user-name">
+                        <% if (data.fromSIP) { %>
+                        <span class="communicator-presence"> 
+                            <img border="0" height="12" src="/_layouts/images/imnhdr.gif" onload="IMNRC('<%= data.OwnerSIP %>')" ShowOfflinePawn="1" class="presence-pawn" id="PresencePawn<%= data.Id %>" alt="" />
+                        </span>
+                        <% } %>
+                        <%= data.OwnerName %>
+                    </a>
+                </li>     
+            </ul>
+        </div>
+
+        <p class="status">
+            <% if(data.ShortMessage){ %>
+                <span class='snip-comment'><%= data.ShortMessage %></span>
+                <span class='full-comment' style="display:none;"><%= data.Message %> </span><br />
+                <a href='#' class='view-all-comment'>More</a>
+            <% } else { %>
+                <%= data.Message %> 
+            <% } %>
+        </p>
+
+        <div class="status-buttons">
+            <div class="moderation">
+                <a href="#" class="icon subcomment flag <%= data.IsFlagged ? 'active' : '' %>" data-id="<%= data.Id %>">Flag</a>
+                <a href="#" class="icon subcomment delete" data-id="<%= data.Id %>">Delete</a>
+            </div>
+        </div>
+    </div>
+
+

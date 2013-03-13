@@ -1,0 +1,23 @@
+/** ----------------------------------
+
+  Event
+  -------
+
+  Event page layout.
+  
+  /event
+
+---------------------------------- */
+.page-event {
+  
+  /*
+    Main Headline
+   */
+  .main-content-block h2 {
+    color: $primary;
+  }
+  
+  .event-meta {
+    font-size: 16px;
+  }
+}

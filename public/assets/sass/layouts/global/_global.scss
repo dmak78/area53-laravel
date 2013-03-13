@@ -1,0 +1,19 @@
+/** ----------------------------------
+
+  Global
+  ------
+
+  Base stylesheet for global elements.
+  
+  A global element layout would be something that is shared
+  between the Platform, HP Events and Stories sections of the site.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+/* Header and footer */
+@import 'header';
+@import 'footer';
+
+/* Newsfeed items. */

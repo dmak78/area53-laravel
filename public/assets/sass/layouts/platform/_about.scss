@@ -1,0 +1,53 @@
+/** ----------------------------------
+
+  About
+  -----
+
+  About page layout.
+
+---------------------------------- */
+.page-about {
+  .main-content-block {
+    @include mobile {
+      margin-top: 20px;
+    }
+  }
+}
+
+/*
+  Project team tab.
+*/
+.onehp-project-team {
+  li {
+    margin: 10px 0;
+  }
+}
+
+/*
+  Roadmap tab.
+*/
+.onehp-roadmap {
+  @extend %sectioned-list;
+  
+  li {
+    @include position(relative);
+    @include phone {
+      padding: 20px 0;
+    }
+    
+    padding: 20px 40% 20px 0;
+  }
+  
+  .progress-bar {
+    @include position(absolute, 50% 0px);
+    @include phone {
+      @include position(static);
+      
+      width: auto;
+      margin-top: 10px;
+    }
+    
+    width: 35%;
+    margin-top: -20px;
+  }
+}

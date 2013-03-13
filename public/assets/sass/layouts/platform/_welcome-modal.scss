@@ -1,0 +1,86 @@
+/** ----------------------------------
+
+  Welcome Modal
+  -------------
+
+  Welcome modal layout.
+
+---------------------------------- */
+.welcome-modal {
+  .modal-header {
+    h1 {
+      @include phone {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+/*
+  Slider inside the modal dialog.
+*/
+.welcome-slider {
+  .prev,
+  .next {
+    @include mobile {
+      display: none;
+    }
+  }
+  
+  .no-touch & .slide {
+    @include mobile {
+      padding: 0;
+    }
+    
+    padding: 0 120px;
+  }
+  
+  .slide-title,
+  .slide-description {
+    margin-bottom: 10px;
+  }
+  
+  /*
+    Title and location half of the preferences slide.
+  */
+  .title-and-location {
+    @include mobile {
+      float: none;
+      width: auto;
+    }
+    
+    float: left;
+    width: 50%;
+  }
+  
+  /* Email preferences on the same slide. */
+  .email-preferences {
+    @include mobile {
+      float: none;
+      width: auto;
+    }
+    
+    float: right;
+    width: 50%;
+  }
+  
+  .button-bar {
+    .submit {
+      @include phone {
+        float: none;
+      }
+      
+      float: right;
+    }
+  }
+  
+  .current-step {
+    @include inline-block;
+    @include phone {
+      display: block;
+      margin: 10px 0;
+    }
+    
+    margin: 0 10px;
+  }
+}

@@ -1,0 +1,53 @@
+/** ----------------------------------
+
+  Global footer
+  -------------
+
+  Layout for the global footer.
+
+---------------------------------- */
+.global-footer {
+  @include mobile {
+    text-align: center;
+  }
+  
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: right;
+  
+  .footer-navigation ul {
+    @include inline-block;
+    @include horizontal-list;
+    
+    margin: 10px 0;
+    
+    li {
+      @include phone {
+        display: block;
+        float: none;
+      }
+    }
+    
+    a {
+      @extend %small-static;
+      
+      @include link-color(black, $primary);
+      @include phone {
+        display: block;
+        font-size: 12px;
+        margin: 0 3px;
+      }
+      
+      margin: 0 5px;
+      padding: 3px 0;
+    }
+  }
+  
+  .copyright {
+    @include phone {
+      font-size: 10px;
+    }
+    
+    color: $midblue;
+  }
+}

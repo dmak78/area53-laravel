@@ -1,0 +1,16 @@
+<% /*
+
+  Details page for an individual photo.
+
+*/ %>
+<a href="/group-photos/<%= data.albumId %>">Back to album</a>
+
+<% if (data.nextPhoto) { %>
+  <a href="/group-photos/<%= data.albumId %>/<%= data.nextPhoto.id %>">next</a>
+<% } %>
+
+<% if (data.prevPhoto) { %>
+  <a href="/group-photos/<%= data.albumId %>/<%= data.prevPhoto.id %>">prev</a>
+<% } %>
+
+<img src="/<%= data.fullUrl %>">

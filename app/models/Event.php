@@ -3,14 +3,18 @@
 class Event extends Eloquent {
 	protected $table = 'events';
 
-	public function author()
+	public function owner()
 	{
-		return $this->belongs_to('User');
+		return $this->morphTo();
 	}
 
-	public function address()
+	public function photos()
 	{
-		return $this->has_one('Address');
+		return $this->morphMany('Photo', 'owner');
 	}
 
+	public function attendees()
+	{
+		return $this->belongsToMany('User');
+	}
 }

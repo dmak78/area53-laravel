@@ -1,0 +1,18 @@
+/** ----------------------------------
+
+  Functions
+  ---------
+
+  Site functions.
+
+---------------------------------- */
+/*
+  Convert from pixels to em.
+*/
+@function em($pixel, $base: $base-font-size) {
+  @return unquote($pixel / $base + 'em');
+}
+
+@function pixelcent($value, $base) {
+  @return percentage($value / $base);
+}

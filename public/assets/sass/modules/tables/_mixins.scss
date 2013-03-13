@@ -1,0 +1,24 @@
+/* Tables module mixins.
+----------------------------------------- */
+/*
+  Set table columns mixin.
+  @param {Number} $columns The number of columns in the table.
+*/
+@mixin set-table-columns($columns: 5) {
+  $percent: percentage((100 / $columns) / 100);
+  
+  %column-width {
+    float: left;
+    width: $percent;
+  }
+  
+  .table-header > div {
+    @extend %column-width;
+  }
+  
+  .table-contents > li {
+    & > div {
+      @extend %column-width;
+    }
+  }
+}

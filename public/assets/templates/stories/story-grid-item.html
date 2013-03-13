@@ -1,0 +1,23 @@
+<% /*
+
+  Individual item in the 'Find Stories' grid view.
+  
+  See:
+    - /stories-home
+    - storiesHomeView.js
+
+*/ %>
+<div class="story-block <%= data.blockClass %> <%= data.hasCategoryBg() %>" <%= data.hasPhotoBg() %>>
+  <a href="<%= data.url %>" class="block-content">
+    <div class="story-details">
+      <time class="story-date"><%= data.formattedDate %></time>
+      <h4 class="story-title"><%= data.contextualTitle() %></h4>
+    </div>
+    
+    <% if (data.hasPhotoBg()) { %>
+      <!--[if lte IE 8]>
+        <div class="ie-fallback-cover"></div>
+      <![endif]-->
+    <% } %>
+  </a>
+</div>

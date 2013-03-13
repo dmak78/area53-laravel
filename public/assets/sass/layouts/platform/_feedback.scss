@@ -1,0 +1,28 @@
+/** ----------------------------------
+
+  Feedback
+  --------
+
+  Feedback page layout.
+
+---------------------------------- */
+.feedback-form {
+  .radio {
+    float: right;
+    margin-left: 20px;
+  }
+  
+  /*
+    Tell us more section.
+  */
+  .accordion-group {
+    clear: both;
+  }
+  
+  /*
+    Hidden textara for extra input.
+  */
+  .extra-input {
+    margin-bottom: 10px;
+  }
+}

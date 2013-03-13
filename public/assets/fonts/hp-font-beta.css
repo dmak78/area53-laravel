@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'hpBold';
+    src: url('hp-font-beta/hptextbeta_bd.eot');
+    src: url('hp-font-beta/hptextbeta_bd.eot?#iefix') format('embedded-opentype'),
+         url('hp-font-beta/hptextbeta_bd.woff') format('woff'),
+         url('hp-font-beta/hptextbeta_bd.ttf') format('truetype'),
+         url('hp-font-beta/hptextbeta_bd.svg#HPTextBetaBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'hpRegular';
+    src: url('hp-font-beta/hptextbeta_rg.eot');
+    src: url('hp-font-beta/hptextbeta_rg.eot?#iefix') format('embedded-opentype'),
+         url('hp-font-beta/hptextbeta_rg.woff') format('woff'),
+         url('hp-font-beta/hptextbeta_rg.ttf') format('truetype'),
+         url('hp-font-beta/hptextbeta_rg.svg#HPTextBetaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'hpLight';
+    src: url('hp-font-beta/hptextbeta_lt.eot');
+    src: url('hp-font-beta/hptextbeta_lt.eot?#iefix') format('embedded-opentype'),
+         url('hp-font-beta/hptextbeta_lt.woff') format('woff'),
+         url('hp-font-beta/hptextbeta_lt.ttf') format('truetype'),
+         url('hp-font-beta/hptextbeta_lt.svg#HPTextBetaLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

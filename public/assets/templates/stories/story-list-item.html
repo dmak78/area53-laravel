@@ -1,0 +1,40 @@
+<% /*
+
+  Individual item in the 'Find Stories' list view.
+  
+  See:
+    - /stories-home
+    - storiesHomeView.js
+
+*/ %>
+<li class="story-item">
+  <div class="story-thumbnail">
+    <div class="story-block small-no-hover <%= data.hasCategoryBg() %>" <%= data.hasPhotoBg() %>>
+      <a href="<%= data.url %>" class="block-content"></a>
+    </div>
+
+    <a href="<%= data.url %>" class="button view-story">View Story</a>
+  </div>
+  
+  <div class="story-details">
+    <div class="title">
+      <small>Title:</small>
+      <a href="<%= data.url %>" class="user-name"><%= data.shortTitle %></a>
+    </div>
+    
+    <div class="author">
+      <small>Submitted By:</small>
+      <a href="/profile" class="user-name"><%= data.author %></a>
+    </div>
+    
+    <div class="date">
+      <small>Date submitted:</small>
+      <time><%= data.formattedDate %></time>
+    </div>
+    
+    <div class="description">
+      <p class="category-icon decorator-<%= data.category %>"><%= data.formattedCategory %></p>
+      <%= data.description %>
+    </div>
+  </div>
+</li>

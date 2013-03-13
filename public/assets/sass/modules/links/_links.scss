@@ -1,0 +1,63 @@
+/** ----------------------------------
+
+  Links
+  -----
+
+  Links module.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+$blue: blue !default;
+$darkgray: gray !default;
+$sans-stack: sans-serif !default;
+
+/*
+  Mixon.
+*/
+@mixin links() {
+  a {
+    color: $blue;
+    
+    &:visited {
+      
+    }
+    
+    &:hover {
+      color: $blue;
+    }
+    
+    &:active {
+      
+    }
+    
+    &:focus {
+      outline: 0;
+    }
+  }
+  
+  .view-all {
+    @extend %view-all-link;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  View all link.
+*/
+%view-all-link {
+  @include link-color($darkgray, $darkgray, $darkgray);
+  
+  font: 700 15px $sans-stack;
+}

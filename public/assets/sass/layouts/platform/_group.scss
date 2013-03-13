@@ -1,0 +1,65 @@
+/** ----------------------------------
+
+  Group
+  -----
+
+  Group page layout.
+  
+  /group
+
+---------------------------------- */
+.page-group {
+  
+}
+
+/*
+  Group page header element.
+*/
+.group-summary {
+  @include mobile {
+    padding: 20px 0;
+  }
+  
+  padding: 100px 0 20px 0;
+  
+  /* Group avatar. */
+  .platform-header-avatar {
+    @include position(relative);
+    @include tablet {
+      @include span-columns(1);
+    }
+    
+    min-height: 1px;
+    
+    .avatar {
+      @include position(absolute, -30px);
+      @include mobile {
+        @include position(relative, 'reset');
+      }
+      
+      max-width: 100%;
+    }
+  }
+  
+  .contact-list {
+    margin: 10px 0;
+  }
+  
+  /* Group details. */
+  .platform-header-details {
+    @include tablet {
+      @include span-columns(2);
+      
+      margin: 0;
+    }
+  }
+  
+  /* Subscribe button. */
+  .platform-header-meta {
+    @include tablet {
+      @include span-columns(2);
+      
+      margin: 20px 0 0 0;
+    }
+  }
+}

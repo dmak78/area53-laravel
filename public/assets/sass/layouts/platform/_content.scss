@@ -1,0 +1,266 @@
+/** ----------------------------------
+
+  Content
+  -------
+
+  Platform section content block.
+
+---------------------------------- */
+/*
+  Content.
+  
+  This block is a fairly generic content block that can accomodate up to three
+  columns of content.
+  
+  Example:
+  
+  <div class="platform-content">
+    <section class="sidebars">
+      <aside class="primary-sidebar">[...]</aside>
+      <aside class="secondary-sidebar">[...]</aside>
+    </section>
+    
+    <section class="main-content-block">[...]</section>
+  </div>
+*/
+.platform-content {
+  @extend .container;
+  
+  @include phone {
+    margin-top: 20px;
+  }
+  
+  margin-top: 80px;
+  
+  /*
+    Sidebar container.
+    
+    This element must collapse to achieve the tablet layout, meaning, do not apply a clearfix.
+  */
+  .sidebars {
+    @include desktop {
+      /* Override the main content block's margin if sidebars exist. */
+      & + .main-content-block {
+        @include push(0);
+      }
+    }
+    @include tablet {
+      @include span-columns(1);
+      
+      /* Override the main content block's margin if sidebars exist. */
+      & + .main-content-block {
+        @include span-columns(2 omega);
+      }
+    }
+    @include phone {
+      @include reset-columns;
+      
+      display: block;
+    }
+    
+    background-color: white;
+    
+    &.secondary-only {
+      & + .main-content-block {
+        @include push(1);
+      }
+    }
+  }
+  
+  /*
+    Primary sidebar.
+  */
+  .primary-sidebar {
+    @include span-columns(1);
+    @include mobile {
+      @include reset-columns;
+      
+      display: block;
+    }
+    
+    background-color: white;
+  }
+  
+  /*
+    Secondary sidebar.
+  */
+  .secondary-sidebar {
+    @include span-columns(1 omega);
+    @include mobile {
+      @include reset-columns;
+      
+      display: block;
+    }
+    
+    background-color: white;
+  }
+  
+  /*
+    Main content block.
+  */
+  .main-content-block {
+    @include span-columns(2);
+    @include push(1);
+    @include tablet {
+      @include reset-columns;
+      
+      display: block;
+      margin: 0;
+    }
+    @include phone {
+      @include reset-columns;
+      
+      display: block;
+      margin: 0;
+    }
+    
+    background-color: white;
+  }
+}
+
+/*
+  Header element.
+  
+  Intended to exist inside the main content block, but can be placed anywhere.
+*/
+.content-block-header {
+  @include position(relative);
+  
+  margin-bottom: 20px;
+  
+  /* Section title. */
+  .section-title {
+    @include phone {
+      width: auto;
+      margin: 10px 0;
+    }
+    
+    width: 60%;
+  }
+  
+  /* The 'Return to...' link. */
+  .back-link {
+    @include position(absolute, 0px 0px);
+    @include mobile {
+      @include position(relative);
+    }
+    
+    width: 40%;
+    text-align: right;
+  }
+}
+
+/*
+  Secondary version of the platform content block.
+  
+  Only accepts one sidebar, and a main content block.
+  Typically the sidebar will be some kind of in-page navigation.
+  
+  <div class="platform-content-secondary">
+    <aside class="primary-sidebar">[...]</aside>
+    <section class="main-content-block">[...]</section>
+  </div>
+*/
+.platform-content-secondary {
+  @extend .platform-content;
+  
+  @include tablet {
+    margin-top: 40px;
+  }
+  
+  .primary-sidebar {
+    @include mobile {
+      @include reset-columns;
+      
+      display: block;
+    }
+    @include span-columns(1);
+    
+    /*
+      Widgets inside the sidebar.
+    */
+    .widget {
+      @include desktop {
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+      @include tablet {
+        margin: 10px 0;
+      }
+      
+      margin: 50px 0;
+    }
+  }
+  
+  .main-content-block {
+    @include span-columns(3 omega);
+    @include mobile {
+      @include reset-columns;
+      
+      display: block;
+    }
+    
+    margin-left: 0; // Reset the margin from platform-content.
+  }
+}
+
+/*
+  Just like the .platfrom-content-secondary class,
+  but with the columns reversed on the desktop layout.
+*/
+.platform-content-secondary-reverse {
+  @extend .platform-content-secondary;
+  
+  .primary-sidebar {
+    @include desktop {
+      @include omega;
+    }
+  }
+  
+  .main-content-block {
+    @include desktop {
+      @include push(0);
+      @include span-columns(3);
+    }
+  }
+}
+
+/*
+  Grid version of the platform content container.
+  
+  Expects a ul.grid-items container. Grid layout defaults to:
+    - Desktop: 6 columns
+    - Tablet: 5 columns
+    - Phone: 3 columns
+  
+  Example:
+  
+    <div class="platform-grid">
+      <header class="grid-header">[...]</header>
+      <ul class="grid-items">[...]</ul>
+    </div>
+*/
+.platform-grid {
+  @extend .platform-content;
+  
+  /*
+    Container for items in the grid.
+  */
+  .grid-items {
+    @include pie-clearfix;
+    
+    li {
+      @include inline-block;
+      @include tablet {
+        width: (100% / 4);
+      }
+      @include phone {
+        width: (100% / 3);
+      }
+      
+      float: left;
+      width: (100% / 6);
+    }
+  }
+}

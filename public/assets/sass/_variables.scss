@@ -1,0 +1,86 @@
+/** ----------------------------------
+
+  Variables
+  ---------
+
+  Site variables.
+
+---------------------------------- */
+/* Site config. */
+$debugging-messages: false;
+
+/* Type. */
+$sans-stack: 'hp', sans-serif;
+$serif-stack: serif;
+$default-stack: sans-serif;
+
+/*
+  IE Behavior.
+  See: http://css3pie.com/
+*/
+$pie-path: '/PIE.htc';
+
+
+/** ----------------------------------
+
+  Compass config.
+
+---------------------------------- */
+$legacy-support-for-ie8: true;
+$base-font-size: 16px;
+$base-line-height: 20px;
+
+
+/** ----------------------------------
+
+  Susy config.
+
+---------------------------------- */
+/* Layouts. */
+$break-desktop: 801px 4;
+$break-mobile: 3 800px;
+$break-tablet: 481px 3 nth($break-mobile, 2);
+$break-phone: 1 nth($break-tablet, 1) - 1;
+
+/* Grid. */
+$total-columns: nth($break-desktop, 2);
+$column-width: 220px;
+$gutter-width: 20px;
+$grid-padding: $gutter-width;
+
+/* Options. */
+$container-style: magic;
+$show-grid-backgrounds: false;
+
+
+/** ----------------------------------
+
+  Colors
+
+---------------------------------- */
+/*
+  Primary color palette.
+*/
+$orange: #d7410b;
+$green: #008424;
+$blue: #007dba; /* bb: changed from #0096d6 on Feb 1, 2013 */
+
+$primary: $blue;
+$secondary: $orange;
+$tertiary: $green;
+
+$lightblue: #e6ebee;
+$midblue: #b9b9bb;
+
+/*
+  Gray palette.
+*/
+$lightgray: #e5e8e8;
+$darkgray: #767676;
+$bggray: $lightgray;
+
+/*
+  Type.
+*/
+$bodycopy: black;
+$lighttype: $darkgray;

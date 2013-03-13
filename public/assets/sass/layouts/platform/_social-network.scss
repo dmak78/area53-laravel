@@ -1,0 +1,199 @@
+/** ----------------------------------
+
+  Social Network
+  --------------
+
+  Social network content block.
+
+---------------------------------- */
+/*
+  Social network.
+  
+  The social network element is the main three column layout seen on the
+  Home, Group, and Profile pages.
+  
+  This is a float based block, and the tablet layout depends on the collapsing behavior
+  of elements that contain floated children.
+  
+  Example:
+  
+  <div class="platform-social-network">
+    <section class="sidebars">[...]</section>
+    <section class="newsfeed">[...]</section>
+  </div>
+*/
+.platform-social-network {
+  @extend .platform-content;
+  
+  margin-top: 0;
+  
+  /*
+    Primary sidebar.
+    
+    - Desktop: Left side.
+    - Tablet: Top, under newsfeed.
+    - Phone: In the sidebar tray, on top.
+  */
+  .primary-sidebar {
+    @include mobile {
+      margin-top: 0;
+    }
+    
+    margin-top: 80px;
+    
+    .widget {
+      margin-top: 50px;
+      
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+  
+  /*
+    Secondary sidebar.
+    
+    - Desktop: Right side.
+    - Tablet: Bottom, under the Primary sidebar.
+    - Phone: In the sidebar tray, on bottom.
+  */
+  .secondary-sidebar {
+    @include mobile {
+      margin-top: 0;
+    }
+    
+    margin-top: 80px;
+    
+    .widget {
+      margin-top: 50px;
+      
+      &:first-child {
+        margin-top: 0;
+      }
+    } 
+  }
+  
+  /*
+    Newsfeed.
+    
+    - Desktop: center.
+    - Tablet: Right side.
+    - Phone: Top, above sidebars.
+  */
+  .newsfeed {
+    @include span-columns(2);
+    @include tablet {
+      @include span-columns(2 omega);
+    }
+    @include phone {
+      @include reset-columns;
+      
+      display: block;
+    }
+    
+    background-color: white;
+  }
+}
+
+
+/** ----------------------------------
+
+  Platform social network mobile layout.
+
+---------------------------------- */
+$platform-mobile-tray-default-open-position: 85% !default;
+
+/*
+  Tray element.
+  
+  Fixed in place, and sits 'under' the platform-mobile-panel elements.
+  When the platform-mobile-panel elements are open, this element
+  will be visible, and independently scrollable.
+*/
+.platform-mobile-tray {
+  @extend .platform-social-network;
+  
+  @include position(fixed, 0px 0 0 0px, 10);
+  @include box-sizing(border-box);
+  
+  height: 100%;
+  padding: 25px 20px 25px 100% - $platform-mobile-tray-default-open-position + 5;
+  background-color: white;
+  visibility: hidden;
+
+  &.open {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/*
+  Panel element.
+  
+  These elements will get transitioned right when the open class is applied.
+*/
+.platform-mobile-panel {
+  @include transition(transform .4s ease-out);
+  @include translate3d(0, 0, 0);
+  @include position(relative, 0, 20);
+  
+  background-color: white;
+  
+  &.open {
+    @include translate3d($platform-mobile-tray-default-open-position * -1, 0, 0);
+  }
+  
+  /* Shadows. */
+  &:after {
+    @include position(absolute, 0px 0px);
+    @include box-shadow(8px 0 8px 0px rgba(black, .5));
+    
+    content: '';
+    display: block;
+    width: 10px;
+    height: 100%;
+    background: transparent;
+  }
+}
+
+/*
+  Close button for the mobile tray layout.
+*/
+.close-mobile-tray {
+  $close-button-width: 100% - $platform-mobile-tray-default-open-position;
+  
+  @extend %squish-text;
+  
+  @include transition(transform .2s ease-out);
+  @include translate3d(-100%, 0, 0);
+  @include background(linear-gradient(rgba(white, 0) 30%, white 40%, white 60%, rgba(white, 0) 70%));
+  @include apply-pointer('left', $size: 10px, $color: $blue, $element: 'before') {
+    @include position(absolute, 50% 47% auto auto, 10);
+    
+    margin-top: -5px;
+  }
+  @include position(fixed, 0px 0 0 0px, 20);
+
+  width: $close-button-width;
+  height: 100%;
+  
+  &:hover {
+    cursor: pointer;
+  }
+  
+  &:after {
+//    @include size(30px);
+//    @include position(absolute, 50% 0 0 50%);
+//    @include border-radius(100%);
+//  
+//    content: '';
+//    display: block;
+//    margin-top: -10px;
+//    margin-left: -16px;
+//    background: $blue;
+  }
+  
+  &.show {
+    @include translate3d(0, 0, 0);
+  }
+}

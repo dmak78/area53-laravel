@@ -1,0 +1,146 @@
+<div class="photo-details-container container">
+  <header class="photo-detail-header">
+    Return to <a href="/group">Group</a> | <a href="/group-photos/<%= data.album.id %>">Album</a>
+  </header>
+  
+  <div class="photo">
+    <img src="/<%= data.photo.fullUrl %>">
+    
+    <% if (data.photo.nextPhoto) { %>
+      <a class="next-navigation" href="/group-photos/<%= data.album.id %>/<%= data.photo.nextPhoto.id %>">
+        <span class="next-photo">Next</span>
+      </a>
+    <% } %>
+
+    <% if (data.photo.prevPhoto) { %>
+      <a class="prev-navigation" href="/group-photos/<%= data.album.id %>/<%= data.photo.prevPhoto.id %>">
+        <span class="prev-photo">Previous</span>
+      </a>
+    <% } %>
+  </div>
+  
+  <div class="newsfeed">
+    <header>
+      <h3 class="photo-title"><%= data.photo.title %></h3>
+      <a href="#" class="button like">3 Likes</a>
+      <a href="#" class="button comment">5 Comments</a>
+    </header>
+    
+    <article class="status-update">
+      <ul class="status-comments">
+        
+        <li class="status-update">
+          <div class="status-content">
+            <div class="avatar extra-small">
+              <img src="/lib/img/hp/avatars/75/josh.jpg" />
+            </div>
+            
+            <div class="source">
+              <p class="relative-time">45 Minutes Ago</p>
+              
+              <ul class="user-names">
+                <li><a href="#" class="user-name"><span class="communicator-presence"></span>Stephen Koch</a></li>
+              </ul>
+            </div>
+            
+            <p class="status">I’d like to give a warm welcome to Ronnie Lee.<br />He’ll be joining HP Labs today.</p>
+            
+            <div class="status-buttons">
+              <div class="moderation"><a href="#" class="icon flag">Flag</a><a href="#" class="icon delete" data-original-title="">Delete</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="status-update">
+          <div class="status-content">
+            <div class="avatar extra-small">
+              <img src="/lib/img/hp/avatars/75/anis.jpg" />
+            </div>
+            
+            <div class="source">
+              <p class="relative-time">45 Minutes Ago</p>
+              
+              <ul class="user-names">
+                <li><a href="#" class="user-name"><span class="communicator-presence"></span>Will Simon</a></li>
+              </ul>
+            </div>
+            
+            <p class="status">Just donated 4 hours of my time this week to help out the <a href="#">Hacking Autsim Group</a>. Pretty neat stuff.</p>
+            
+            <div class="status-buttons">
+              <div class="moderation"><a href="#" class="icon flag">Flag</a><a href="#" class="icon delete" data-original-title="">Delete</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="status-update">
+          <div class="status-content">
+            <div class="avatar extra-small">
+              <img src="/lib/img/hp/avatars/75/kate.jpg" />
+            </div>
+            
+            <div class="source">
+              <p class="relative-time">45 Minutes Ago</p>
+              
+              <ul class="user-names">
+                <li><a href="#" class="user-name"><span class="communicator-presence"></span>Karla Mickens</a></li>
+              </ul>
+            </div>
+            
+            <p class="status">Mustache keffiyeh bespoke, umami selvage small batch vice you probably haven't heard of them lo-fi raw denim.</p>
+            
+            <div class="status-buttons">
+              <div class="moderation"><a href="#" class="icon flag">Flag</a><a href="#" class="icon delete" data-original-title="">Delete</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="status-update">
+          <div class="status-content">
+            <div class="avatar extra-small">
+              <img src="/lib/img/hp/avatars/75/anis.jpg" />
+            </div>
+            
+            <div class="source">
+              <p class="relative-time">45 Minutes Ago</p>
+              <ul class="user-names">
+                <li><a href="#" class="user-name"><span class="communicator-presence"></span>Will Simon</a></li>
+              </ul>
+            </div>
+            
+            <p class="status">Pitchfork ennui irony, yr lo-fi scenester pickled.</p>
+            
+            <div class="status-buttons">
+              <div class="moderation"><a href="#" class="icon flag">Flag</a><a href="#" class="icon delete" data-original-title="">Delete</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="status-update">
+          <div class="status-content">
+            <div class="avatar extra-small">
+              <img src="/lib/img/hp/avatars/75/danielle.jpg" />
+            </div>
+            
+            <div class="source">
+              <p class="relative-time">45 Minutes Ago</p>
+              <ul class="user-names">
+                <li><a href="#" class="user-name"><span class="communicator-presence"></span>Karla Mickens</a></li>
+              </ul>
+            </div>
+            
+            <p class="status">Truffaut viral aesthetic forage, artisan mcsweeney's tofu biodiesel bespoke fap sartorial photo booth tattooed helvetica.</p>
+            
+            <div class="status-buttons">
+              <div class="moderation"><a href="#" class="icon flag">Flag</a><a href="#" class="icon delete" data-original-title="">Delete</a></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <footer class="status-footer">
+        <form class="post-comment-form"><textarea placeholder="Leave a comment&hellip;"></textarea></form>
+      </footer>
+    </article>
+  </div>
+</div>

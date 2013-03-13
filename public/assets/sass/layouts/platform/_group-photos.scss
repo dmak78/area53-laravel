@@ -1,0 +1,166 @@
+/** ----------------------------------
+
+  Group Photos
+  ------------
+
+  Group photos layout.
+
+---------------------------------- */
+.page-group-photos {
+  .grid-header {
+    margin-bottom: 20px;
+  }
+}
+
+.group-photos-grid {
+  li {
+    height: 200px
+  }
+}
+
+/*
+  Single photo page.
+*/
+.photo-details-container {
+  .photo-detail-header {
+    text-align: right;
+    margin: 40px 0 20px 0;
+  }
+  
+  /*
+    Photo column, with navigation elements.
+  */
+  .photo {
+    @include position(relative);
+    @include mobile {
+      float: none;
+      width: auto;
+      text-align: center;
+    }
+    
+    float: left;
+    width: 50%;
+    
+    & > img {
+      max-width: 100%;
+    }
+    
+    /*
+      Navigation blocks.
+    */
+    %nav-links {
+      @include position(absolute, 0, 200);
+      
+      display: block;
+      width: 50%;
+      height: 100%;
+      
+      /* http://stackoverflow.com/questions/6438048/css-problem-link-positionabsolute-above-a-box-not-work-in-ie-opera */
+      /* Dumb, I know, but that's IE for you. */
+      background: rgba(255, 255, 255, 0.01);
+      
+      &:hover {
+        & > span {
+          display: block;
+        }
+      }
+      
+      .lt-ie9 & {
+        @include position(relative, 0, 200);
+
+        width: auto;
+        height: auto;
+
+        & > span {
+          display: block;
+        }
+      }
+    }
+    
+    .next-navigation {
+      @extend %nav-links;
+      
+      @include pos-coords(0px 0px);
+      
+      .lt-ie9 & {
+        @include pos-coords(-200px);
+      }
+    }
+    
+    .prev-navigation {
+      @extend %nav-links;
+      
+      @include pos-coords(0px 0 0 0px);
+      
+      .lt-ie9 & {
+        @include pos-coords(-200px);
+      }
+    }
+    
+    /*
+      Nav link icons.
+    */
+    .next-photo {
+      @include use-general-sprite('slide-next');
+      @include position(absolute, 50% 10px);
+      @include mobile {
+        @include pos-coords(auto 0 -10px 0);
+        
+        display: block;
+      }
+      
+      display: none;
+      margin-top: image-height(sprite-file($general-sprite, 'slide-next')) / -2;
+            
+      &:hover {
+        @include use-general-sprite('slide-next-hover');
+      }
+    }
+    
+    .prev-photo {
+      @include use-general-sprite('slide-prev');
+      @include position(absolute, 50% 0 0 10px);
+      @include mobile {
+        @include pos-coords(auto 0 -10px 0);
+        
+        display: block;
+      }
+      
+      display: none;
+      margin-top: image-height(sprite-file($general-sprite, 'slide-prev')) / -2;
+      
+      &:hover {
+        @include use-general-sprite('slide-prev-hover');
+      }
+    }
+  }
+  
+  /*
+    Newsfeed column,
+  */
+  .newsfeed {
+    @include mobile {
+      float: none;
+      width: auto;
+      margin: 20px 0 0 0;
+      padding: 0;
+    }
+    
+    float: right;
+    width: 50%;
+    padding-left: 30px;
+    
+    .photo-title {
+      margin-bottom: 10px;
+    }
+    
+    .status-update {
+      background: white;
+    }
+    
+    & > .status-update {
+      margin-top: 20px;
+      padding-top: 0;
+    }
+  }
+}

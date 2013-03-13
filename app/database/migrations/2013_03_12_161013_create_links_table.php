@@ -15,8 +15,9 @@ class CreateLinksTable extends Migration {
 			$table->increments('id');
 			$table->string('url');
 			$table->text('title');
-			$table->text('description');
+			$table->text('content');
 			$table->string('image_url');
+			$table->integer('author_id');
 			$table->timestamps();
 		});
 	}

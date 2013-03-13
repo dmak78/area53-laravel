@@ -1,0 +1,177 @@
+/** ----------------------------------
+
+  Slider
+  ------
+
+  Slider module.
+
+---------------------------------- */
+/*
+  Imports.
+*/
+@import 'mixins';
+
+/*
+  Variable defaults.
+*/
+
+/*
+  Mixon.
+*/
+@mixin sliders() {
+  .slider {
+    @extend %slider-layout;
+    @extend %slider-navigation;
+    
+    .slides {
+      @extend %slides-layout;
+    }
+    
+    /* Twitter bootstrap carousel fallback. */
+    .item {
+      @extend %item-layout;
+    }
+  }
+  
+  .dots {
+    @extend %slider-dots;
+  }
+}
+
+
+/** ----------------------------------
+
+  Module extends.
+
+---------------------------------- */
+/*
+  Slider layout extend.
+*/
+%slider-layout {
+  @include position(relative);
+}
+
+/*
+  Slides layout extend.
+  
+  Expecting the Swipe2 pattern: https://github.com/bradbirdsall/Swipe/tree/swipe2
+  
+  Example:
+  
+  <div class="slider">
+    <a href="#" class="prev">Previous</a>
+    <a href="#" class="next">Next</a>
+    
+    <div class="slides">
+      <div class="slide-wrap">
+        <div>[...]</div>
+        <div>[...]</div>
+      </div>
+    </div>
+  </div>
+*/
+%slides-layout {
+  @include position(relative, 0, 10);
+  
+  overflow: hidden;
+  visibility: hidden;
+  
+  .slide-wrap {
+    @include position(relative);
+
+    overflow: hidden;
+    
+    & > div {
+      @include position(relative);
+
+      float: left;
+      width: 100%;
+    }
+  }
+}
+
+/*
+  Twitter Bootstrap carousel fallback.
+*/
+%item-layout {
+  display: none;
+  
+  &.active {
+    display: block;
+  }
+}
+
+/*
+  Slider navigation extend.
+*/
+%slider-navigation {
+  /* Next. */
+  & > .next {
+    $sprite: 'slide-next';
+    
+    @extend %hide-touch;
+    
+    @include use-general-sprite($sprite);
+    @include position(absolute, 50% 20px, 20);
+    
+    display: block;
+    margin-top: image-height(sprite-file($general-sprite, $sprite)) / -2;
+    
+    &:hover {
+      @include use-general-sprite('#{$sprite}-hover');
+    }
+  }
+  
+  /* Previous. */
+  & > .prev {
+    $sprite: 'slide-prev';
+    
+    @extend %hide-touch;
+    
+    @include use-general-sprite($sprite);
+    @include position(absolute, 50% 0 0 20px, 20);
+    
+    display: block;
+    margin-top: image-height(sprite-file($general-sprite, $sprite)) / -2;
+    
+    &:hover {
+      @include use-general-sprite('#{$sprite}-hover');
+    }
+  }
+}
+
+/*
+  Slider navigation extend.
+*/
+%slider-dots {
+  margin: 15px 0 0 0;
+  text-align: center;
+  
+  li {
+    @extend %squish-text;
+    
+    @include inline-block;
+    @include border-radius(100%);
+    @include transition(.2s ease-out);
+    @include transition-property(border-color background-color);
+    @include size(19px);
+
+    margin: 0 7px;
+    // background-image: $slider-dots-sprite;
+    // background-color: $lightgray;
+    // behavior: ($pie-path);
+    
+    @include use-slider-dots-sprite('dot');
+    
+    &:hover {
+      // background-color: lighten($primary, 10%);
+      @include use-slider-dots-sprite('dot-hover');
+      cursor: pointer;
+    }
+    
+    &.active {
+      @include use-slider-dots-sprite('dot-active');
+      // background-color: $primary;
+    }
+  }
+}

@@ -1,0 +1,139 @@
+/** ----------------------------------
+
+  Extendables
+  -----------
+
+  Site extendables.
+
+---------------------------------- */
+/*
+  Extra imports.
+*/
+@import 'compass/layout/stretching';
+
+/*
+  Don't show this element in less than ie9.
+*/
+%no-ie {
+  .lt-ie9 & {
+    display: none;
+  }
+}
+
+%show-ie {
+  display: inherit;
+}
+
+/*
+  Logo sprite extendable.
+*/
+%logo-sprite {
+  background-image: $logo-sprite;
+  
+  @include retina {
+    background-image: $logo-2x-sprite;
+    background-size: image-width(sprite-path($logo-sprite)) image-height(sprite-path($logo-sprite));
+  }
+}
+
+/*
+  Icons sprite extendable.
+*/
+%icon-sprite {
+  background-image: $icon-sprite;
+  
+  @include retina {
+    background-image: $icon-2x-sprite;
+    background-size: image-width(sprite-path($icon-sprite)) image-height(sprite-path($icon-sprite));
+  }
+}
+
+/*
+  General sprite extendable.
+*/
+%general-sprite {
+  background-image: $general-sprite;
+  
+  @include retina {
+    background-image: $general-2x-sprite;
+    background-size: image-width(sprite-path($general-sprite)) image-height(sprite-path($general-sprite));
+  }
+}
+
+/*
+  Stories sprite extendable.
+*/
+%stories-sprite {
+  background-image: $stories-sprite;
+  
+  @include retina {
+    background-image: $stories-2x-sprite;
+    background-size: image-width(sprite-path($stories-sprite)) image-height(sprite-path($stories-sprite));
+  }
+}
+
+/*
+  Stories sprite extendable.
+*/
+%stories-large-sprite {
+  background-image: $stories-large-sprite;
+  
+  @include retina {
+    background-image: $stories-large-2x-sprite;
+    background-size: image-width(sprite-path($stories-large-sprite)) image-height(sprite-path($stories-large-sprite));
+  }
+}
+
+/*
+  Slider dot sprite extendable.
+*/
+%slider-dots-sprite {
+  background-image: $slider-dots-sprite;
+  
+  @include retina {
+    background-image: $slider-dots-2x-sprite;
+    background-size: image-width(sprite-path($slider-dots-sprite)) image-height(sprite-path($slider-dots-sprite));
+  }
+}
+
+/*
+  Stretch.
+*/
+%stretch {
+  @include stretch;
+}
+
+/*
+  Hidden text.
+*/
+%squish-text {
+  @include squish-text;
+}
+
+%test {
+  @include squish-text;
+}
+
+/*
+  Clearfix.
+*/
+%clearfix {
+  @include pie-clearfix;
+}
+
+/*
+  Hide element.
+*/
+%hide-element {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+/*
+  Hide element on touch.
+*/
+%hide-touch {
+  .touch & {
+    display: none;
+  }
+}

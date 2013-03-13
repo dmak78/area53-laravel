@@ -1,0 +1,10 @@
+<% /*
+
+  Single photo in a group photo album.
+  
+  Seen on: /group-photos/:albumId
+
+*/ %>
+<li class="photo-<%= data.id %>">
+  <a href="/group-photos/<%= data.albumId %>/<%= data.id %>"><img src="/<%= data.thumbUrl %>"></a>
+</li>

@@ -16,6 +16,8 @@ class CreateTagsTable extends Migration {
 			$table->text('title');
 			$table->text('description');
 			$table->string('slug');
+			$table->integer('owner_id');
+			$table->string('owner_type');
 			$table->timestamps();
 		});
 	}

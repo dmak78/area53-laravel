@@ -1,0 +1,90 @@
+ul.wysihtml5-toolbar {
+/*	position:absolute;
+	margin: -25px 0 0 0 ;
+	padding: 0;
+	display: block;*/
+
+	margin: 0 0 0 0 ;
+	padding: 0;
+	display: block;
+	font-family: 'hpRegular';
+}
+
+.comment .wysihtml5-toolbar {
+	position:absolute;
+	top:100%;
+	margin: 10px 0 0 0 ;
+	padding: 0;
+	display: block;
+	font-family: 'hpRegular';
+}
+
+ul.wysihtml5-toolbar::after {
+	clear: both;
+	display: table;
+	content: "";
+}
+
+ul.wysihtml5-toolbar > li {
+	float: left;
+	display: list-item;
+	list-style: none;
+	margin: 0 0px 0px 0;
+}
+
+ul.wysihtml5-toolbar a.btn.insert-a-link{
+	
+}
+
+ul.wysihtml5-toolbar a[data-wysihtml5-command=bold] {
+	font-weight: normal;
+	font-family: 'hpBold';
+}
+
+ul.wysihtml5-toolbar a[data-wysihtml5-command=italic] {
+	font-family: 'hpRegular';
+	font-style: italic;
+}
+
+ul.wysihtml5-toolbar a[data-wysihtml5-command=underline] {
+	text-decoration: underline;
+}
+
+ul.wysihtml5-toolbar a.btn.wysihtml5-command-active {
+	background-image: none;
+	-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),0 1px 2px rgba(0, 0, 0, 0.05);
+	background-color: #E6E6E6;
+	background-color: #D9D9D9 9;
+	outline: 0;
+	color:#08C;
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius:0px;
+}
+ul.wysihtml5-toolbar .btn-group .btn:last-child
+{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 0px;
+    -webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-top-right-radius: 4px;
+    -moz-border-bottom-right-radius: 0px;
+    
+}
+
+ul.wysihtml5-toolbar .btn-group .btn:first-child
+{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 4px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-top-left-radius: 0px;
+    -moz-border-bottom-left-radius: 4px;
+    
+}
+
+ul.wysihtml5-commands-disabled .dropdown-menu {
+	display: none !important;
+}

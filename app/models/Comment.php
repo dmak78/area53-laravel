@@ -3,14 +3,14 @@
 class Comment extends Eloquent {
 	protected $table = 'comments';
 
-	public function post()
+	public function owner()
 	{
-		return $this->belongs_to('Post');
+		return $this->morphTo();
 	}
 
 	public function author()
 	{
-		return $this->belongs_to('User');
+		return $this->belongsTo('User', 'author_id');
 	}
 
 }

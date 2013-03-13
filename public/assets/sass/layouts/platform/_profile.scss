@@ -1,0 +1,215 @@
+/** ----------------------------------
+
+  Profile
+  -------
+
+  Profile page layout.
+  
+  /profile
+
+---------------------------------- */
+.page-profile {
+  
+}
+
+
+/** ----------------------------------
+
+  Profile summary.
+  
+  This section acts as the header of the profile page, containing three
+  distict pieces of information: avatar, details, and contact information.
+
+---------------------------------- */
+.profile-summary {
+  @include phone {
+    padding: 0;
+  }
+  
+  /* Profile name. */
+  .profile-name {
+    @include phone {
+      font-size: 20px;
+    }
+  }
+  
+  .job-title {
+    @extend %static-headline;
+    
+    @include phone {
+      font-size: 14px;
+    }
+  }
+  
+  .about-me {
+    @include border-radius;
+    @include phone {
+      background: none;
+    }
+    
+    margin: 10px 0;
+    padding: 10px;
+    color: $darkgray;
+    background: white;
+  }
+}
+
+/* Avatar. */
+.profile-avatar {
+  @include position(relative);
+
+  text-align: center;
+}
+
+/*
+  Time and location block under the avatar.
+*/
+.time-and-location {
+  @include inline-block;
+  @include position(absolute, 0 0 -40px 50%);
+  @include phone {
+    @include position(static);
+    @include reset-columns;
+    
+    display: block;
+    margin: 10px 0;
+  }
+  
+  $width: 140px;
+  
+  width: $width;
+  margin-left: ($width / -2);
+  padding: 5px;
+  font-size: 1em;
+  color: $darkgray;
+  text-align: center;
+  background: white;
+  background: rgba(white, .8);
+  border-radius: 5px;
+  
+  /* Time inside the widget. */
+  .time-readout {
+    @include inline-block;
+    
+    color: black;
+    font-size: em(22px);
+    font-weight: 700;
+    
+    & > span {
+      @include animation(blink 2s infinite);
+      
+      color: $darkgray;
+    }
+  }
+  
+  /* AM/PM */
+  .period {
+    @include inline-block;
+    
+    font-size: em(10px);
+    font-weight: 700;
+    line-height: em(14px);
+    text-transform: uppercase;
+    
+    span {
+      display: block;
+      margin: 0;
+      color: $darkgray;
+      
+      &.active {
+        color: black;
+      }
+    }
+  }
+}
+
+/*
+  Animation for blinking time colon.
+*/
+@include keyframes(blink) {
+  40%, 60% {
+    @include opacity(1);
+  }
+  
+  50% {
+    @include opacity(0);
+  }
+}
+
+
+/** ----------------------------------
+
+  Profile slider.
+
+---------------------------------- */
+.profile-slider {
+  padding-bottom: 50px;
+  
+  .slides {
+    margin: 20px 0;
+  }
+  
+  /* First slide. */
+  .slide-summary {
+    text-align: center;
+  }
+  
+  /* Second slide. */
+  .slide-contact {
+    
+  }
+  
+  .time-and-location {
+    width: 100%;
+    padding: 15px 0;
+    font-size: .8em;
+  }
+  
+  .contact-list {
+    @include border-radius;
+    
+    margin: 10px 0;
+    padding: 15px 0;
+    text-align: center;
+    background: white;
+    background: rgba(white, .8);
+  }
+
+  .dots {
+    @include position(absolute, 0 0 40px 0px);
+    
+    width: 100%;
+  }
+  
+  /*
+    Buttons for Subscribe and the About tray.
+  */
+  .profile-slider-buttons {
+    @include position(absolute, 0 0 -15px 0px);
+    
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/*
+  Profile slider header.
+*/
+.profile-slider-header {
+  margin: 10px 0;
+}
+
+
+/** ----------------------------------
+
+  Post status form.
+  
+  TODO - This a bit more general to the platform, rather than the profile.
+  This will need to be moved into a more generic stylesheet.
+
+---------------------------------- */
+.post-status {
+  .post {
+    float: right;
+  }
+}

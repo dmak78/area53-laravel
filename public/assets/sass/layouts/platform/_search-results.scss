@@ -1,0 +1,101 @@
+/** ----------------------------------
+
+  Search Results
+  --------------
+
+  Search results page.
+
+---------------------------------- */
+.page-search-results {
+  /*
+    Sidebar navigation for the search results.
+  */
+  .sidebar-navigation-list {
+    @include mobile {
+      margin: 40px 0;
+    }
+    
+    font-size: 14px;
+    margin-top: 90px;
+    
+    a {
+      cursor: pointer;
+    }
+  }
+  
+  .content-block-header {
+    margin: 0;
+    
+    hr {
+      margin-top: 5px;
+    }
+  }
+}
+
+/*
+  Search results preview.
+  
+  Shown on the 'All' tab.
+*/
+.search-results-group-preview {
+  margin: 0 0 50px 0;
+  
+  /*
+    Link to jump directly to a search results panel.
+  */
+  .back-link {
+    @extend %small-static;
+    
+    @include pos-coords(auto 0 0px 0);
+    @include link-color($primary);
+  }
+  
+  .large-item-list {
+    li:first-child {
+      border-top: 0;
+    }
+  }
+}
+
+/*
+  Search results pane.
+  
+  Every pane on the search results page that isn't the 'All' tab.
+*/
+.search-results-pane {
+  .content-block-header {
+    @extend %clearfix;
+  }
+  
+  .section-title {
+    @include phone {
+      float: none;
+    }
+    
+    float: left;
+  }
+  
+  .nav-tabs {
+    @include position(relative, 1px);
+    
+    float: right;
+    margin: 0;
+  }
+  
+  .tab-pane {
+    border-top: 1px solid $lightgray;
+  }
+  
+  /*
+    Adjustments for the large item list.
+  */
+  .large-item-list {
+    li:first-child {
+      border-top: 0;
+    }
+  }
+  
+  .sort-menu {
+    margin: 10px 0;
+  }
+}

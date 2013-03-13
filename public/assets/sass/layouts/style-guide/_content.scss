@@ -1,0 +1,181 @@
+/** ----------------------------------
+
+  Content
+  -------
+
+  Content container for the style guide.
+
+---------------------------------- */
+.style-guide-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/*
+  Style guide navigation tabs.
+*/
+.style-guide-navigation {
+  .nav {
+    margin-bottom: 25px;
+  }
+}
+
+/*
+  Container for the style guide contents.
+*/
+.style-guide-contents {
+  code {
+    padding: 3px 10px;
+    font-size: 13px;
+    color: white;
+    text-transform: none;
+    background: $darkgray;
+    border: 0;
+  }
+}
+
+/*
+  Individual block of styles.
+*/
+.style-guide-section {
+  margin: 25px 0;
+  border: 1px solid darken($lightgray, 5%);
+  border-top: 1px solid $secondary;
+  border-bottom: 1px solid $primary;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+  
+  /* Section title. */
+  .title {
+    @include background(linear-gradient(darken($lightgray, 5%), darken($lightgray, 10%)));
+    
+    padding: 10px 25px;
+    font-size: 25px;
+    font-weight: 400;
+    text-shadow: 0 1px 1px white;
+    color: $darkgray;
+    border-bottom: 1px solid darken($lightgray, 10%);
+  }
+  
+  /* Style guide section header. */
+  .section-header {
+    padding: 10px 25px;
+    background: $lightgray;
+  }
+  
+  /* Location of the Sass module. */
+  .location {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  
+  /* Description of this section. */
+  .description {
+    @include position(relative);
+    
+    margin: 60px 0 20px 0;
+    
+    &:before {
+      @include position(absolute, -25px 0 0 0px);
+      
+      content: 'Module description:';
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  }
+  
+  /*
+    Container for the list of examples.
+  */
+  .examples {
+    margin: 0;
+    
+    & > li {
+      @include position(relative);
+          
+      padding: 20px 25px;
+      border-top: 1px solid $lightgray;
+      
+      &:first-child {
+        border-top: 0;
+      }
+    }
+    
+    .classes,
+    .attributes {
+      @include position(absolute, 0px 0px);
+      
+      padding: 3px 10px;
+      font-family: monospace;
+      font-size: 11px;
+      background: lighten($lightgray, 8%);
+      border-width: 0 0 1px 1px;
+      border-style: solid;
+      border-color: darken($lightgray, 2%);
+      
+      &:before {
+        content: 'Class: ';
+        font-family: sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
+    
+    .attributes {
+      @include pos-coords(26px);
+      
+      &:before {
+        content: 'Attribute: ';
+      }
+    }
+  
+    /*
+      Helper class for examples that need a position: relative wrapper.
+      Use with the 'example' wrap option.
+    */
+    .style-guide-relative {
+      @include position(relative);
+    }
+  }
+  
+  /* Code samples. */
+  footer {
+    counter-reset: code-sample-counter;
+  }
+  
+  .code-sample {
+    @include position(relative);
+    
+    margin: 0;
+    padding: 20px 25px 20px 70px;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: pre-wrap;
+    background: lighten($lightgray, 5%);
+    border: 0;
+    border-radius: 0;
+    
+    
+    &:before {
+      @include position(absolute, 50% 0 0 25px);
+      @include size(24px);
+      @include border-radius(100%);
+      
+      content: counter(code-sample-counter);
+      counter-increment: code-sample-counter;
+      display: block;
+      margin-top: -12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: darken($lightgray, 5%);
+      text-align: center;
+      line-height: 24px;
+      background: rgba($darkgray, .1);
+    }
+  }
+}
