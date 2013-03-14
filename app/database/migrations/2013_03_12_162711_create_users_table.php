@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration {
 			$table->string('email', 320)->unique();
 			$table->string('username')->unique();
 			$table->string('password', 64);
-			$table->string('avatar_url');
+			$table->string('avatar_url')->nullable();
 			$table->string('name', 200);
 			$table->timestamps();
 		});

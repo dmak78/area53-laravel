@@ -12,4 +12,9 @@ class Tag extends Eloquent {
 	{
 		return $this->belongsToMany('Post');
 	}
+
+	public function links()
+	{
+		return $this->belongsToMany('Link');
+	}
 }

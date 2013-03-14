@@ -16,7 +16,7 @@ class CreateCommentsTable extends Migration {
 			$table->integer('author_id');
 			$table->integer('owner_id');
 			$table->string('owner_type');
-			$table->text('content');
+			$table->text('body');
 			$table->timestamps();
 		});
 	}

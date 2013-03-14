@@ -15,9 +15,8 @@ class CreatePostsTable extends Migration {
 			$table->increments('id');
 			$table->integer('author_id');
 			$table->text('title');
-			$table->text('content');
+			$table->text('body');
 			$table->boolean('admin_post');
-			$table->integer('post_type_id');
 			$table->timestamps();
 		});
 	}

@@ -83,7 +83,7 @@
 		  <fieldset>
 		    <div class="wysiwyg-textarea-wrapper">
 		      <div class="textarea-wrapper">
-		        <textarea class="post-content-input" placeholder="Share your thoughts&hellip;" rows="5"></textarea>
+		        <textarea class="post-content-input" placeholder="Share your thoughts&hellip;" name="body" rows="5"></textarea>
 		      </div>
 		    </div>
 		  </fieldset>

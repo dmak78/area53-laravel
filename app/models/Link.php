@@ -10,7 +10,7 @@ class Link extends Eloquent {
 
 	public function author()
 	{
-		return $this->hasOne('User', 'author_id');
+		return $this->belongsTo('User', 'author_id');
 	}
 
 	public function tags(){

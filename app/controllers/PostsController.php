@@ -11,7 +11,8 @@ class PostsController extends BaseController {
 	{
 		$posts = Post::all();
 
-		//return View::make('posts.index')->with('posts', $posts);
+		$posts->load('author.profile', 'comments.author');
+
 		return Response::json([
 			'error' => false,
 			'posts' => $posts->toArray()
@@ -36,19 +37,14 @@ class PostsController extends BaseController {
 	 */
 	public function store()
 	{
-		 $post = new Post;
-
-		 $post->title = Input::get('title');
-		// $post->author_id = Input::get('author_id');
-		 $post->body = Input::get('body');
-		// $post->admin_post = Input::get('admin_post');
-		// $post->type_id = Input::get('type_id');
-
-		 $post->save();
-
-		 return Redirect::to('/posts');
-
-		//return $post;
+		$post = new Post(Input::all());
+		$post->author_id = Auth::user()->id;
+		$post->admin_post = false;
+		$post->save();
+		return Response::json([
+			'error' => false,
+			'post' => $post->toArray()
+		],200);
 	}
 
 	/**

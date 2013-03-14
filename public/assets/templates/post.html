@@ -2,20 +2,20 @@
     <div class="content-bar"></div>
         <div class="status-content">     
             <div class="avatar small">
-                <% if(data.id){ %>
-                    <%= data.id %>
+                <% if(data.author.avatar_url){ %>
+                    <%= data.author.avatar_url %>
                 <% } else{ %>
-                    <img src="/chiphp/lib/img/hp/avatars/150/opt-out-user.jpg" />
+                    <img src="/assets/lib/img/hp/avatars/150/opt-out-user.jpg" />
                 <% } %>              
             </div>
             <div class="source">
-                <p class="relative-time"><abbr class="timeago" title="<%= data.date %>"><%= data.created_at %></abbr></p>
+                <p class="relative-time"><abbr class="timeago" title="<%= data.created_at %>"><%= data.created_at %></abbr></p>
                 <ul class="user-names">
                     <li class="commenter">
-                        <% if (data.id) { %>
-                            <a href="<%= data.author_id %>" class="user-name"><%= data.author_id %>&nbsp;<%= data.author_id %></a>
+                        <% if (data.author.first_name) { %>
+                            <a href="/profile/#" class="user-name"><%= data.author.first_name %>&nbsp;<%= data.author.last_name %></a>
                         <% } else { %>
-                            <a href="<%= data.author_id %>" class="user-name"><%= data.author_id %></a>
+                            <a href="<%= data.author_id %>" class="user-name"><%= data.author.name %></a>
                         <% } %>            
                      </li>
                 </ul>

@@ -5,12 +5,16 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+	
+
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'users';
+
+
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -32,6 +36,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function groups()
 	{
 		return $this->belongsToMany('Group');
+	}
+
+	public function groups_created()
+	{
+		return $this->hasMany('Group', 'creator_id');
 	}
 
 	public function comments()
@@ -57,6 +66,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function mentions()
 	{
 		return $this->belongsToMany('Post');
+	}
+
+	public function likes()
+	{
+		return $this->belongsTo('Like', 'user_id');
+	}
+
+	public function links()
+	{
+		return $this->hasMany('Like', 'author_id');
 	}
 
 	/**

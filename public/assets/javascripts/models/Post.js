@@ -15,10 +15,6 @@ define([
 
     return Backbone.Model.extend({
 
-        sync: function (method, model, options) {
-
-        },
-
         parse: function (data) {
             data.content = data.body;
             return data;

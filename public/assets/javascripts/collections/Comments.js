@@ -19,21 +19,11 @@ define([
 
         model: CommentModel,
 
-        // Resource location.
-        sync: function (method, model, options) {
- 
+        url: function (){
+            return '/api/v1/posts/' + this.parentView.model.attributes.id + '/comments/';
         },
 
-        parse: function (data) {
-            var parsedData = {};
-            parsedData = data.d.comments;
-
-            return parsedData;
-        },
-
-
-
-        initialize: function () {
+        initialize: function (options) {
             this.setSort('date', 'asc');
         },
 

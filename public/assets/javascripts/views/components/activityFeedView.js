@@ -54,7 +54,6 @@ define([
             return this;
         },
         renderPost: function (post) {
-            console.log(post.attributes);
             var postView = new PostView({
                 model: post
             });

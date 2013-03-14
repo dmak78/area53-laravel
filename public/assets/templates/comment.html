@@ -1,37 +1,35 @@
 <div class="status-content">
     <div class="avatar extra-small">
-        <img src="<%= data.OwnerImage %>" alt="<%= data.OwnerName %>">
+        <% if (data.author.avatar_url) { %>
+            <img src="<%= data.author.avatar_url %>" alt="">
+        <% } else { %>
+            <img src="/assets/lib/img/hp/avatars/150/opt-out-user.jpg" />
+        <% } %>
     </div>
     <div class="source">
-        <p class="relative-time"><abbr class="timeago" title=""></abbr></p>
+        <p class="relative-time"><abbr class="timeago" title="<%= data.created_at %>"><%= data.created_at %></abbr></p>
             <ul class="user-names">
                 <li>
-                    <a href="<%= data.OwnerUrl %>" class="user-name">
-                        <% if (data.fromSIP) { %>
+                    <a href="/profile/<%= data.author.id %>" class="user-name">
                         <span class="communicator-presence"> 
-                            <img border="0" height="12" src="/_layouts/images/imnhdr.gif" onload="IMNRC('<%= data.OwnerSIP %>')" ShowOfflinePawn="1" class="presence-pawn" id="PresencePawn<%= data.Id %>" alt="" />
                         </span>
-                        <% } %>
-                        <%= data.OwnerName %>
+                        <%= data.author.name %>
                     </a>
                 </li>     
             </ul>
         </div>
 
         <p class="status">
-            <% if(data.ShortMessage){ %>
-                <span class='snip-comment'><%= data.ShortMessage %></span>
-                <span class='full-comment' style="display:none;"><%= data.Message %> </span><br />
-                <a href='#' class='view-all-comment'>More</a>
-            <% } else { %>
-                <%= data.Message %> 
-            <% } %>
+<!--                 <span class='snip-comment'></span>
+                <span class='full-comment' style="display:none;"></span><br />
+                <a href='#' class='view-all-comment'>More</a> -->
+                <%= data.body %>
         </p>
 
         <div class="status-buttons">
             <div class="moderation">
-                <a href="#" class="icon subcomment flag <%= data.IsFlagged ? 'active' : '' %>" data-id="<%= data.Id %>">Flag</a>
-                <a href="#" class="icon subcomment delete" data-id="<%= data.Id %>">Delete</a>
+                <a href="#" class="icon subcomment flag " data-id="">Flag</a>
+                <a href="#" class="icon subcomment delete" data-id="">Delete</a>
             </div>
         </div>
     </div>

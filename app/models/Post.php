@@ -1,7 +1,21 @@
 <?php
 
 class Post extends Eloquent {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @param integer 	id
+	 * @param integer 	author_id
+	 * @param text 		title
+	 * @param text 		content
+	 * @param boolean 	admin_post
+	 * @param datetime	timestamps
+	 */
+
 	protected $table = 'posts';
+
+	protected $fillable = array('author_id', 'title', 'body', 'admin_post');
 
 	public function comments()
 	{
@@ -10,7 +24,7 @@ class Post extends Eloquent {
 
 	public function author()
 	{
-		return $this->hasOne('User', 'author_id');
+		return $this->belongsTo('User', 'author_id');
 	}
 
 	public function tags(){
@@ -19,5 +33,10 @@ class Post extends Eloquent {
 
 	public function mentions(){
 		return $this->belongsToMany('User');
+	}
+
+	public function likes()
+	{
+		return $this->morphMany('Like', 'owner');
 	}
 }

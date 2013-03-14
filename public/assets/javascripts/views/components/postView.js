@@ -33,7 +33,7 @@ define([
 
         postTemplate: _.template(PostTemplateText),
 
-        showAllComments: false,
+        showAllComments: true,
 
         events: {
             'click a.showMoreComments': 'toggleComments',
@@ -52,7 +52,7 @@ define([
         initialize: function (options) {
 
             this.commentCollection = new CommentCollection();
-            this.commentCollection.parentView = this;
+            
             this.commentCollection.on('reset', this.renderComments, this);
             this.commentCollection.on('add', this.renderComment, this);
 
@@ -72,7 +72,7 @@ define([
         render: function () {
 
             this.$el.html(this.postTemplate(this.model.toJSON()));
-            // this.$commentList = this.$el.find('ul.status-comments');
+             this.$commentList = this.$el.find('ul.status-comments');
             // this.$likeButton = this.$el.find('.like');
             // this.$flagButton = this.$el.find('.post.flag');
             // this.$pinButton = this.$el.find('.pin');
@@ -80,8 +80,9 @@ define([
             // this.$likeCount = this.$el.find('.likeCount');
             // this.$tagList = this.$el.find('ul.tag-list');
             // this.$likePeopleModal = this.$el.find('a.likePeopleModal');
-            $("abbr.timeago").timeago();
-           
+            this.$el.find("abbr.timeago").timeago();
+            this.commentCollection.parentView = this;
+            this.commentCollection.fetch();
             return this;
         },
         renderComments: function () {

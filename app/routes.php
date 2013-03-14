@@ -43,27 +43,30 @@ Route::get('home', array( 'before' => 'auth' ,function()
 	return View::make('pages.home');
 }));
 
-Route::resource('users', 'UsersController');
+
 
 Route::group(array('prefix' => 'api/v1'), function() {
  
     Route::resource('posts', 'PostsController');
 
-	
+	Route::resource('users', 'UsersController');
 
 	Route::resource('groups', 'GroupsController');
 
 	Route::resource('comments', 'CommentsController');
 
+	Route::resource('posts/{post_id}/comments', 'CommentsController');
+
 	Route::resource('photos', 'PhotosController');
 
 	Route::resource('links', 'LinksController');
+
+	Route::resource('likes', 'LikesController');
 
 	Route::resource('events', 'EventsController');
 
 	Route::resource('tags', 'TagsController');
 
-	Route::resource('categories', 'CategoriesController');
 
 	Route::controller('newsfeed', 'NewsfeedController');
  
