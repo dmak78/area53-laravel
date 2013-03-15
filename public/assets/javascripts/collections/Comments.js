@@ -23,6 +23,10 @@ define([
             return '/api/v1/posts/' + this.parentView.model.attributes.id + '/comments/';
         },
 
+        parse: function (data){
+            return data.comments;
+        },
+
         initialize: function (options) {
             this.setSort('date', 'asc');
         },
@@ -51,7 +55,7 @@ define([
         },
 
         sortByDate: function (model) {
-            return new Date(model.get('Iso8601TimeStamp')).getTime() * -1;
+            return new Date(model.get('created_at')).getTime() * -1;
         }
 
     });

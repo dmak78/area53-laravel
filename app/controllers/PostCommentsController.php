@@ -1,21 +1,24 @@
 <?php
 
-class PhotosController extends BaseController {
+class PostCommentsController extends BaseController {
+
+	
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($post_id)
 	{
-		$photos = Photo::all();
+		$post = Post::find($post_id);
 
-		$photos->load('author');
+		$comments = $post->comments;
+		$comments->load('author.profile');
 
 		return Response::json([
 			'error' => false,
-			'posts' => $photos->toArray()
+			'comments' => $comments->toArray()
 		],200);
 	}
 
@@ -26,10 +29,7 @@ class PhotosController extends BaseController {
 	 */
 	public function create()
 	{
-		$photo = new Photo;
-		$photos = Photo::all();
-		$photos->load('author');
-		return View::make('photos.create')->with('photos', $photos);
+		//
 	}
 
 	/**
@@ -37,16 +37,20 @@ class PhotosController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($post_id)
 	{
-		$photo = new Photo(Input::only('url', 'title', 'description', 'author_id'));
-		$photo->author_id = Auth::user()->id;
-		$photo->save();
-		$photo->author;
-		return Redirect::to('/api/v1/photos/create');
+		$comment = new Comment(Input::only('body','author_id'));
+		$comment->author_id = Auth::user()->id;
+		$post = Post::find($post_id);
+
+		$comment = $post->comments()->save($comment);
+		$comment->author;
+
+		//return $comment;
+
 		return Response::json([
 			'error' => false,
-			'photo' => $photo->toArray()
+			'comment' => $comment->toArray()
 		],200);
 	}
 
@@ -57,12 +61,12 @@ class PhotosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$photo = Photo::find($id);
-		$photo->comments->load('author');
-		$photo->author;
+		$comment = Comment::find($id);
+		$comment->author->profile;
+
 		return Response::json([
 			'error' => false,
-			'photo' => $photo->toArray()
+			'comment' => $comment->toArray()
 		],200);
 	}
 
@@ -81,20 +85,19 @@ class PhotosController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($post_id, $id)
 	{
-		$photo = Photo::find($id);
-
-		if(Input::has('url')){
-			$photo->url = Input::get('url');
+		$comment = Comment::find($id);
+		if(Input::has('body')){
+			$comment->body = Input::get('body');
+			$comment->save();
 		}
-
-		$photo->save();
-		$photo->author;
+		
+		$comment->author->profile;
 
 		return Response::json([
 			'error' => false,
-			'photo' => $photo->toArray()
+			'comment' => $comment->toArray()
 		],200);
 	}
 
@@ -103,16 +106,15 @@ class PhotosController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($post_id, $id)
 	{
-		$photo = Photo::find($id);
-		$photo->delete();
+		$comment = Comment::find($id);
+		$comment->delete();
 
 		return Response::json([
 			'error' => false,
-			'message' => 'photo deleted'
+			'message' => 'comment deleted'
 		],200);
-
 	}
 
 }

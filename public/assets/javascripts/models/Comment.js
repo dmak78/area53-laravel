@@ -15,6 +15,7 @@ define([
 
     return Backbone.Model.extend({
 
+        urlRoot: '/api/v1/comments/',
 
         parse: function (result) {
 

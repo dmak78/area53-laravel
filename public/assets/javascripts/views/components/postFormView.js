@@ -22,8 +22,8 @@ define([
     return HpBaseView.extend({
         events: {
             'click textarea': 'showWysiwygControls',
-            'click .subcomment.post': 'preparePost',
-            'touchend .subcomment.post': 'preparePost',
+            'click .post': 'preparePost',
+            'touchend .post': 'preparePost',
             'click .add-link': 'manageLinkDialog'
         },
 

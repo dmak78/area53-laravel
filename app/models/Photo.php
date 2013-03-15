@@ -17,4 +17,8 @@ class Photo extends Eloquent {
 	{
 		return $this->morphMany('Comment', 'owner');
 	}
+	public function author()
+	{
+		return $this->belongsTo('User', 'author_id');
+	}
 }

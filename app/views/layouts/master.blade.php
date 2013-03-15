@@ -10,23 +10,25 @@
 		<meta name="author" content="">
 
 		<!-- REQUIRE.JS -->
-		<script src="assets/javascripts/libs/require.js" data-main="assets/javascripts/main.js"></script>
+		<script src="/assets/javascripts/libs/require.js" data-main="/assets/javascripts/main.js"></script>
 
 		<!-- styles -->
-		<link rel="stylesheet" href="assets/css/vendor/jquery-ui.css">
-		<link rel="stylesheet" href="assets/css/vendor/jquery.ui.timepicker.css">
-		<link rel="stylesheet" href="assets/css/vendor/wysihtml5.css">
-		<link href="assets/css/vendor/bootstrap.css" rel="stylesheet"> <!-- compiled from less/bootstrap.less -->
+		<link rel="stylesheet" href="/assets/css/vendor/jquery-ui.css">
+		<link rel="stylesheet" href="/assets/css/vendor/jquery.ui.timepicker.css">
+		<link rel="stylesheet" href="/assets/css/vendor/wysihtml5.css">
+		<link href="/assets/css/vendor/bootstrap.css" rel="stylesheet"> <!-- compiled from less/bootstrap.less -->
 		<link href="http://www.bigspaceship.com/bss_favicon.ico" rel="icon"><!-- favicon -->
 
 		<!-- Sass -->
-		<link rel="stylesheet" href="assets/css/style.css">
-		<link rel="stylesheet" href="assets/css/area53.css">
+		<link rel="stylesheet" href="/assets/css/style.css">
+		<link rel="stylesheet" href="/assets/css/area53.css">
 		<script>
 			window.area53 = window.area53 || {};
 	  
 			// Config object.
 			window.area53.config = {
+				userId : {{Auth::user()->id}},
+				user : {{Auth::user()}},
 				userTimezone: '5.5',
 				userCity: 'Bangalore, India'
 			};

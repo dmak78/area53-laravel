@@ -48,9 +48,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Comment', 'author_id');
 	}
 
-	public function photos()
+	public function attached_photos()
 	{
 		return $this->morphMany('Photo', 'owner');
+	}
+
+	public function photos()
+	{
+		return $this->hasMany('Photo', 'author_id');
 	}
 	
 	public function events()
@@ -65,7 +70,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function mentions()
 	{
-		return $this->belongsToMany('Post');
+		return $this->belongsToMany('Post', 'post_user');
 	}
 
 	public function likes()

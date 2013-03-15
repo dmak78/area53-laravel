@@ -14,10 +14,11 @@ class CreatePhotosTable extends Migration {
 		Schema::create('photos', function($table) {
 			$table->increments('id');
 			$table->string('url');
-			$table->text('title');
-			$table->text('description');
-			$table->integer('owner_id');
-			$table->string('owner_type');
+			$table->text('title')->nullable();
+			$table->text('description')->nullable();
+			$table->integer('author_id');
+			$table->integer('owner_id')->nullable();
+			$table->string('owner_type')->nullable();
 			$table->timestamps();
 		});
 	}

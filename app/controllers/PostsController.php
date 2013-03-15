@@ -11,7 +11,9 @@ class PostsController extends BaseController {
 	{
 		$posts = Post::all();
 
-		$posts->load('author.profile', 'comments.author');
+		$posts->load('author');
+		$posts->load('mentions');
+		$posts->load('comments.author');
 
 		return Response::json([
 			'error' => false,
@@ -26,8 +28,9 @@ class PostsController extends BaseController {
 	 */
 	public function create()
 	{
-		$post = new Post;
-		return View::make('posts.create')->with('post', $post);
+		$posts = Post::all();
+		$posts->load('author');
+		return View::make('posts.create')->with('posts', $posts);
 	}
 
 	/**
@@ -37,10 +40,18 @@ class PostsController extends BaseController {
 	 */
 	public function store()
 	{
-		$post = new Post(Input::all());
+		$post = new Post(Input::only('body', 'title'));
 		$post->author_id = Auth::user()->id;
 		$post->admin_post = false;
 		$post->save();
+		if(Input::has('mentions')){
+			$mentions = Input::get('mentions');
+			foreach($mentions as $mention){
+				$post->mentions()->attach($mention);
+			}
+		}
+		$post->author;
+		$post->mentions;
 		return Response::json([
 			'error' => false,
 			'post' => $post->toArray()
@@ -54,9 +65,13 @@ class PostsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		
 		$post = Post::find($id);
-		return $post;
+		$post->comments->load('author');
+		$post->author;
+		return Response::json([
+			'error' => false,
+			'post' => $post->toArray()
+		],200);
 	}
 
 	/**
@@ -76,28 +91,25 @@ class PostsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		// $post = Post::find($id);
-		// if(Input::get('title')){
-		// 	$post->title = Input::get('title');
-		// }
-		// if(Input::get('author_id')){
-		// 	$post->author_id = Input::get('author_id');
-		// }
-		// if(Input::get('body')){
-		// 	$post->body = Input::get('body');
-		// }
-		// if(Input::get('admin_post')){
-		// 	$post->admin_post = Input::get('admin_post');
-		// }
-		// if(Input::get('type_id')){
-		// 	$post->type_id = Input::get('type_id');
-		// }
+		$post = Post::find($id);
 
-		// $post->save();
+		if(Input::has('body')){
+			$post->body = Input::get('body');
+		}
+		if(Input::has('title')){
+			$post->title = Input::get('title');
+		}
+		if(Input::has('admin_post')){
+			$post->admin_post = Input::get('admin_post');
+		}
 
-		// return $post;
+		$post->save();
+		$post->author;
 
-		return 'h1';
+		return Response::json([
+			'error' => false,
+			'post' => $post->toArray()
+		],200);
 	}
 
 	/**
@@ -113,7 +125,7 @@ class PostsController extends BaseController {
 		return Response::json([
 			'error' => false,
 			'message' => 'post deleted'
-			],200);
+		],200);
 
 	}
 

@@ -8,7 +8,7 @@ class Post extends Eloquent {
 	 * @param integer 	id
 	 * @param integer 	author_id
 	 * @param text 		title
-	 * @param text 		content
+	 * @param text 		body
 	 * @param boolean 	admin_post
 	 * @param datetime	timestamps
 	 */
@@ -32,7 +32,7 @@ class Post extends Eloquent {
 	}
 
 	public function mentions(){
-		return $this->belongsToMany('User');
+		return $this->belongsToMany('User', 'post_user');
 	}
 
 	public function likes()

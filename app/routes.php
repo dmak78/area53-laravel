@@ -36,26 +36,28 @@ Route::post('login', function(){
 	}
 });
 
-
-
 Route::get('home', array( 'before' => 'auth' ,function()
 {
 	return View::make('pages.home');
 }));
 
-
-
 Route::group(array('prefix' => 'api/v1'), function() {
  
-    Route::resource('posts', 'PostsController');
-
 	Route::resource('users', 'UsersController');
 
 	Route::resource('groups', 'GroupsController');
 
-	Route::resource('comments', 'CommentsController');
+	Route::group(array('prefix' => 'posts/{post_id}'), function() {
+		Route::resource('comments', 'PostCommentsController');
+	});
 
-	Route::resource('posts/{post_id}/comments', 'CommentsController');
+	Route::resource('posts', 'PostsController');
+
+	Route::group(array('prefix' => 'photos/{photo_id}'), function() {
+		Route::resource('comments', 'PhotoCommentsController');
+	});
+
+	Route::resource('comments', 'CommentsController');
 
 	Route::resource('photos', 'PhotosController');
 
@@ -67,11 +69,6 @@ Route::group(array('prefix' => 'api/v1'), function() {
 
 	Route::resource('tags', 'TagsController');
 
-
 	Route::controller('newsfeed', 'NewsfeedController');
  
 });
-
-
-
-

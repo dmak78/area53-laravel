@@ -220,7 +220,7 @@ define([
         },
         clear: function (event) {
             event.preventDefault();
-            this.model.destroy();
+            this.model.destroy({wait:true});
         },
         remove: function () {
             this.$el.slideUp('fast', function () { $(this).remove(); });

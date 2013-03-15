@@ -2,8 +2,8 @@
     <div class="content-bar"></div>
         <div class="status-content">     
             <div class="avatar small">
-                <% if(data.author.avatar_url){ %>
-                    <%= data.author.avatar_url %>
+                <% if(data.author.avatar_url != null){ %>
+                    <img src="<%= data.author.avatar_url %>" />
                 <% } else{ %>
                     <img src="/assets/lib/img/hp/avatars/150/opt-out-user.jpg" />
                 <% } %>              

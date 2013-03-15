@@ -79,7 +79,7 @@
 		</aside>
 	</section>
 	<section class="newsfeed" style="width:70%;">
-		<form class="post-form post-status" data-type="status" name="post-to-wall" action="api/v1/posts" method="post">
+		<form class="post-form post-status" data-type="status" name="post-to-wall">
 		  <fieldset>
 		    <div class="wysiwyg-textarea-wrapper">
 		      <div class="textarea-wrapper">

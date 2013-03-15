@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('CategoriesTableSeeder');
 		$this->call('Post_typesTableSeeder');
 		$this->call('MentionsTableSeeder');
+		$this->call('DogsTableSeeder');
 	}
 
 }

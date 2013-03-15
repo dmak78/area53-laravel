@@ -6,4 +6,8 @@ class NewsfeedController extends BaseController {
 	{	
 		return 'newsfeed';
 	}
+	public function deleteComments($post_id=null, $id=null)
+	{
+		return 'delete comment';
+	}
 }

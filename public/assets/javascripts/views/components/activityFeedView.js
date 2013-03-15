@@ -57,7 +57,7 @@ define([
             var postView = new PostView({
                 model: post
             });
-            this.$el.append(postView.render().el);
+            this.$el.prepend(postView.render().el);
 
             return this;
         },

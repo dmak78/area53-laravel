@@ -23,7 +23,7 @@ define([
         url: '/api/v1/posts',
 
         parse: function (data) {
-            console.log(data);
+            console.log(data.posts);
             return data.posts;
         },
         update: function (){
