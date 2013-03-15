@@ -14,6 +14,7 @@ class PostsController extends BaseController {
 		$posts->load('author');
 		$posts->load('mentions');
 		$posts->load('comments.author');
+		$posts->load('likes.user');
 
 		return Response::json([
 			'error' => false,

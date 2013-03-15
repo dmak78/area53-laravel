@@ -49,6 +49,7 @@ Route::group(array('prefix' => 'api/v1'), function() {
 
 	Route::group(array('prefix' => 'posts/{post_id}'), function() {
 		Route::resource('comments', 'PostCommentsController');
+		Route::resource('likes', 'PostLikesController');
 	});
 
 	Route::resource('posts', 'PostsController');
@@ -62,8 +63,6 @@ Route::group(array('prefix' => 'api/v1'), function() {
 	Route::resource('photos', 'PhotosController');
 
 	Route::resource('links', 'LinksController');
-
-	Route::resource('likes', 'LikesController');
 
 	Route::resource('events', 'EventsController');
 

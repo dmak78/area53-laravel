@@ -1,6 +1,6 @@
 <?php
 
-class LikesController extends BaseController {
+class PostLikesController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -27,9 +27,16 @@ class LikesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($post_id)
 	{
-		//
+		$post = Post::find($post_id);
+		$like = new Like(array('user_id' => Auth::user()->id));
+		$like = $post->likes()->save($like);
+
+		return Response::json([
+			'error' => false,
+			'message' => 'like added'
+		],200);
 	}
 
 	/**
