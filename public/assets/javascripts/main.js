@@ -101,7 +101,7 @@ define([
   // jQuery plugins.
   'libs/bootstrap',
   'libs/jquery.ui',
-   'libs/jquery.timeago'
+  'libs/jquery.timeago'
 ], function ($, Backbone, Notifier, DialogManager, Modernizr, Router) {
   'use strict';
 

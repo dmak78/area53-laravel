@@ -50,16 +50,16 @@
 			
 			<div class="container header-content">
 			  <div class="logos">
-		  	  <a href="home" class="global-logo" title="My Newsfeed" data-placement="bottom"><h1>AREA<small style="line-height:20px;">53</small></h1></a>
+		  	  <a href="/home" class="global-logo" title="My Newsfeed" data-placement="bottom"><h1>AREA<small style="line-height:20px;">53</small></h1></a>
 
 		  	  <a href="http://www.bigspaceship.com" class="hp-logo">Big Spaceship</a>
 			  </div>
 			  
 				<nav class="primary-navigation">
 		      <ul>
-		        <li><a href="profile/#">My Profile</a></li>
-		        <li><a href="groups">Groups</a></li>
-		        <li><a href="logout" class="about-link">Log Out</a></li>
+		        <li><a href="/profile/{{Auth::user()->id}}">My Profile</a></li>
+		        <li><a href="/groups">Groups</a></li>
+		        <li><a href="/logout" class="about-link">Log Out</a></li>
 		      </ul>
 		    </nav>
 		    

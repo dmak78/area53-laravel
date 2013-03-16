@@ -41,6 +41,7 @@ Route::get('home', array( 'before' => 'auth' ,function()
 	return View::make('pages.home');
 }));
 
+
 Route::group(array('prefix' => 'api/v1'), function() {
  
 	Route::resource('users', 'UsersController');
