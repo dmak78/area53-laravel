@@ -36,6 +36,11 @@ define([
       // });
     },
 
+    events: {
+      'click .primary-navigation a' : 'pushStateNav',
+      'click a.global-logo' : 'pushStateNav',
+    },
+
     /**
      * Render.
      *

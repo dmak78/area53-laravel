@@ -15,11 +15,14 @@ define([
 // Child views.
   'components/sliderView',
   'components/socialNetworkView',
-  'platform/welcomeModalView'
-], function ($, Backbone, HpBaseView, SliderView, SocialNetworkView, WelcomeModalView) {
+  'platform/welcomeModalView',
+  'text!templates/layouts/home.html'
+], function ($, Backbone, HpBaseView, SliderView, SocialNetworkView, WelcomeModalView, HomeTemplate) {
     'use strict';
 
     return HpBaseView.extend({
+
+        template: _.template(HomeTemplate),
         /**
         * Initialize.
         */
@@ -35,6 +38,7 @@ define([
         * Render.
         */
         render: function () {
+            this.$el.empty().append(this.template());
             this.assign({
                 '.homepage-slider': this.homepageSliderView,
                 '.platform-social-network': this.socialNetworkView,

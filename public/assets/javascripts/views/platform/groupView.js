@@ -14,11 +14,15 @@ define([
 
 // Child views.
   'components/socialNetworkView',
-  'models/Group'
-], function ($, Backbone, HpBaseView, SocialNetworkView, GroupModel) {
+  'models/Group',
+  'text!templates/layouts/group.html'
+], function ($, Backbone, HpBaseView, SocialNetworkView, GroupModel, GroupTemplate) {
     'use strict';
 
     return HpBaseView.extend({
+
+        template: _.template(GroupTemplate),
+
         events: {
             'click .show-about-page': 'showAboutPage',
             'touchstart .show-about-page': 'showAboutPage',
@@ -38,9 +42,11 @@ define([
         * Render.
         */
         render: function () {
+            this.$el.empty().append(this.template());
             this.assign({
                 '.platform-social-network': this.socialNetworkView
             });
+            return this;
         },
 
         /**

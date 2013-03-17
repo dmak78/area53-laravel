@@ -58,7 +58,7 @@
 				<nav class="primary-navigation">
 		      <ul>
 		        <li><a href="/profile/{{Auth::user()->id}}">My Profile</a></li>
-		        <li><a href="/groups">Groups</a></li>
+		        <li><a href="/group">Groups</a></li>
 		        <li><a href="/logout" class="about-link">Log Out</a></li>
 		      </ul>
 		    </nav>
@@ -76,7 +76,7 @@
 		<div class="content">
 			@yield('content')
 		</div>
-		<footer class="container global-footer">
+		<footer class="container global-footer" style="display:none;">
 		  <nav class="footer-navigation">
 		    <ul>
 		      <li><a href="#">About</a></li>

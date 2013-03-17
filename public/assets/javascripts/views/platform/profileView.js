@@ -17,11 +17,14 @@ define([
   'components/sliderView',
   'models/Profile',
   'components/tweetsView',
-  'collections/Tweets'
-], function ($, _, HpBaseView, SocialNetworkView, SliderView, ProfileModel, TweetsView, Tweets) {
+  'collections/Tweets',
+  'text!templates/layouts/profile.html'
+], function ($, _, HpBaseView, SocialNetworkView, SliderView, ProfileModel, TweetsView, Tweets, ProfileTemplate) {
     'use strict';
 
     return HpBaseView.extend({
+
+        template: _.template(ProfileTemplate),
         events: {
             'click .show-about-page': 'showAboutPage',
             'click .subscribed': 'unSubscribe',
@@ -36,7 +39,7 @@ define([
         * Initialize.
         */
         initialize: function () {
-
+            console.log('profile view loaded');
             // Child views.
             this.socialNetworkView = new SocialNetworkView();
             this.profileSliderView = new SliderView();
@@ -59,6 +62,7 @@ define([
         * Render.
         */
         render: function () {
+           this.$el.empty().append(this.template());
 
             this.assign({
                 '.platform-social-network': this.socialNetworkView,

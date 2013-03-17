@@ -5,10 +5,12 @@
   OneHP base view.
 */
 define([
+  // Router
+  'routers/router',
   // Libs.
   'underscore',
   'backbone'
-], function (_, Backbone) {
+], function (router, _, Backbone) {
   'use strict';
 
   return Backbone.View.extend({
@@ -44,6 +46,15 @@ define([
       }, this));
 
       return this;
+    },
+
+    pushStateNav: function (event) {
+      var $target = $(event.target),
+        href = $target.attr('href') || $target.closest('a').attr('href');
+      if (window.history.pushState) {
+        event.preventDefault();
+        router.navigate(href, { trigger: true });
+      }
     },
 
     /**

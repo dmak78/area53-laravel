@@ -158,24 +158,40 @@ define([
     },
 
     viewHome: function () {
+      //  $('.content').fadeOut(100, function(){
+      //     require(['platform/homeView'], function (View) {
+      //     var view = new View({el: '.content'});
+      //     view.render().$el.delay(200).fadeIn(100);
+      //   }); 
+      // });
         require(['platform/homeView'], function (View) {
-        var view = new View({el: 'body'});
-        view.render();
-      });
+          var view = new View({el: '.content'});
+          view.render();
+        }); 
     },
     viewProfile: function (id) {
+      // $('.content').fadeOut(100, function(){
+      //   require(['platform/profileView'], function (View) {
+      //     var view = new View({el: '.content'});
+      //     view.render().$el.delay(200).fadeIn(100);
+      //   }); 
+      // });
         require(['platform/profileView'], function (View) {
-        var view = new View({el: 'body'});
-        view.profileId = id;
-        view.render();
-      });
+          var view = new View({el: '.content'});
+          view.render();
+        }); 
     },
     viewGroup: function (id) {
-        require(['platform/groupView'], function (View) {
-        var view = new View({el: 'body'});
-        view.groupId = id;
-        view.render();
-      });
+      // $('.content').fadeOut(100, function(){
+      //   require(['platform/groupView'], function (View) {
+      //     var view = new View({el: '.content'});
+      //     view.render().$el.delay(200).fadeIn(100);
+      //   });
+      // });  
+      require(['platform/groupView'], function (View) {
+          var view = new View({el: '.content'});
+          view.render();
+        });   
     },
     viewListGifs: function () {
         require(['platform/listGifView'], function (View) {

@@ -38,9 +38,18 @@ Route::post('login', function(){
 
 Route::get('home', array( 'before' => 'auth' ,function()
 {
-	return View::make('pages.home');
+	return View::make('layouts.master');
 }));
 
+Route::get('profile/{id?}', function()
+{
+	return View::make('layouts.master');
+});
+
+Route::get('group/{id?}', function()
+{
+	return View::make('layouts.master');
+});
 
 Route::group(array('prefix' => 'api/v1'), function() {
  
