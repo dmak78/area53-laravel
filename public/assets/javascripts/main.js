@@ -19,6 +19,7 @@
       'jquery': 'libs/jquery',
       'underscore': 'libs/underscore',
       'backbone': 'libs/backbone',
+      'marionette': 'libs/marionette',
       'modernizr': 'libs/modernizr',
       'text': 'libs/text',
       'swipe': 'libs/swipe',
@@ -47,6 +48,10 @@
       'backbone': {
         deps: ['jquery', 'underscore'],
         exports: 'Backbone'
+      },
+      'marionette' :{
+        deps : ['jquery', 'underscore', 'backbone'],
+        exports : 'Marionette'
       },
       'modernizr': {
         exports: 'Modernizr',
@@ -91,6 +96,7 @@ define([
   // Libs
   'jquery',
   'backbone',
+  'marionette',
   'libs/notifier',
   'libs/dialogs',
   'modernizr',
@@ -102,7 +108,7 @@ define([
   'libs/bootstrap',
   'libs/jquery.ui',
   'libs/jquery.timeago'
-], function ($, Backbone, Notifier, DialogManager, Modernizr, Router) {
+], function ($, Backbone, Marionette, Notifier, DialogManager, Modernizr, Router) {
   'use strict';
 
   // Detect if the browser does't support transitions.
@@ -117,9 +123,11 @@ define([
 
   // Set up the modal dialog manager.
   window.area53.dialogs = new DialogManager();
+   window.area53.app = new Marionette.Application();
 
   // Doc-ready
   $(function () {
+   
     var router;
 
     // Start it up.
