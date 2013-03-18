@@ -56,6 +56,16 @@ define([
     };
 
     return HpBaseView.extend({
+
+        template : _.template('<h1>Nothing To See</h1>'),
+
+        initialize: function (options){
+            options = options || {};
+            if(options.template){
+                this.template = _.template(options.template);
+            }      
+        },
+
         events: {
             'click .next': 'nextSlide',
             'click .prev': 'prevSlide',
@@ -66,6 +76,7 @@ define([
         * Render.
         */
         render: function () {
+            this.$el.empty().append(this.template());
             // Element references.
             this.$slides = this.$el.find('.slides');
             this.$dots = this.$el.find('.dots li');
@@ -76,6 +87,7 @@ define([
             this.slider = new SliderLibrary(this.$slides, {
                 speed: 300
             });
+            return this;
         },
 
         /**

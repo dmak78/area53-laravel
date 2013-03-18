@@ -23,8 +23,8 @@ define([
         url: '/api/v1/posts',
 
         parse: function (data) {
-            console.log(data.posts);
-            return data.posts;
+            console.log(data);
+            return data;
         },
         update: function (){
             this.fetch({add:true});

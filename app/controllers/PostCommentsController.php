@@ -16,10 +16,12 @@ class PostCommentsController extends BaseController {
 		$comments = $post->comments;
 		$comments->load('author.profile');
 
-		return Response::json([
-			'error' => false,
-			'comments' => $comments->toArray()
-		],200);
+		return (string) $comments->toJson();
+
+		// return Response::json([
+		// 	'error' => false,
+		// 	'comments' => $comments->toArray()
+		// ],200);
 	}
 
 	/**
@@ -39,7 +41,9 @@ class PostCommentsController extends BaseController {
 	 */
 	public function store($post_id)
 	{
-		$comment = new Comment(Input::only('body','author_id'));
+		$input = Input::json();
+		$comment = new Comment;
+		$comment->body = $input['body'];
 		$comment->author_id = Auth::user()->id;
 		$post = Post::find($post_id);
 
@@ -48,10 +52,7 @@ class PostCommentsController extends BaseController {
 
 		//return $comment;
 
-		return Response::json([
-			'error' => false,
-			'comment' => $comment->toArray()
-		],200);
+		return (string) $comment->toJson();
 	}
 
 	/**

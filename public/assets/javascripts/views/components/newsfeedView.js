@@ -15,8 +15,9 @@ define([
 // Components.
   'components/postFormView',
   'components/taggingView',
-  'components/activityFeedView'
-], function ($, Backbone, HpBaseView, PostFormView, TaggingView, ActivityFeedView) {
+  'components/activityFeedView',
+  'models/Post'
+], function ($, Backbone, HpBaseView, PostFormView, TaggingView, ActivityFeedView, PostModel) {
     'use strict';
 
     return HpBaseView.extend({
@@ -35,6 +36,8 @@ define([
             this.activityFeedAll = new ActivityFeedView();
             this.activityFeedSub = new ActivityFeedView();
             this.activityFeedHot = new ActivityFeedView();
+
+            this.postForm.on('post', this.createNewPost, this);
         },
 
         /**
@@ -55,6 +58,15 @@ define([
 
             this.activeFeed = '#newsfeed-all';
 
+            return this;
+        },
+
+        createNewPost: function (data){
+
+            this.activityFeedAll.postCollection.create({
+                body : data.body,
+                mentions : data.tags
+            }, {wait: true});
             return this;
         },
 

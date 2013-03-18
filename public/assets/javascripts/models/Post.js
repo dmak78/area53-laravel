@@ -16,7 +16,9 @@ define([
     return Backbone.Model.extend({
 
         parse: function (data) {
-            data.content = data.body;
+          if(typeof(data.created_at) == 'object'){
+            data.created_at = data.created_at.date;
+          }
             return data;
         },
         toggleLiked: function () {

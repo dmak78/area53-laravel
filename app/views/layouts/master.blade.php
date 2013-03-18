@@ -36,56 +36,10 @@
 	</head>
 	<body>
 		<header class="global-header">
-			<section class="supernav">
-			  <ul>
-					<li><a href="http://www.bigspaceship.com">Big Spaceship</a></li>
-					<li><a href="https://bigspaceship.harvestapp.com">Harvest</a></li>
-					<li><a href="#">Basecamp</a></li>
-					<li><a href="https://esc.insperity.com">Insperity Employee Service Center</a></li>
-					<li><a href="#">BSS Seating Chart</a></li>
-					<li><a href="#">@DUMBO</a></li>
-					<li><a href="http://mail.bigspaceship.com">BSS Google Mail</a></li>
-			  </ul>
-			</section>
-			
-			<div class="container header-content">
-			  <div class="logos">
-		  	  <a href="/home" class="global-logo" title="My Newsfeed" data-placement="bottom"><h1>AREA<small style="line-height:20px;">53</small></h1></a>
-
-		  	  <a href="http://www.bigspaceship.com" class="hp-logo">Big Spaceship</a>
-			  </div>
-			  
-				<nav class="primary-navigation">
-		      <ul>
-		        <li><a href="/profile/{{Auth::user()->id}}">My Profile</a></li>
-		        <li><a href="/group">Groups</a></li>
-		        <li><a href="/logout" class="about-link">Log Out</a></li>
-		      </ul>
-		    </nav>
-		    
-		    <div class="search-content">
-		      <form>
-		        <fieldset class="search-input">
-		          <input type="text" class="search" placeholder="Search Area53">
-		          <input type="submit" class="search-submit" value="Go">
-		        </fieldset>
-		      </form>
-		    </div>
-		  </div>
 		</header>
-		<div class="content">
-			@yield('content')
+		<div id="page-content">
 		</div>
-		<footer class="container global-footer" style="display:none;">
-		  <nav class="footer-navigation">
-		    <ul>
-		      <li><a href="#">About</a></li>
-		  		<li><a href="#">Feedback</a></li>
-		  		<li><a href="http://www.bigspaceship.com/">bigspaceship.com</a></li>
-		    </ul>
-		  </nav>
-		  
-		  <p class="copyright">&copy; 2013 Big Spaceship LLC</p>
+		<footer class="container global-footer">
 		</footer>
 	</body>
 </html>

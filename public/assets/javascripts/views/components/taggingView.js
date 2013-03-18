@@ -90,7 +90,6 @@ define([
         }, this),
         updater: _.bind(function (item) {
           this.tags.push(item);
-
           // Append the tag.
           this.$list.append('<li><a href="#" class="tag">' + item + '</a></li>');
 

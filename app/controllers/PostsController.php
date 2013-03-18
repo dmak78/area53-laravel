@@ -16,10 +16,12 @@ class PostsController extends BaseController {
 		$posts->load('comments.author');
 		$posts->load('likes.user');
 
-		return Response::json([
-			'error' => false,
-			'posts' => $posts->toArray()
-		],200);
+		return (string) $posts->toJson();
+
+		// return Response::json([
+		// 	'error' => false,
+		// 	'posts' => $posts->toArray()
+		// ],200);
 	}
 
 	/**
@@ -41,22 +43,30 @@ class PostsController extends BaseController {
 	 */
 	public function store()
 	{
-		$post = new Post(Input::only('body', 'title'));
+		$input = Input::json();
+		$post = new Post;
+		$post->body = $input['body'];
+		$mentions = $input['mentions'];
 		$post->author_id = Auth::user()->id;
 		$post->admin_post = false;
 		$post->save();
-		if(Input::has('mentions')){
-			$mentions = Input::get('mentions');
+		// if(Input::has('mentions')){
+		// 	// $mentions = Input::get('mentions');
+		// 	// foreach($mentions as $mention){
+		// 	// 	$post->mentions()->attach($mention);
+		// 	// }
+		// }
+		if(count($mentions) > 0 ){
 			foreach($mentions as $mention){
-				$post->mentions()->attach($mention);
+				$mentioned_user = User::where('username', $mention)->first();
+				$post->mentions()->attach($mentioned_user->id);
 			}
 		}
+		
+
 		$post->author;
 		$post->mentions;
-		return Response::json([
-			'error' => false,
-			'post' => $post->toArray()
-		],200);
+		return (string) $post->toJson();
 	}
 
 	/**

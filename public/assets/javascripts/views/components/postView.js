@@ -19,11 +19,11 @@ define([
 
   'models/Comment',
 
-  'components/postFormView',
+  'components/commentFormView',
 
 // Templates
   'text!templates/post.html'
-], function ($, _, Backbone, HpBaseView, CommentView, CommentCollection, CommentModel, PostFormView, PostTemplateText) {
+], function ($, _, Backbone, HpBaseView, CommentView, CommentCollection, CommentModel, CommentFormView, PostTemplateText) {
     'use strict';
 
     return HpBaseView.extend({
@@ -40,7 +40,7 @@ define([
             'click .like': 'toggleLiked',
             'click .post.flag': 'toggleFlagged',
             'click .hot-topic': 'togglePinned',
-            'click .post.delete': 'clear',
+            'click .delete': 'clear',
             'click .view-all-post': 'showFullMessage',
             'click .likePeopleModal': 'showLikeModal',
             'click a.tagit-close': 'removeMention'
@@ -56,8 +56,8 @@ define([
             this.commentCollection.on('reset', this.renderComments, this);
             this.commentCollection.on('add', this.renderComment, this);
 
-            this.commentForm = new PostFormView();
-            this.commentForm.on('post', this.addComment, this);
+            this.commentForm = new CommentFormView();
+            this.commentForm.on('postComment', this.addNewComment, this);
 
             this.model.bind('destroy', this.remove, this);
             this.model.on('likeUp', this.likeUp, this);
@@ -73,6 +73,10 @@ define([
 
             this.$el.html(this.postTemplate(this.model.toJSON()));
              this.$commentList = this.$el.find('ul.status-comments');
+
+             this.assign({
+                '.post-comment' : this.commentForm
+             });
             // this.$likeButton = this.$el.find('.like');
             // this.$flagButton = this.$el.find('.post.flag');
             // this.$pinButton = this.$el.find('.pin');
@@ -122,86 +126,22 @@ define([
             return this;
         },
         toggleLiked: function (event) {
-            event.preventDefault();
 
-            var text = this.$likeButton.text() == 'Like' ? 'Liked' : 'Like';
-            this.$likeButton.text(text).toggleClass('liked');
-
-            this.model.toggleLiked();
-
-            return this;
         },
         likeUp: function () {
-            var currentCount = parseInt(this.model.get('LikeCount'));
-            if (currentCount > 1) {
-                this.$likePeople.text("people like");
-                this.$likeCount.text(currentCount);
-            }
-            else {
-                this.$likePeople.text("person likes");
-                this.$likeCount.text(currentCount);
-            }
 
-            this.$likePeopleModal.fadeIn('fast');
-
-            return this;
         },
         likeDown: function () {
-            var currentCount = parseInt(this.model.get('LikeCount'));
-            if (currentCount == 0) {
-                this.$likePeopleModal.fadeOut('fast');
-            }
-            else if (currentCount == 1) {
-                this.$likePeople.text("person likes");
-                this.$likeCount.text(currentCount);
-            }
-            else {
-                this.$likePeople.text("people like");
-                this.$likeCount.text(currentCount);
-            }
-            return this;
+
         },
         toggleFlagged: function (event) {
-            event.preventDefault();
 
-            this.$flagButton.toggleClass('active');
-
-            this.model.toggleFlagged();
         },
         togglePinned: function (event) {
-            event.preventDefault();
-            console.log(this.postId);
-            if ($(event.target).hasClass('active')) {
-                callWebMethod(WALL_SERVICE, 'TogglePin', { postId: this.postId }, function (result) {
-                    $(event.target).removeClass('active');
-                    var that = this;
-                    $('#hot-topics article.status-update').each(function (index) {
-                        if ($(this).data('postid') == that.postId) {
-                            $(this).fadeOut('fast', function () { $(this).remove(); });
-                        }
-                    });
-                    $("article.status-update").each(function (index) {
-                        if ($(this).data('postid') == that.postId) {
-                            $(this).find('.hot-topic').removeClass('active');
-                        }
-                    });
-                }, this);
-            }
-            else {
-                callWebMethod(WALL_SERVICE, 'TogglePin', { postId: this.postId }, function (result) {
-                    var that = this;
-                    $("article.status-update").each(function (index) {
-                        if ($(this).data('postid') == that.postId) {
-                            $(this).find('.hot-topic').addClass('active');
-                        }
-                    });
 
-                }, this);
-            }
         },
-        addComment: function (data) {
-            this.commentCollection.create({ parentPostId: this.postId, originalMessage: data.content }, { wait: true });
-
+        addNewComment: function (data) {
+            this.commentCollection.create({ body: data.body }, { wait: true });
             return this;
         },
         toggleComments: function (event) {

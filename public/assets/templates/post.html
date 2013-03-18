@@ -2,11 +2,9 @@
     <div class="content-bar"></div>
         <div class="status-content">     
             <div class="avatar small">
-                <% if(data.author.avatar_url != null){ %>
-                    <img src="<%= data.author.avatar_url %>" />
-                <% } else{ %>
+
                     <img src="/assets/lib/img/hp/avatars/150/opt-out-user.jpg" />
-                <% } %>              
+
             </div>
             <div class="source">
                 <p class="relative-time"><abbr class="timeago" title="<%= data.created_at %>"><%= data.created_at %></abbr></p>
@@ -44,13 +42,8 @@
 
         </ul>
         <footer class="status-footer">
-            <form class="post-form post-comment-form" data-type="comment">
-                <div class="wysiwyg-textarea-wrapper">
-                    <div class="textarea-wrapper">
-                        <textarea placeholder="Leave a comment&hellip;"></textarea>
-                    </div>
-                </div>
-                <div class="button-bar"><a href="#" class="button subcomment post">Post Comment</a></div>
+            <form class="post-form post-comment" data-type="comment">
+
             </form>
         </footer>
 <!--    </article>-->

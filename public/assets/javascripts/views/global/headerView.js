@@ -16,11 +16,14 @@ define([
   'backbone',
 
   // Base views.
-  'baseviews/hpBaseView'
-], function ($, _, Backbone, HpBaseView) {
+  'baseviews/hpBaseView',
+  'text!templates/layouts/header.html'
+], function ($, _, Backbone, HpBaseView, HeaderTemplate) {
   'use strict';
 
   return HpBaseView.extend({
+
+    template: _.template(HeaderTemplate),
     // Track if the about link has been moved into the primary nav.
     aboutLinkMoved: false,
     
@@ -47,6 +50,7 @@ define([
      * Returns this.
      */
     render: function () {
+      this.$el.append(this.template());
       // Turn on the tooltip.
       this.tooltip('.global-logo');
       

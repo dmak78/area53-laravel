@@ -7,6 +7,7 @@
 define([
 // Libs
   'jquery',
+  'underscore',
   'backbone',
 
 // Base views.
@@ -16,8 +17,9 @@ define([
   'components/sliderView',
   'components/socialNetworkView',
   'platform/welcomeModalView',
-  'text!templates/layouts/home.html'
-], function ($, Backbone, HpBaseView, SliderView, SocialNetworkView, WelcomeModalView, HomeTemplate) {
+  'text!templates/layouts/home.html',
+  'text!templates/homepage-banner.html'
+], function ($, _,Backbone, HpBaseView, SliderView, SocialNetworkView, WelcomeModalView, HomeTemplate, HomepageBannerTemplate) {
     'use strict';
 
     return HpBaseView.extend({
@@ -27,11 +29,10 @@ define([
         * Initialize.
         */
         initialize: function () {
-            console.log("homeView loaded");
-            this.homepageSliderView = new SliderView();
+            this.homepageSliderView = new SliderView({template : HomepageBannerTemplate});
             this.socialNetworkView = new SocialNetworkView();
-            this.welcomeModalView = new WelcomeModalView();
-            this.createGroupModal = new WelcomeModalView();
+           // this.welcomeModalView = new WelcomeModalView();
+          //  this.createGroupModal = new WelcomeModalView();
         },
 
         /**
@@ -40,10 +41,10 @@ define([
         render: function () {
             this.$el.empty().append(this.template());
             this.assign({
-                '.homepage-slider': this.homepageSliderView,
+                '.page-banner': this.homepageSliderView,
                 '.platform-social-network': this.socialNetworkView,
-                '#welcome-modal' : this.welcomeModalView,
-                '#newgroup-modal' : this.createGroupModal
+                // '#welcome-modal' : this.welcomeModalView,
+                // '#newgroup-modal' : this.createGroupModal
             });
 
             

@@ -18,8 +18,9 @@ define([
   'models/Profile',
   'components/tweetsView',
   'collections/Tweets',
-  'text!templates/layouts/profile.html'
-], function ($, _, HpBaseView, SocialNetworkView, SliderView, ProfileModel, TweetsView, Tweets, ProfileTemplate) {
+  'text!templates/layouts/profile.html',
+  'text!templates/profile-banner.html'
+], function ($, _, HpBaseView, SocialNetworkView, SliderView, ProfileModel, TweetsView, Tweets, ProfileTemplate, ProfileBannerTemplate) {
     'use strict';
 
     return HpBaseView.extend({
@@ -42,7 +43,7 @@ define([
             console.log('profile view loaded');
             // Child views.
             this.socialNetworkView = new SocialNetworkView();
-            this.profileSliderView = new SliderView();
+            this.profileSliderView = new SliderView({template: ProfileBannerTemplate});
 
             this.tweets = new Tweets([], { query : 'kevin'});
             this.twitterFeed = new TweetsView({ collection: this.tweets});
@@ -65,6 +66,7 @@ define([
            this.$el.empty().append(this.template());
 
             this.assign({
+                '.page-banner' : this.profileSliderView,
                 '.platform-social-network': this.socialNetworkView,
                 '#newsfeed-twitter': this.twitterFeed
             });

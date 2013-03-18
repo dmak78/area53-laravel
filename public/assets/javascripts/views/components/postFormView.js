@@ -15,11 +15,15 @@ define([
   'underscore',
 
 // Base views.
-  'baseviews/hpBaseView'
-], function ($, _, HpBaseView) {
+  'baseviews/hpBaseView',
+  'text!templates/newsfeed/post-form.html'
+], function ($, _, HpBaseView, PostForm) {
     'use strict';
 
     return HpBaseView.extend({
+
+        template: _.template(PostForm),
+
         events: {
             'click textarea': 'showWysiwygControls',
             'click .post': 'preparePost',
@@ -52,6 +56,7 @@ define([
         * Returns this.
         */
         render: function () {
+            this.$el.append(this.template());
             return this;
         },
 
@@ -88,7 +93,6 @@ define([
                         'load': function () {
                             // Move the toolbar under the textarea.
                             $form.find('iframe').closest('.wysiwyg-textarea-wrapper').after($form.find('.wysihtml5-toolbar'));
-
                         }
                     }
                 });
@@ -196,7 +200,7 @@ define([
 
             $form = $form || this.$el.first();
             $textarea = $form.find('textarea');
-            val = $textarea.val();
+            val = $textarea.val().trim();
 
             // Check value.
             if (!val) {
@@ -205,14 +209,9 @@ define([
 
             // Set up the data object.
             data = {
-                postId: this.postId,
-                content: val,
-                $editor: $textarea,
-                type: $form.data('type') || 'post',
-                // Add a way to add extra, external sources to this
-                // data object. Maybe a map of a name => fn that returns source values.
+                body: val,
                 tags: $.map($form.find('.tag:visible'), function (el) {
-                    return $(el).text();
+                  return $(el).text();
                 })
             };
 
@@ -220,7 +219,6 @@ define([
             if (!data.tags.length) {
                 data.tags = null;
             }
-
             // Trigger an event.
             this.trigger('post', data);
             this.removeWysi();

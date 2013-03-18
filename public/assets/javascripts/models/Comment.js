@@ -15,11 +15,11 @@ define([
 
     return Backbone.Model.extend({
 
-        urlRoot: '/api/v1/comments/',
-
-        parse: function (result) {
-
-            return result;
+        parse: function (data) {
+            if(typeof(data.created_at) == 'object'){
+                data.created_at = data.created_at.date;
+            }
+            return data;
         },
         toggleFlag: function () {
             this.set({ IsFlagged: !this.get('IsFlagged') });

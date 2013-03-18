@@ -24,7 +24,7 @@ define([
         },
 
         parse: function (data){
-            return data.comments;
+            return data;
         },
 
         initialize: function (options) {

@@ -36,9 +36,11 @@ define([
       'group' : 'viewGroup',
       'group/:id' : 'viewGroup',
 
-      // Routes.
-      ':all': 'allRoutes',
-      '*splat' : 'allRoutes'
+      '*splat' : 'viewHome'
+
+      // // Routes.
+      // ':all': 'allRoutes',
+      // '*splat' : 'allRoutes'
     },
 
     /**
@@ -159,19 +161,19 @@ define([
 
     viewHome: function () {
         require(['platform/homeView'], function (View) {
-          var view = new View({el: '.content'});
+          var view = new View({el: '#page-content'});
           view.render();
         }); 
     },
     viewProfile: function (id) {
         require(['platform/profileView'], function (View) {
-          var view = new View({el: '.content'});
+          var view = new View({el: '#page-content'});
           view.render();
         }); 
     },
     viewGroup: function (id) {
       require(['platform/groupView'], function (View) {
-          var view = new View({el: '.content'});
+          var view = new View({el: '#page-content'});
           view.render();
         });   
     },
