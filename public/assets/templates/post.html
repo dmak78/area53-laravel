@@ -24,16 +24,20 @@
             </p>
 
             <ul class="tag-list">
-    
+            <% _.each(data.mentions, function (mention) { %>
+                <li class="tag"><%= mention.username %></li>
+             <%   });%>
             </ul>
             <div class="status-buttons">
-                <a href="#" class="button like">Like</a>
-                <a href="#like-people-modal" class="likePeopleModal" style="display:none;">
-                    <span class="likeCount"></span>&nbsp;<span class="likePeople"></span>&nbsp;this
+                <a href="#" class="button like <%= data.is_liked ? 'liked' : '' %>"><%= data.is_liked ? 'Liked' : 'Like' %></a>
+                <% if(data.like_count > 0) { %>
+                <a href="#like-people-modal" class="likePeopleModal">
+                    <span class="likeCount"><%= data.like_count %></span>&nbsp;<span class="likePeople"><%= data.like_count > 1 ? 'people like' : 'person likes' %></span>&nbsp;this
                 </a>
+                <% } %>
                 <div class="moderation">
                     <a href="#" class="icon hot-topic" title="Pin this">Pin</a>
-                    <a href="#" class="icon delete" title="Delete this">Delete</a>
+                    <a href="#" class="icon post delete" title="Delete this">Delete</a>
                 </div>
             </div>
         </div>

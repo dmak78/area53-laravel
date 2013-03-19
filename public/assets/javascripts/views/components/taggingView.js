@@ -108,6 +108,10 @@ define([
      */
     getTags: function () {
       return this.tags;
+    },
+    clearTags: function (){
+      this.tags = [];
+      this.$list.empty();
     }
   });
 });

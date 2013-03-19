@@ -30,11 +30,9 @@ define([
         */
         initialize: function () {
             this.postCollection = new PostCollection();
-            this.postCollection.parentView = this;
             this.on('reloadPosts', this.reloadPosts, this);
             this.postCollection.on("reset", this.renderPosts, this).fetch();
-            this.postCollection.on("sync", this.addPost, this);
-
+            this.postCollection.on("add", this.addPost, this);
             //setInterval(_.bind(this.postCollection.update, this.postCollection),3000);
         },
 

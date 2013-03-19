@@ -22,7 +22,7 @@ Route::get('login', array('as' => 'login' , function(){
 
 Route::get('logout', function(){
 	Auth::logout();
-	return Redirect::to('home');
+	return Redirect::to('login');
 });
 
 Route::post('login', function(){

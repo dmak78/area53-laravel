@@ -19,17 +19,21 @@ define([
 
         model: CommentModel,
 
+        initialize: function (models, options) {
+            this.setSort('date', 'asc');
+            this.post = options.post;
+        },
+
         url: function (){
-            return '/api/v1/posts/' + this.parentView.model.attributes.id + '/comments/';
+            return this.post.url() + '/comments';
         },
 
         parse: function (data){
+            console.log(data);
             return data;
         },
 
-        initialize: function (options) {
-            this.setSort('date', 'asc');
-        },
+
 
         setSort: function (property, direction) {
             var fn = this['sortBy' + property.charAt(0).toUpperCase() +

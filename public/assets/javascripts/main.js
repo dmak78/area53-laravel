@@ -18,7 +18,7 @@
       // Libs
       'jquery': 'libs/jquery',
       'underscore': 'libs/underscore',
-      'backbone': 'libs/backbone',
+      'backbone': 'libs/backbone-min',
       'marionette': 'libs/marionette',
       'modernizr': 'libs/modernizr',
       'text': 'libs/text',

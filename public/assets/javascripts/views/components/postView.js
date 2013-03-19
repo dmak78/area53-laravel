@@ -37,10 +37,11 @@ define([
 
         events: {
             'click a.showMoreComments': 'toggleComments',
-            'click .like': 'toggleLiked',
+            'click .like:not(.liked)': 'addLike',
+            'click .like.liked': 'removeLike',
             'click .post.flag': 'toggleFlagged',
             'click .hot-topic': 'togglePinned',
-            'click .delete': 'clear',
+            'click .post.delete': 'clear',
             'click .view-all-post': 'showFullMessage',
             'click .likePeopleModal': 'showLikeModal',
             'click a.tagit-close': 'removeMention'
@@ -51,17 +52,14 @@ define([
         */
         initialize: function (options) {
 
-            this.commentCollection = new CommentCollection();
-            
-            this.commentCollection.on('reset', this.renderComments, this);
-            this.commentCollection.on('add', this.renderComment, this);
-
             this.commentForm = new CommentFormView();
             this.commentForm.on('postComment', this.addNewComment, this);
 
             this.model.bind('destroy', this.remove, this);
-            this.model.on('likeUp', this.likeUp, this);
-            this.model.on('likeDown', this.likeDown, this);
+            this.model.on('sync', this.render, this);
+
+            this.model.comments.on('reset', this.renderComments, this);
+            this.model.comments.on('add', this.renderComment, this);
         },
 
         /**
@@ -70,63 +68,35 @@ define([
         * Returns this.
         */
         render: function () {
-
             this.$el.html(this.postTemplate(this.model.toJSON()));
-             this.$commentList = this.$el.find('ul.status-comments');
-
-             this.assign({
+            this.$commentList = this.$el.find('ul.status-comments');    
+            this.assign({
                 '.post-comment' : this.commentForm
-             });
-            // this.$likeButton = this.$el.find('.like');
-            // this.$flagButton = this.$el.find('.post.flag');
-            // this.$pinButton = this.$el.find('.pin');
-            // this.$likePeople = this.$el.find('.likePeople');
-            // this.$likeCount = this.$el.find('.likeCount');
-            // this.$tagList = this.$el.find('ul.tag-list');
-            // this.$likePeopleModal = this.$el.find('a.likePeopleModal');
+            });
             this.$el.find("abbr.timeago").timeago();
-            this.commentCollection.parentView = this;
-            this.commentCollection.fetch();
             return this;
         },
+        renderUpdate: function (){
+            this.$el.html(this.postTemplate(this.model.toJSON()));
+        },
         renderComments: function () {
-            if (this.showAllComments === true) {
-                this.$commentList.html('');
-                var that = this;
-                _.each(this.commentCollection.models, function (comment, index) {
-                    var commentView = new CommentView({
-                        model: comment
-                    });
-                    that.$commentList.append(commentView.render().el);
-
-                }, this);
-            }
-            else {
-                var that = this;
-                this.$commentList.html('');
-                _.each(this.commentCollection.models, function (comment, index) {
-                    if (index > this.commentCollection.models.length - 3) {
-                        var commentView = new CommentView({
-                            model: comment
-                        });
-                        that.$commentList.append(commentView.render().el);
-                    }
-                }, this);
-            }
-            this.$el.find('abbr.timeago').timeago();
-            return this;
+            this.model.comments.each(this.renderComment, this);
         },
         renderComment: function (comment) {
             var commentView = new CommentView({
                 model: comment
             });
             this.$commentList.append(commentView.render().el);
-            this.$el.find('abbr.timeago').timeago();
-
-            return this;
         },
-        toggleLiked: function (event) {
-
+        addLike: function (event) {
+            event.preventDefault();
+            this.model.set('is_liked', true);
+            this.model.save({wait:true});
+        },
+        removeLike: function (event){
+            event.preventDefault();
+            this.model.set('is_liked', false);
+            this.model.save({wait:true});
         },
         likeUp: function () {
 
@@ -141,17 +111,13 @@ define([
 
         },
         addNewComment: function (data) {
-            this.commentCollection.create({ body: data.body }, { wait: true });
+            // this.commentCollection.create({ body: data.body }, { wait: true });
+            // return this;
+            this.model.addComment(data.body);
             return this;
         },
         toggleComments: function (event) {
-            event.preventDefault();
-            this.showAllComments = !this.showAllComments;
-            $(event.target).hide();
-            this.renderComments();
-            console.log($(this.commentForm.el));
-            this.scrollToCommentForm($(this.commentForm.el));
-            //this.commentForm.$el.find('textarea').data('wysihtml5').editor.focus();
+
         },
         assignCommentForm: function () {
             this.assign({
@@ -178,46 +144,20 @@ define([
             }, 100);
         },
         showFullMessage: function (event) {
-            event.preventDefault();
-            this.$el.find('.snip-post').hide(); ;
-            this.$el.find('.full-post').show();
-            this.$el.find('.view-all-post').hide();
 
-            return this;
         },
         showLikeModal: function (event) {
             event.preventDefault();
-            callWebMethod(WALL_SERVICE, "GetPostLikes", { postId: this.postId }, this.populateLikeModal);
+            _.each(this.model.attributes.likes, function(like){
+                console.log(like.user.username);
+            }, this);
 
         },
         populateLikeModal: function (result) {
-            var that = this;
-            var $profileList = $('#like-people-modal .modal-content ul');
-            $profileList.empty();
-            _.each(result.d.Profiles, function (profile, index) {
-                $profileList.append('<li><div class="avatar small"><img src="' + profile.ProfileImage + '"/></div><a href="' + profile.ProfileUrl + '" class="user-name">' + profile.DisplayName + '</a></li>');
 
-            }, this);
-
-            $('#like-people-modal').modal('show');
         },
         removeMention: function (event) {
-            var $targetTag = $(event.target).closest('li');
-            event.preventDefault();
-            var mentionUserId = $targetTag.data("userid");
-            var grpId = 0;
 
-            if (this.profileType == "HPGroupProfile") {
-                grpId = this.profileId;
-            }
-            callWebMethod(WALL_SERVICE, "RemoveMention", { 'postId': this.postId, 'mentionUserId': mentionUserId, 'groupId': grpId }, function (result) {
-                if (result.d.Value == "OK") {
-                    $targetTag.fadeOut('fast', function () { $(this).remove(); });
-
-                }
-            }, this);
-
-            return this;
         }
     });
 });

@@ -67,6 +67,11 @@ define([
                 body : data.body,
                 mentions : data.tags
             }, {wait: true});
+
+            this.taggingInterface.clearTags();
+            if(this.taggingInterface.$el.is(':visible')){
+               this.taggingInterface.$el['hide'].call(this.taggingInterface.$el);       
+            }
             return this;
         },
 

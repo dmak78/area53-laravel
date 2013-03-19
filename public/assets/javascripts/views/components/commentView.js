@@ -25,7 +25,7 @@ define([
         className: "status-update",
 
         events: {
-            'click .delete': 'clear',
+            'click .comment.delete': 'clear',
             'click .flag': 'toggleFlagged',
             'click .view-all-comment': 'showFullMessage'
         },
@@ -46,11 +46,9 @@ define([
         * Returns this.
         */
         render: function () {
-            this.userId = $("input[name$=hdnUserId]").val();
-            this.$el.html(this.commentTemplate(this.model.toJSON()));
-            if (this.model.attributes.OwnerId != this.userId && commentControls.indexOf("allDelete") == -1) {
-                this.$el.find('.subcomment.delete').remove();
-            }
+            this.$el.html(this.commentTemplate(this.model.toJSON())).hide();
+            this.$el.find("abbr.timeago").timeago();
+            this.$el.slideDown('fast');
             return this;
         },
         clear: function (event) {

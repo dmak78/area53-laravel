@@ -15,7 +15,19 @@ class PostsController extends BaseController {
 		$posts->load('mentions');
 		$posts->load('comments.author');
 		$posts->load('likes.user');
-
+		foreach($posts as $post){
+			$post->comment_count = $post->comments()->count();
+			$post->mention_count = $post->mentions()->count();
+			$post->like_count = $post->likes()->count();
+			if($post->like_count > 0){
+				$post->is_liked = $this->userLikes($post->likes->toArray());	
+			}
+			else{
+				$post->is_liked = false;	
+			}
+				
+		}
+			
 		return (string) $posts->toJson();
 
 		// return Response::json([
@@ -50,22 +62,18 @@ class PostsController extends BaseController {
 		$post->author_id = Auth::user()->id;
 		$post->admin_post = false;
 		$post->save();
-		// if(Input::has('mentions')){
-		// 	// $mentions = Input::get('mentions');
-		// 	// foreach($mentions as $mention){
-		// 	// 	$post->mentions()->attach($mention);
-		// 	// }
-		// }
 		if(count($mentions) > 0 ){
 			foreach($mentions as $mention){
 				$mentioned_user = User::where('username', $mention)->first();
 				$post->mentions()->attach($mentioned_user->id);
 			}
 		}
-		
-
+		$post->is_liked = $this->userLikes($post->likes);
 		$post->author;
 		$post->mentions;
+		$post->comment_count = 0;
+		$post->like_count = 0;
+		$post->mention_count = count($mentions);
 		return (string) $post->toJson();
 	}
 
@@ -102,25 +110,28 @@ class PostsController extends BaseController {
 	 */
 	public function update($id)
 	{
+		$input = Input::json();
 		$post = Post::find($id);
+		$user = Auth::user();
 
-		if(Input::has('body')){
-			$post->body = Input::get('body');
+		if($input['is_liked']){
+			$like = new Like(array('user_id' => $user->id));
+			$post->likes()->save($like);
+			$post->is_liked = true;
 		}
-		if(Input::has('title')){
-			$post->title = Input::get('title');
+		elseif(!$input['is_liked']){
+			$like = $post->likes()->where('user_id', '=', $user->id)->first();
+			$like->delete();
+			$post->is_liked = false;
 		}
-		if(Input::has('admin_post')){
-			$post->admin_post = Input::get('admin_post');
-		}
-
-		$post->save();
 		$post->author;
+		$post->mentions;
+		$post->likes->load('user');
+		$post->comment_count = $post->comments()->count();
+		$post->like_count = $post->likes()->count();
+		$post->mention_count = $post->mentions()->count();
 
-		return Response::json([
-			'error' => false,
-			'post' => $post->toArray()
-		],200);
+		return (string) $post->toJson();
 	}
 
 	/**
@@ -131,6 +142,9 @@ class PostsController extends BaseController {
 	public function destroy($id)
 	{
 		$post = Post::find($id);
+		$post->comments()->delete();
+		$post->likes()->delete();
+		$post->mentions()->delete();
 		$post->delete();
 
 		return Response::json([
@@ -138,6 +152,21 @@ class PostsController extends BaseController {
 			'message' => 'post deleted'
 		],200);
 
+	}
+
+	/**
+	 * Check to see if the current user likes a post
+	 *
+	 * @return boolean 
+	 */
+
+	protected function userLikes($likes){
+		foreach($likes as $like){
+			if($like['user']['id'] == Auth::user()->id){
+				return TRUE;
+			}
+
+		}
 	}
 
 }

@@ -40,7 +40,7 @@ define([
     },
 
     events: {
-      'click .primary-navigation a' : 'pushStateNav',
+      'click .primary-navigation a:not(.logout)' : 'pushStateNav',
       'click a.global-logo' : 'pushStateNav',
     },
 

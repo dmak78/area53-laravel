@@ -12,8 +12,9 @@ define([
   'underscore',
   'backbone',
 
-  'models/Post'
-], function ($, _, Backbone, PostModel) {
+  'models/Post',
+  'collections/Comments'
+], function ($, _, Backbone, PostModel, CommentsCollection) {
     'use strict';
 
     return Backbone.Collection.extend({
@@ -22,12 +23,20 @@ define([
 
         url: '/api/v1/posts',
 
-        parse: function (data) {
-            console.log(data);
-            return data;
+        initialize: function (){
+            this.on('reset', this.getComments, this);
         },
         update: function (){
             this.fetch({add:true});
+        },
+        getComments: function (){
+            this.each(function (post){
+                post.comments = new CommentsCollection([], { post: post});
+                if(post.get('comment_count') > 0){
+                    post.comments.fetch();
+                }
+                
+            });
         }
     });
 });
